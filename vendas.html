@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0A">
+<title>Planner 99 Dias · Núbia Citty</title>
+<meta name="description" content="99 dias para voltar para si, organizar sua rotina e executar com mais coragem. Planner digital por Núbia Citty.">
+<meta property="og:title" content="Planner 99 Dias · Núbia Citty">
+<meta property="og:description" content="99 dias para voltar para si, organizar sua rotina e executar com mais coragem.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A96E; --gold-light:#E8D5B0; --gold-dark:#8B6914;
+  --black:#0A0A0A; --dark:#111; --card:#1A1A1A; --card2:#222;
+  --text:#F0EDE8; --text2:#B0AA9F; --gray2:#6A6560;
+  --red-soft:#cd6666; --green:#2D6A4F;
+  --radius:14px; --radius-sm:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+.wrap{max-width:560px;margin:0 auto;padding:24px 22px 80px;position:relative}
+.bg-glow{position:fixed;width:600px;height:600px;background:radial-gradient(circle,rgba(201,169,110,.08) 0%,transparent 70%);top:-150px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+.content{position:relative;z-index:1}
+
+/* HERO */
+.hero{text-align:center;padding:20px 0 24px}
+.tag{font-size:10px;font-weight:600;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:18px}
+.title{font-family:'Cormorant Garamond',serif;font-size:104px;font-weight:300;color:var(--gold);line-height:.85;letter-spacing:-3px}
+.sub{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text2);letter-spacing:6px;text-transform:uppercase;margin-top:4px}
+.divider{width:48px;height:1px;background:var(--gold);margin:22px auto}
+.promise{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--text);text-align:center;line-height:1.35;max-width:420px;margin:0 auto 12px;font-weight:400}
+.promise strong{color:var(--gold);font-style:italic;font-weight:600}
+.author{font-size:11px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;text-align:center;margin-bottom:28px}
+
+/* PRECO HERO */
+.preco-hero{background:linear-gradient(135deg,rgba(201,169,110,.20),rgba(201,169,110,.04));border:1px solid rgba(201,169,110,.4);border-radius:var(--radius);padding:22px 22px 24px;text-align:center;margin-bottom:30px}
+.preco-eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:8px}
+.preco-valor{font-family:'Cormorant Garamond',serif;font-size:64px;color:var(--gold);line-height:1;font-weight:700;letter-spacing:-2px}
+.preco-cents{font-size:20px;vertical-align:top;margin-left:2px;letter-spacing:0}
+.preco-detalhe{font-size:12px;color:var(--text2);margin:6px 0 18px;letter-spacing:1px}
+.btn-primary{background:var(--gold);color:var(--black);border:none;padding:20px 24px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;width:100%;display:block;text-decoration:none;text-align:center;transition:transform .15s,opacity .15s;box-shadow:0 8px 24px rgba(201,169,110,.15)}
+.btn-primary:active{transform:scale(.98);opacity:.92}
+.btn-note{font-size:11px;color:var(--text2);margin-top:12px;line-height:1.6}
+
+/* SECTION */
+.section{margin-bottom:36px}
+.section-title{font-size:9px;font-weight:700;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:1px;background:rgba(201,169,110,.18)}
+.section-h2{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--text);line-height:1.3;margin-bottom:14px;font-weight:400}
+.section-h2 strong{color:var(--gold);font-style:italic;font-weight:600}
+
+/* PROBLEMA */
+.problema{background:rgba(139,32,32,.06);border-left:3px solid var(--red-soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:18px 18px 14px;margin-bottom:8px}
+.problema-text{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);line-height:1.6;font-style:italic}
+
+/* FRASE */
+.frase-block{background:var(--card);border:1px solid rgba(201,169,110,.2);border-radius:var(--radius);padding:22px;margin-bottom:8px;position:relative;overflow:hidden}
+.frase-block::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+.frase-block-text{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text);line-height:1.5;font-style:italic;padding-left:8px}
+
+/* PARA QUEM */
+.para-quem-card{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;border:1px solid rgba(201,169,110,.08)}
+.para-quem-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.para-quem-text{font-size:14px;color:var(--text2);line-height:1.55}
+.para-quem-text strong{color:var(--text)}
+
+/* BENEFICIOS */
+.beneficio-card{background:var(--card);border-radius:var(--radius);padding:18px 18px 16px;margin-bottom:10px;border:1px solid rgba(201,169,110,.08)}
+.beneficio-num{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700;line-height:1;display:inline-block;margin-bottom:6px}
+.beneficio-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.3}
+.beneficio-text{font-size:13px;color:var(--text2);line-height:1.6}
+.beneficio-text strong{color:var(--text)}
+
+/* O QUE TEM DENTRO */
+.bullet-list{background:var(--card);border:1px solid rgba(201,169,110,.12);border-radius:var(--radius);padding:18px 18px 14px}
+.bullet{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:14px;color:var(--text);line-height:1.5}
+.bullet:last-child{border-bottom:none}
+.bullet-check{color:var(--gold);font-size:14px;flex-shrink:0;margin-top:2px;font-weight:700}
+.bullet strong{color:var(--gold)}
+
+/* FASES */
+.fase-block{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:10px;border:1px solid rgba(201,169,110,.08)}
+.fase-block-name{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.fase-block-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text);margin-bottom:6px}
+.fase-block-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* AUTORIDADE NUBIA */
+.autora-card{background:linear-gradient(135deg,rgba(201,169,110,.12),rgba(201,169,110,.02));border:1px solid rgba(201,169,110,.25);border-radius:var(--radius);padding:22px;text-align:center}
+.autora-eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.autora-nome{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);margin-bottom:10px;letter-spacing:1px}
+.autora-bio{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text);line-height:1.6;font-style:italic}
+
+/* FAQ */
+.faq-item{background:var(--card);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden;border:1px solid rgba(201,169,110,.08)}
+.faq-q{padding:16px 18px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q::after{content:'+';color:var(--gold);font-size:22px;font-weight:300;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;font-size:13px;color:var(--text2);line-height:1.7}
+.faq-item.open .faq-a{padding:0 18px 16px;max-height:400px}
+
+/* GARANTIA */
+.garantia-card{background:rgba(45,106,79,.10);border:1px solid rgba(45,106,79,.4);border-radius:var(--radius);padding:22px;text-align:center;margin-bottom:30px}
+.garantia-icon{font-size:32px;margin-bottom:8px}
+.garantia-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--text);margin-bottom:8px}
+.garantia-text{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* CTA FINAL */
+.cta-final{background:linear-gradient(135deg,rgba(201,169,110,.22),rgba(201,169,110,.04));border:1px solid rgba(201,169,110,.45);border-radius:var(--radius);padding:28px 22px;text-align:center;margin-bottom:24px}
+.cta-final-h{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--text);line-height:1.3;margin-bottom:8px}
+.cta-final-h strong{color:var(--gold);font-style:italic}
+.cta-final-sub{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.6}
+
+/* AVISO */
+.aviso{background:rgba(139,32,32,.05);border:1px solid rgba(139,32,32,.2);border-radius:var(--radius-sm);padding:14px;margin-top:20px}
+.aviso-title{font-size:10px;letter-spacing:2px;color:var(--red-soft);text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.aviso-text{font-size:12px;color:var(--gray2);line-height:1.6}
+
+/* FOOTER */
+.footer{text-align:center;padding-top:24px;margin-top:20px;border-top:1px solid rgba(201,169,110,.1)}
+.footer-text{font-size:11px;color:var(--gray2);letter-spacing:1px;line-height:1.8}
+
+/* STICKY CTA */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(to top,var(--black) 70%,transparent);padding:14px 20px max(14px,env(safe-area-inset-bottom));z-index:50;display:none}
+.sticky-cta.show{display:block}
+.sticky-cta-btn{background:var(--gold);color:var(--black);border:none;padding:16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;width:100%;max-width:520px;margin:0 auto;display:block;text-decoration:none;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+
+@media(max-width:340px){
+  .title{font-size:84px}
+  .promise{font-size:22px}
+  .preco-valor{font-size:52px}
+  .section-h2{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="wrap">
+<div class="content">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="tag">Planner Digital · Núbia Citty</div>
+    <div class="title">99</div>
+    <div class="sub">Dias</div>
+    <div class="divider"></div>
+    <div class="promise">99 dias para <strong>voltar para si</strong>, organizar sua rotina e executar com mais coragem.</div>
+    <div class="author">— Núbia Citty</div>
+  </div>
+
+  <!-- PREÇO PRINCIPAL -->
+  <div class="preco-hero">
+    <div class="preco-eyebrow">Acesso imediato · vitalício</div>
+    <div class="preco-valor">R$10<span class="preco-cents">,00</span></div>
+    <div class="preco-detalhe">Pagamento único · PIX ou cartão</div>
+    <a class="btn-primary" id="ctaTop" href="#" onclick="abrirCheckout(event)">Quero começar meus 99 dias</a>
+    <div class="btn-note">Liberação automática no seu e-mail · Funciona em qualquer celular</div>
+  </div>
+
+  <!-- PROBLEMA -->
+  <div class="section">
+    <div class="section-title">A real</div>
+    <h2 class="section-h2">Você já <strong>tentou</strong> e parou.</h2>
+    <div class="problema">
+      <div class="problema-text">Já comprou agenda nova. Já fez plano. Já começou na segunda. Já jurou que dessa vez ia ser diferente. E não foi.</div>
+    </div>
+    <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-top:14px;padding:0 4px">Não é falta de vontade. É falta de <strong style="color:var(--text)">estrutura</strong>. Um planner que pensa por você, te lembra do que importa, e mostra em tempo real se você está construindo ou se enganando.</p>
+  </div>
+
+  <!-- A PROMESSA -->
+  <div class="section">
+    <div class="section-title">A promessa</div>
+    <h2 class="section-h2">99 dias <strong>é tempo certo.</strong></h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:16px;padding:0 4px">Curto o bastante pra você não desistir. Longo o bastante pra te transformar. Três fases. Cinco pilares. Uma decisão por dia.</p>
+
+    <div class="fase-block">
+      <div class="fase-block-name">Fase 1 · Dias 1–33</div>
+      <div class="fase-block-title">Reinstalar</div>
+      <div class="fase-block-desc">Parar de sangrar. Voltar para o básico. Sem base, qualquer crescimento desmorona.</div>
+    </div>
+    <div class="fase-block">
+      <div class="fase-block-name">Fase 2 · Dias 34–66</div>
+      <div class="fase-block-title">Gerar</div>
+      <div class="fase-block-desc">Com a frequência instalada, você começa a gerar resultado real. Corpo, finanças, projeto.</div>
+    </div>
+    <div class="fase-block">
+      <div class="fase-block-name">Fase 3 · Dias 67–99</div>
+      <div class="fase-block-title">Colher</div>
+      <div class="fase-block-desc">Consolida. Vê o que floresceu, o que podar, o que leva pro próximo ciclo.</div>
+    </div>
+  </div>
+
+  <!-- FRASE -->
+  <div class="frase-block">
+    <div class="frase-block-text">"Se der medo, vai com medo mesmo. Seja forte e corajosa."</div>
+  </div>
+
+  <!-- PARA QUEM -->
+  <div class="section" style="margin-top:36px">
+    <div class="section-title">Para quem é</div>
+    <h2 class="section-h2">Você precisa disso se...</h2>
+
+    <div class="para-quem-card">
+      <div class="para-quem-icon">✦</div>
+      <div class="para-quem-text"><strong>Você está perdida na própria rotina.</strong> Acorda no automático, dorme exausta, mas no fim do dia não sabe dizer o que fez.</div>
+    </div>
+    <div class="para-quem-card">
+      <div class="para-quem-icon">✦</div>
+      <div class="para-quem-text"><strong>Já tentou planner e abandonou em 1 semana.</strong> Sempre falta uma estrutura que se sustente sem você precisar lembrar de tudo.</div>
+    </div>
+    <div class="para-quem-card">
+      <div class="para-quem-icon">✦</div>
+      <div class="para-quem-text"><strong>Tem uma meta clara mas trava na execução.</strong> Sabe onde quer chegar — não sabe o que fazer na segunda-feira de manhã.</div>
+    </div>
+    <div class="para-quem-card">
+      <div class="para-quem-icon">✦</div>
+      <div class="para-quem-text"><strong>Quer voltar a ter rituais.</strong> Manhã, movimento, decisão, noite. Sem virar mais uma tarefa pra falhar.</div>
+    </div>
+  </div>
+
+  <!-- O QUE TEM DENTRO -->
+  <div class="section">
+    <div class="section-title">O que tem dentro</div>
+    <h2 class="section-h2">Um planner que <strong>trabalha por você.</strong></h2>
+
+    <div class="bullet-list">
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>5 pilares diários</strong> com horários personalizados pra virar hábito</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Check-in matinal e fechamento noturno</strong> em dois cliques</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Resumo automático do dia</strong> com mensagem motivacional conforme seu desempenho</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Diagnóstico semanal automático</strong> — você vê onde brilhou e onde furou</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Plano da próxima semana</strong> gerado a partir das suas respostas</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Painel de desempenho</strong> com sequência atual, melhor pilar, frequência média</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Sua visão e anti-visão</strong> sempre à mão pra lembrar pra onde está indo</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Suas 6 regras inegociáveis</strong> renovadas todo dia</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Tela final do Dia 99</strong> com o resumo da sua transformação</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Exportar em PDF</strong> e <strong>backup em JSON</strong> em um clique</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>100% offline</strong> — seus dados ficam só no seu celular</span></div>
+      <div class="bullet"><span class="bullet-check">✦</span><span><strong>Sem login, sem assinatura</strong> — pagamento único</span></div>
+    </div>
+  </div>
+
+  <!-- AUTORA -->
+  <div class="section">
+    <div class="section-title">Quem fez</div>
+    <div class="autora-card">
+      <div class="autora-eyebrow">Idealizado por</div>
+      <div class="autora-nome">Núbia Citty</div>
+      <div class="autora-bio">"Esse planner é o que eu uso. Não inventei pra vender. Inventei pra mim, sustentei nos meus próprios 99 dias, e agora entrego pra você."</div>
+    </div>
+  </div>
+
+  <!-- GARANTIA -->
+  <div class="garantia-card">
+    <div class="garantia-icon">✓</div>
+    <div class="garantia-title">7 dias de garantia incondicional</div>
+    <div class="garantia-text">Abre, testa, se não for pra você, devolvemos os R$10. Sem perguntas. Sem formulário gigante. É só responder o e-mail.</div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <div class="section-title">Perguntas frequentes</div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Preciso baixar algum app?</div>
+      <div class="faq-a">Não. O planner é um link que você abre no navegador do celular ou computador. Em 10 segundos você instala como atalho na tela inicial e ele vira "app" sem ocupar espaço.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Funciona no iPhone e Android?</div>
+      <div class="faq-a">Sim, nos dois. E também no computador e tablet. Use no que for mais prático pra você.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Como recebo o acesso?</div>
+      <div class="faq-a">Direto no seu e-mail, em segundos após o pagamento. Você recebe um link da página de boas-vindas com tudo explicado.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">É vitalício? Tem mensalidade?</div>
+      <div class="faq-a">Pagamento único de R$10. Acesso pra sempre. Sem mensalidade, sem renovação, sem pegadinha.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">E se eu trocar de celular?</div>
+      <div class="faq-a">Dentro do planner tem um botão de backup em JSON. Você baixa o arquivo, abre no novo celular, restaura. Todos os 99 dias preservados.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Tem grupo de suporte?</div>
+      <div class="faq-a">Não. O planner foi feito pra ser usado em silêncio, no seu ritmo. Suporte técnico você fala direto com a Núbia se algo der errado.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Posso começar em qualquer dia?</div>
+      <div class="faq-a">Sim. Você escolhe a data de início no onboarding. Pode ser hoje, amanhã, próxima segunda. O planner conta o Dia 1 a partir do que você escolher.</div>
+    </div>
+  </div>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final">
+    <div class="cta-final-h">Os próximos <strong>99 dias</strong> vão passar de qualquer jeito.</div>
+    <div class="cta-final-sub">Você chega no fim diferente — ou chega igual.</div>
+    <a class="btn-primary" id="ctaBottom" href="#" onclick="abrirCheckout(event)">Garantir meu acesso por R$10</a>
+    <div class="btn-note" style="margin-top:14px">Pagamento único · Liberação imediata · 7 dias de garantia</div>
+  </div>
+
+  <!-- AVISO -->
+  <div class="aviso">
+    <div class="aviso-title">⚠ Aviso importante</div>
+    <div class="aviso-text">Este planner é uma ferramenta de organização pessoal. Não substitui acompanhamento médico, psicológico, nutricional, financeiro ou jurídico. Se você está em sofrimento, busque apoio profissional.</div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">
+      © Núbia Citty · Planner 99 Dias<br>
+      Pagamento processado por Kiwify
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <a class="sticky-cta-btn" href="#" onclick="abrirCheckout(event)">Comprar por R$10 →</a>
+</div>
+
+<script>
+// SUBSTITUA ESTA URL pelo link real do checkout Kiwify quando publicar o produto:
+const CHECKOUT_URL = 'https://kiwify.app/SEU-LINK-AQUI';
+
+function abrirCheckout(e){
+  e.preventDefault();
+  window.location.href = CHECKOUT_URL;
+}
+
+function toggleFaq(el){
+  el.classList.toggle('open');
+}
+
+// Sticky CTA aparece após rolar
+window.addEventListener('scroll', () => {
+  const sticky = document.getElementById('stickyCta');
+  if(window.scrollY > 600) sticky.classList.add('show');
+  else sticky.classList.remove('show');
+});
+</script>
+</body>
+</html>
