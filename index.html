@@ -523,6 +523,7 @@ body {
     <div class="splash-phrase">"Se der medo, vai com medo mesmo.<br>Seja forte e corajosa."<br><br>— Núbia Citty</div>
     <button class="btn-primary" onclick="iniciarJornada()">Começar minha jornada</button>
     <button class="btn-secondary" onclick="continuarJornada()">Já tenho um planner</button>
+    <button class="btn-secondary" onclick="recomecarDoZero()" style="border-color:rgba(139,32,32,.4); color:#cd6666;">Recomeçar do zero</button>
   </div>
 </div>
 
@@ -1019,18 +1020,23 @@ function formatarData(d) {
   return `${diasSemana[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]}`;
 }
 
+function parseDataInicio() {
+  const partes = state.dataInicio.split('-');
+  return new Date(parseInt(partes[0]), parseInt(partes[1])-1, parseInt(partes[2]));
+}
+
 function isAcademia(dia) {
   if (!state.dataInicio) return false;
-  const inicio = new Date(state.dataInicio);
+  const inicio = parseDataInicio();
   const data = new Date(inicio);
   data.setDate(inicio.getDate() + dia - 1);
   const dow = data.getDay();
-  return dow === 1 || dow === 3 || dow === 5; // seg, qua, sex
+  return dow === 1 || dow === 3 || dow === 5;
 }
 
 function isDomingo(dia) {
   if (!state.dataInicio) return false;
-  const inicio = new Date(state.dataInicio);
+  const inicio = parseDataInicio();
   const data = new Date(inicio);
   data.setDate(inicio.getDate() + dia - 1);
   return data.getDay() === 0;
@@ -1045,12 +1051,22 @@ function iniciarJornada() {
     mostrarApp();
     return;
   }
-  // Definir data padrão como hoje
-  document.getElementById('inputDataInicio').value = '2026-06-01';
-  
+  abrirOnboarding();
+}
+
+function abrirOnboarding() {
+  document.getElementById('inputDataInicio').value = '2026-06-02';
   document.getElementById('splash').classList.remove('active');
   document.getElementById('onboarding').classList.add('active');
+  document.querySelectorAll('#onboarding .screen').forEach(s => s.classList.remove('active'));
   document.getElementById('step1').classList.add('active');
+}
+
+function recomecarDoZero() {
+  if (!confirm('Tem certeza? Isso apaga tudo e recomeça do Dia 1. Sem volta.')) return;
+  try { localStorage.removeItem('planner99'); } catch(e) {}
+  state = {};
+  abrirOnboarding();
 }
 
 function continuarJornada() {
@@ -1158,7 +1174,7 @@ function atualizarHeader() {
   document.getElementById('headerFase').textContent = `Fase ${fase.num} · ${fase.nome}`;
   
   // Data
-  const inicio = new Date(state.dataInicio);
+  const inicio = parseDataInicio();
   const dataHoje = new Date(inicio);
   dataHoje.setDate(inicio.getDate() + dia - 1);
   document.getElementById('headerDate').textContent = formatarData(dataHoje);
