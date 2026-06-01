@@ -298,6 +298,48 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
 .small-text{font-size:12px;color:var(--text2);line-height:1.6}
 .center{text-align:center}
 
+/* CONQUISTAS */
+.conquistas-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.conquista-card{background:var(--card);border:1px solid rgba(201,169,110,.10);border-radius:var(--radius-sm);padding:14px;display:flex;gap:12px;align-items:center;transition:all .2s}
+.conquista-card.unlocked{background:linear-gradient(135deg,rgba(201,169,110,.12),rgba(201,169,110,.02));border-color:rgba(201,169,110,.35)}
+.conquista-icon{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;filter:grayscale(1) opacity(.4)}
+.conquista-card.unlocked .conquista-icon{background:rgba(201,169,110,.18);filter:none}
+.conquista-info{flex:1;min-width:0}
+.conquista-nome{font-size:13px;font-weight:600;color:var(--text2);line-height:1.3}
+.conquista-card.unlocked .conquista-nome{color:var(--gold)}
+.conquista-desc{font-size:11px;color:var(--gray2);margin-top:2px;line-height:1.4}
+.conquista-card.unlocked .conquista-desc{color:var(--text2)}
+
+/* SELOS DE FASE NO TRACKER */
+.selos-fase{display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(201,169,110,.1)}
+.selo{flex:1;text-align:center;padding:10px 6px;border-radius:var(--radius-sm);background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.08);transition:all .3s}
+.selo.unlocked{background:linear-gradient(135deg,rgba(201,169,110,.22),rgba(201,169,110,.05));border:1px solid var(--gold);box-shadow:0 0 16px rgba(201,169,110,.15)}
+.selo-icon{font-size:18px;margin-bottom:4px;filter:grayscale(1) opacity(.3)}
+.selo.unlocked .selo-icon{filter:none}
+.selo-label{font-size:9px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;font-weight:600}
+.selo.unlocked .selo-label{color:var(--gold)}
+
+/* TÍTULO DIA 99 */
+.titulo-jornada{text-align:center;padding:18px 0 4px}
+.titulo-eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.titulo-grande{font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--gold);line-height:1;font-weight:700;letter-spacing:-1px}
+.titulo-sub{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--text2);font-style:italic;margin-top:8px;line-height:1.5}
+
+/* CERTIFICADO RESGATAR */
+.resgate-card{background:linear-gradient(135deg,rgba(201,169,110,.18),rgba(201,169,110,.03));border:1px solid rgba(201,169,110,.4);border-radius:var(--radius);padding:22px;margin-bottom:16px;text-align:center}
+.resgate-eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.resgate-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--text);margin-bottom:10px;line-height:1.3}
+.resgate-text{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px;text-align:left}
+.resgate-text strong{color:var(--gold)}
+.resgate-passos{background:rgba(0,0,0,.25);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:14px;text-align:left}
+.resgate-passo{font-size:13px;color:var(--text);padding:6px 0;line-height:1.5;display:flex;gap:10px}
+.resgate-passo-num{color:var(--gold);font-weight:700;flex-shrink:0}
+.btn-cert{background:var(--gold);color:var(--black);border:none;padding:14px 20px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;width:100%;transition:transform .15s,opacity .15s}
+.btn-cert:active{transform:scale(.98);opacity:.9}
+
+/* DESTAQUE BADGE */
+.destaque-badge{display:inline-block;background:linear-gradient(135deg,#C9A96E,#E8D5B0);color:var(--black);font-size:9px;letter-spacing:2px;font-weight:700;text-transform:uppercase;padding:4px 10px;border-radius:12px;margin-top:10px}
+
 /* PRINT */
 @media print{
   body{background:#fff;color:#000}
@@ -577,7 +619,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
       <div class="tracker-card">
         <div class="small-text mb8">■ Completo &nbsp; ▪ Parcial &nbsp; □ Futuro</div>
         <div class="tracker-grid" id="trackerGrid"></div>
+        <div class="selos-fase" id="selosFase">
+          <div class="selo" data-fase="1"><div class="selo-icon">✦</div><div class="selo-label">Fase 1</div></div>
+          <div class="selo" data-fase="2"><div class="selo-icon">✦</div><div class="selo-label">Fase 2</div></div>
+          <div class="selo" data-fase="3"><div class="selo-icon">✦</div><div class="selo-label">Fase 3</div></div>
+        </div>
       </div>
+
+      <div class="section-title">Conquistas</div>
+      <div class="conquistas-grid" id="conquistasGrid"></div>
 
       <div class="section-title">Fases</div>
       <div class="fase-card"><div class="fase-header"><div class="fase-name">Fase 1 · Reinstalar</div><div class="fase-dates">Dias 1–33</div></div><div class="fase-progress"><div class="fase-progress-fill" id="fase1Progress"></div></div><div class="fase-desc">Parar de sangrar. Reinstalar os fundamentos.</div></div>
@@ -617,6 +667,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
       <div id="cartaFinalSection" style="display:none">
         <div class="section-title">Dia 99 · A transformação</div>
         <div class="transformacao-card" id="transformacaoCard"></div>
+        <div id="resgateBox"></div>
         <div class="carta-card">
           <div class="carta-intro">Você chegou até aqui. 99 dias. Escreve agora o que mudou, o que foi difícil, o que descobriu e o que nunca mais aceita de volta.</div>
           <textarea class="carta-textarea" id="cartaFinal" placeholder="Querida eu de 99 dias atrás..." oninput="salvarRevisao()"></textarea>
@@ -1214,6 +1265,8 @@ function renderizarProgresso(){
   document.getElementById('fase1Progress').style.width = Math.min(Math.max(s.dia,0)/33*100,100)+'%';
   document.getElementById('fase2Progress').style.width = Math.min(Math.max(s.dia-33,0)/33*100,100)+'%';
   document.getElementById('fase3Progress').style.width = Math.min(Math.max(s.dia-66,0)/33*100,100)+'%';
+  renderizarSelosFase();
+  renderizarConquistas();
 }
 
 // ============ REVISÃO + DIAGNÓSTICO + PLANO ============
@@ -1312,21 +1365,208 @@ function renderizarPlanoProx(sem){
   `;
 }
 
+// ============ TÍTULO + CONQUISTAS ============
+function getTituloJornada(s){
+  if(s.streakMax >= 70 && s.completos >= 70) return {nome:'A Frequência Inteira', sub:'"Você não foi consistente. Você virou a consistência."'};
+  if(s.completos >= 80) return {nome:'A Construtora', sub:'"Você construiu de tijolo em tijolo. Sem atalho. Sem barulho."'};
+  if(s.freqMedia >= 4 && s.completos >= 60) return {nome:'A Que Voltou', sub:'"Você não está mais construindo algo novo. Voltou pra quem sempre foi."'};
+  if(s.completos >= 50) return {nome:'A Reinstalada', sub:'"Você reinstalou os fundamentos. A base agora é sua."'};
+  if(s.completos >= 33) return {nome:'A Que Sustentou', sub:'"Sustentou onde a maioria desiste. Isso já é tudo."'};
+  return {nome:'A Que Não Abandonou', sub:'"Você chegou. Imperfeito é caminho. Imperfeito é prova."'};
+}
+function ehDestaque(s){ return s.streakMax >= 70 || s.freqMedia >= 4; }
+
+function getConquistas(){
+  const s = calcStats();
+  const dia = s.dia;
+  const list = [
+    {id:'sete', icon:'✦', nome:'Primeira semana inteira', desc:'7 dias consecutivos com todos os pilares', unlocked: s.streakMax>=7},
+    {id:'21seguidos', icon:'✦', nome:'21 dias seguidos', desc:'Hábito se instala em 21 dias seguidos', unlocked: s.streakMax>=21},
+    {id:'fase1', icon:'1', nome:'Fase 1 · Reinstalar', desc:'Você concluiu os 33 primeiros dias', unlocked: dia>=33},
+    {id:'metade', icon:'✦', nome:'Meio caminho', desc:'50 dias do planner preenchidos', unlocked: dia>=50},
+    {id:'cinquenta', icon:'✦', nome:'50 dias seguidos', desc:'Frequência consolidada', unlocked: s.streakMax>=50},
+    {id:'fase2', icon:'2', nome:'Fase 2 · Gerar', desc:'Você concluiu os 66 primeiros dias', unlocked: dia>=66},
+    {id:'fase3', icon:'3', nome:'Fase 3 · Colher', desc:'Os 99 dias inteiros', unlocked: dia>=99},
+    {id:'freqalta', icon:'✦', nome:'Frequência alta', desc:'Média ≥ 4 em pelo menos 30 dias', unlocked: s.freqMedia>=4 && dia>=30},
+    {id:'destaque', icon:'★', nome:'Destaque', desc:'Sequência ≥ 70 dias ou frequência média ≥ 4', unlocked: dia>=99 && ehDestaque(s)},
+  ];
+  return list;
+}
+
+function renderizarConquistas(){
+  const grid = document.getElementById('conquistasGrid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  getConquistas().forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'conquista-card' + (c.unlocked?' unlocked':'');
+    el.innerHTML = `
+      <div class="conquista-icon">${c.unlocked?c.icon:'·'}</div>
+      <div class="conquista-info">
+        <div class="conquista-nome">${c.unlocked?c.nome:'Bloqueada'}</div>
+        <div class="conquista-desc">${c.desc}</div>
+      </div>`;
+    grid.appendChild(el);
+  });
+}
+
+function renderizarSelosFase(){
+  const dia = getDiaNum();
+  document.querySelectorAll('#selosFase .selo').forEach(el => {
+    const fase = parseInt(el.dataset.fase);
+    const limite = fase===1?33:fase===2?66:99;
+    el.classList.toggle('unlocked', dia >= limite);
+  });
+}
+
 function renderizarTransformacao(){
   const s = calcStats();
   const r1 = state.revisao_1?.palavra || '—';
   const r14 = state.revisao_14?.palavra || '—';
+  const titulo = getTituloJornada(s);
+  const destaque = ehDestaque(s);
+
   document.getElementById('transformacaoCard').innerHTML = `
-    <div class="transformacao-title">99 dias depois</div>
-    <div class="transformacao-text">"Você não voltou ao ponto de partida. Você voltou para quem sempre foi — agora com prova."</div>
-    <div class="transformacao-stat"><span>Dias completos</span><strong>${s.completos} / 99</strong></div>
-    <div class="transformacao-stat"><span>Dias parciais</span><strong>${s.parciais}</strong></div>
-    <div class="transformacao-stat"><span>Frequência média</span><strong>${s.freqMedia.toFixed(1)} / 5</strong></div>
-    <div class="transformacao-stat"><span>Maior sequência</span><strong>${s.streakMax} dias</strong></div>
-    <div class="transformacao-stat"><span>Melhor pilar</span><strong>${s.melhorPilar}</strong></div>
-    <div class="transformacao-stat"><span>Palavra da semana 1</span><strong>${r1}</strong></div>
-    <div class="transformacao-stat"><span>Palavra da semana 14</span><strong>${r14}</strong></div>
+    <div class="titulo-jornada">
+      <div class="titulo-eyebrow">99 dias depois · Sua jornada</div>
+      <div class="titulo-grande">${titulo.nome}</div>
+      <div class="titulo-sub">${titulo.sub}</div>
+      ${destaque ? '<div class="destaque-badge">★ Destaque da turma</div>' : ''}
+    </div>
+    <div style="margin-top:18px;padding-top:16px;border-top:1px solid rgba(201,169,110,.18)">
+      <div class="transformacao-stat"><span>Dias completos</span><strong>${s.completos} / 99</strong></div>
+      <div class="transformacao-stat"><span>Dias parciais</span><strong>${s.parciais}</strong></div>
+      <div class="transformacao-stat"><span>Frequência média</span><strong>${s.freqMedia.toFixed(1)} / 5</strong></div>
+      <div class="transformacao-stat"><span>Maior sequência</span><strong>${s.streakMax} dias</strong></div>
+      <div class="transformacao-stat"><span>Melhor pilar</span><strong>${s.melhorPilar}</strong></div>
+      <div class="transformacao-stat"><span>Palavra da semana 1</span><strong>${r1}</strong></div>
+      <div class="transformacao-stat"><span>Palavra da semana 14</span><strong>${r14}</strong></div>
+    </div>
   `;
+
+  // Resgate
+  const dia = getDiaNum();
+  const resgateBox = document.getElementById('resgateBox');
+  if(resgateBox && dia >= 99){
+    const elegivel = s.completos >= 33;
+    resgateBox.innerHTML = elegivel ? `
+      <div class="resgate-card">
+        <div class="resgate-eyebrow">Você conquistou</div>
+        <div class="resgate-title">Encontro com a Núbia + Presente surpresa</div>
+        <div class="resgate-text">
+          Você sustentou os 99 dias. Isso te dá direito ao <strong>Encontro Trimestral em grupo</strong> com a Núbia e a um <strong>presente surpresa físico</strong> enviado para o seu endereço.
+          ${destaque ? '<br><br>Como você foi <strong>destaque da turma</strong> (sequência ≥ 70 dias ou frequência média ≥ 4), você também ganha um <strong>encontro 1:1 com a Núbia</strong>.' : ''}
+        </div>
+        <div class="resgate-passos">
+          <div class="resgate-passo"><span class="resgate-passo-num">1.</span><span>Toque em "Gerar certificado" e salve a imagem.</span></div>
+          <div class="resgate-passo"><span class="resgate-passo-num">2.</span><span>Manda o certificado no Direct do Instagram <strong>@nubiacitty</strong> com a palavra <strong>"99"</strong>.</span></div>
+          <div class="resgate-passo"><span class="resgate-passo-num">3.</span><span>A equipe confirma e te envia: data do encontro, link do Zoom e formulário do endereço pra mandar o presente.</span></div>
+        </div>
+        <button class="btn-cert" onclick="gerarCertificado()">✦ Gerar meu certificado</button>
+      </div>
+    ` : `
+      <div class="resgate-card" style="background:rgba(139,32,32,.08);border-color:rgba(139,32,32,.3)">
+        <div class="resgate-eyebrow" style="color:var(--red-soft)">Faltou pouco</div>
+        <div class="resgate-title">Você chegou no Dia 99</div>
+        <div class="resgate-text">Pra resgatar o encontro com a Núbia e o presente, é preciso ter <strong>pelo menos 33 dias completos</strong> nos 99. Você tem <strong>${s.completos}</strong>. Isso não é castigo — é honrar quem sustentou. Mas você chegou, e isso já é prova. Recomeça o ciclo se quiser.</div>
+      </div>
+    `;
+  } else if(resgateBox){
+    resgateBox.innerHTML = '';
+  }
+}
+
+// ============ CERTIFICADO ============
+function gerarCertificado(){
+  const s = calcStats();
+  const titulo = getTituloJornada(s);
+  const destaque = ehDestaque(s);
+  const inicio = parseDataInicio();
+  const fim = getDataDoDia(99);
+  const dt = d => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Certificado · ${state.nome||'Planner 99 Dias'}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#0A0A0A;color:#F0EDE8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.cert{width:100%;max-width:720px;background:linear-gradient(135deg,#1A1A1A,#0A0A0A);border:2px solid #C9A96E;border-radius:14px;padding:48px 36px;text-align:center;position:relative;overflow:hidden}
+.cert::before,.cert::after{content:'';position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(201,169,110,.12),transparent 70%);pointer-events:none}
+.cert::before{top:-80px;left:-80px}
+.cert::after{bottom:-80px;right:-80px}
+.cert > *{position:relative;z-index:1}
+.eyebrow{font-size:11px;letter-spacing:6px;color:#C9A96E;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+.brand{font-family:'Cormorant Garamond',serif;font-size:72px;color:#C9A96E;line-height:.9;font-weight:300;letter-spacing:-2px}
+.brand-sub{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:6px;color:#B0AA9F;text-transform:uppercase;margin-top:4px;margin-bottom:24px}
+.divider{width:60px;height:1px;background:#C9A96E;margin:0 auto 24px}
+.certifica{font-size:12px;letter-spacing:3px;color:#B0AA9F;text-transform:uppercase;margin-bottom:14px}
+.nome{font-family:'Cormorant Garamond',serif;font-size:36px;color:#F0EDE8;font-style:italic;margin-bottom:14px;line-height:1.2}
+.descricao{font-family:'Cormorant Garamond',serif;font-size:16px;color:#B0AA9F;line-height:1.6;max-width:520px;margin:0 auto 24px;font-style:italic}
+.titulo-box{background:rgba(201,169,110,.10);border:1px solid rgba(201,169,110,.4);border-radius:10px;padding:18px;margin:0 auto 24px;max-width:480px}
+.titulo-eye{font-size:9px;letter-spacing:4px;color:#C9A96E;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.titulo-nome{font-family:'Cormorant Garamond',serif;font-size:30px;color:#C9A96E;font-weight:700;line-height:1}
+.titulo-frase{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:#F0EDE8;margin-top:8px;line-height:1.5}
+.destaque{display:inline-block;background:linear-gradient(135deg,#C9A96E,#E8D5B0);color:#0A0A0A;font-size:10px;letter-spacing:3px;font-weight:700;text-transform:uppercase;padding:6px 14px;border-radius:14px;margin-bottom:18px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;max-width:480px;margin:0 auto 24px;padding:18px 0;border-top:1px solid rgba(201,169,110,.2);border-bottom:1px solid rgba(201,169,110,.2)}
+.stat{font-size:12px;color:#B0AA9F;text-align:left;display:flex;justify-content:space-between}
+.stat strong{color:#C9A96E;font-weight:600}
+.periodo{font-size:11px;color:#B0AA9F;letter-spacing:2px;margin-bottom:18px}
+.assinatura{font-family:'Cormorant Garamond',serif;font-size:24px;color:#C9A96E;font-style:italic;font-weight:600;margin-top:18px}
+.assinatura-sub{font-size:10px;letter-spacing:3px;color:#B0AA9F;text-transform:uppercase;margin-top:2px}
+.print-bar{position:fixed;top:0;left:0;right:0;background:#C9A96E;color:#0A0A0A;padding:12px;text-align:center;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;display:flex;gap:12px;justify-content:center;align-items:center;z-index:100}
+.print-bar button{background:#0A0A0A;color:#C9A96E;border:none;padding:8px 16px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;border-radius:6px;cursor:pointer}
+@media print{
+  body{background:#fff;padding:0}
+  .print-bar{display:none}
+  .cert{border:3px solid #8B6914;background:#fff;color:#0A0A0A;box-shadow:none;page-break-inside:avoid}
+  .cert::before,.cert::after{display:none}
+  .brand,.titulo-nome,.assinatura,.titulo-eye,.titulo-frase{color:#8B6914!important}
+  .brand-sub,.certifica,.descricao,.periodo,.assinatura-sub,.stat{color:#333!important}
+  .nome{color:#0A0A0A!important}
+  .stat strong{color:#8B6914!important}
+  .titulo-box{background:#FAF6EE;border-color:#C9A96E}
+  .destaque{background:#C9A96E;color:#0A0A0A}
+}
+</style></head><body>
+<div class="print-bar">
+  Para salvar como imagem: tire um print da tela
+  <button onclick="window.print()">Imprimir / Salvar PDF</button>
+  <button onclick="window.close()">Fechar</button>
+</div>
+<div style="height:60px"></div>
+<div class="cert">
+  <div class="eyebrow">Certificado de Conclusão</div>
+  <div class="brand">99</div>
+  <div class="brand-sub">Dias</div>
+  <div class="divider"></div>
+  <div class="certifica">Certificamos que</div>
+  <div class="nome">${state.nome || '—'}</div>
+  <div class="descricao">concluiu os 99 dias do Planner Pessoal de Núbia Citty — sustentando o ritual de Reinstalar, Gerar e Colher.</div>
+  <div class="titulo-box">
+    <div class="titulo-eye">Título da jornada</div>
+    <div class="titulo-nome">${titulo.nome}</div>
+    <div class="titulo-frase">${titulo.sub}</div>
+  </div>
+  ${destaque ? '<div class="destaque">★ Destaque da turma</div>' : ''}
+  <div class="stats">
+    <div class="stat"><span>Dias completos</span><strong>${s.completos}/99</strong></div>
+    <div class="stat"><span>Dias parciais</span><strong>${s.parciais}</strong></div>
+    <div class="stat"><span>Frequência média</span><strong>${s.freqMedia.toFixed(1)}/5</strong></div>
+    <div class="stat"><span>Maior sequência</span><strong>${s.streakMax} dias</strong></div>
+    <div class="stat"><span>Melhor pilar</span><strong>${s.melhorPilar}</strong></div>
+    <div class="stat"><span>Pilar a evoluir</span><strong>${s.piorPilar}</strong></div>
+  </div>
+  <div class="periodo">${dt(inicio)} — ${dt(fim)}</div>
+  <div class="assinatura">Núbia Citty</div>
+  <div class="assinatura-sub">Planner 99 Dias</div>
+</div>
+<div style="height:40px"></div>
+</body></html>`;
+
+  const w = window.open('', '_blank');
+  if(!w){ alert('Permita pop-ups para gerar o certificado.'); return; }
+  w.document.write(html);
+  w.document.close();
 }
 
 // ============ METAS ============
