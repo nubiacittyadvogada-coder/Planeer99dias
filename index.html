@@ -2,535 +2,368 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Planner 99 Dias</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0A">
+<title>Planner 99 Dias · Núbia Citty</title>
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Planner%2099%20Dias%22%2C%22short_name%22%3A%22P99%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230A0A0A%22%2C%22theme_color%22%3A%22%230A0A0A%22%7D">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --gold: #C9A96E;
-  --gold-light: #E8D5B0;
-  --gold-dark: #8B6914;
-  --black: #0A0A0A;
-  --dark: #111111;
-  --card: #1A1A1A;
-  --card2: #222222;
-  --cream: #F2EDE4;
-  --cream2: #E8E3DA;
-  --gray: #9E9890;
-  --gray2: #6A6560;
-  --text: #F0EDE8;
-  --text2: #B0AA9F;
-  --red: #8B2020;
-  --green: #2D6A4F;
-  --radius: 12px;
-  --radius-sm: 8px;
+:root{
+  --gold:#C9A96E; --gold-light:#E8D5B0; --gold-dark:#8B6914;
+  --black:#0A0A0A; --dark:#111; --card:#1A1A1A; --card2:#222;
+  --text:#F0EDE8; --text2:#B0AA9F; --gray2:#6A6560;
+  --red:#8B2020; --red-soft:#cd6666; --green:#2D6A4F;
+  --radius:12px; --radius-sm:8px;
 }
-
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
-body {
-  font-family:'DM Sans', sans-serif;
-  background:var(--black);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
-}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overscroll-behavior:none}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
 /* ===== TELAS ===== */
-.screen { display:none; min-height:100vh; flex-direction:column; }
-.screen.active { display:flex; }
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
 
-/* ===== SPLASH ===== */
-#splash {
-  background:var(--black);
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-}
-#splash::before {
-  content:'';
-  position:absolute;
-  width:400px; height:400px;
-  background:radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%);
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  animation:pulse 3s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1);} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.1);} }
-.splash-content { position:relative; z-index:1; text-align:center; padding:40px 24px; animation:fadeUp .8s ease; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-.splash-tag { font-size:10px; font-weight:500; letter-spacing:6px; color:var(--gold); text-transform:uppercase; margin-bottom:24px; }
-.splash-title { font-family:'Cormorant Garamond',serif; font-size:72px; font-weight:300; color:var(--gold); line-height:.9; margin-bottom:8px; }
-.splash-sub { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:var(--text2); letter-spacing:4px; text-transform:uppercase; margin-bottom:32px; }
-.splash-divider { width:40px; height:1px; background:var(--gold); margin:0 auto 32px; }
-.splash-phrase { font-family:'Cormorant Garamond',serif; font-size:14px; font-style:italic; color:var(--text2); line-height:1.7; max-width:280px; margin:0 auto 48px; }
-.btn-primary {
-  background:var(--gold);
-  color:var(--black);
-  border:none;
-  padding:16px 40px;
-  font-family:'DM Sans',sans-serif;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  border-radius:var(--radius-sm);
-  cursor:pointer;
-  width:100%;
-  max-width:280px;
-  transition:all .2s;
-  display:block;
-  margin:0 auto;
-}
-.btn-primary:active { transform:scale(.97); opacity:.9; }
-.btn-secondary {
-  background:transparent;
-  color:var(--gold);
-  border:1px solid rgba(201,169,110,.4);
-  padding:14px 32px;
-  font-family:'DM Sans',sans-serif;
-  font-size:11px;
-  font-weight:500;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  border-radius:var(--radius-sm);
-  cursor:pointer;
-  width:100%;
-  max-width:280px;
-  transition:all .2s;
-  display:block;
-  margin:12px auto 0;
-}
-.btn-secondary:active { transform:scale(.97); }
+/* ===== SPLASH COMERCIAL ===== */
+#splash{background:var(--black);position:relative;overflow:hidden}
+#splash::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(201,169,110,.10) 0%,transparent 70%);top:-100px;left:50%;transform:translateX(-50%);pointer-events:none}
+.splash-wrap{flex:1;position:relative;z-index:1;padding:40px 24px 32px;display:flex;flex-direction:column}
+.splash-tag{font-size:10px;font-weight:600;letter-spacing:5px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:18px}
+.splash-title{font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:300;color:var(--gold);line-height:.9;text-align:center;letter-spacing:-2px}
+.splash-sub{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text2);letter-spacing:6px;text-transform:uppercase;text-align:center;margin-top:4px;margin-bottom:18px}
+.splash-divider{width:40px;height:1px;background:var(--gold);margin:0 auto 22px}
+.splash-promise{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:var(--text);line-height:1.4;text-align:center;max-width:340px;margin:0 auto 8px}
+.splash-author{font-size:11px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;text-align:center;margin-bottom:28px}
+.splash-bullets{background:var(--card);border:1px solid rgba(201,169,110,.15);border-radius:var(--radius);padding:18px 18px 14px;margin-bottom:24px}
+.splash-bullet{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--text2);line-height:1.5}
+.splash-bullet::before{content:'✦';color:var(--gold);font-size:11px;margin-top:3px;flex-shrink:0}
+.splash-actions{margin-top:auto}
+.btn-primary{background:var(--gold);color:var(--black);border:none;padding:18px 24px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;width:100%;transition:transform .15s,opacity .15s;display:block}
+.btn-primary:active{transform:scale(.98);opacity:.9}
+.btn-secondary{background:transparent;color:var(--gold);border:1px solid rgba(201,169,110,.35);padding:14px 24px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;width:100%;transition:all .15s;display:block;margin-top:10px}
+.btn-secondary:active{transform:scale(.98)}
+.btn-danger{color:var(--red-soft);border-color:rgba(139,32,32,.4)}
+.splash-info-links{display:flex;gap:8px;margin-top:14px;justify-content:center;flex-wrap:wrap}
+.splash-info-links a{font-size:11px;color:var(--text2);text-decoration:none;border-bottom:1px dashed rgba(201,169,110,.3);padding-bottom:1px;cursor:pointer}
+
+/* ===== INFO PAGES ===== */
+#infoPage{background:var(--dark)}
+.info-header{background:var(--black);padding:18px 20px 14px;border-bottom:1px solid rgba(201,169,110,.15);display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.info-back{background:none;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:4px 8px}
+.info-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--text)}
+.info-body{padding:24px;flex:1;overflow-y:auto;padding-bottom:80px}
+.info-body h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin:24px 0 10px;font-weight:400}
+.info-body h3:first-child{margin-top:0}
+.info-body p,.info-body li{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:10px}
+.info-body ul,.info-body ol{padding-left:20px;margin-bottom:14px}
+.info-body strong{color:var(--text)}
+.info-warning{background:rgba(139,32,32,.08);border:1px solid rgba(139,32,32,.3);border-radius:var(--radius-sm);padding:14px;margin-top:12px}
+.info-warning p{color:var(--red-soft)!important;font-size:13px;margin-bottom:0}
 
 /* ===== ONBOARDING ===== */
-#onboarding { background:var(--dark); padding:0; }
-.onboard-header {
-  background:var(--black);
-  padding:20px 24px 16px;
-  border-bottom:1px solid rgba(201,169,110,.15);
-  flex-shrink:0;
-}
-.onboard-step { font-size:10px; font-weight:500; letter-spacing:4px; color:var(--gold); text-transform:uppercase; margin-bottom:4px; }
-.onboard-title { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:400; color:var(--text); }
-.progress-bar { height:2px; background:rgba(255,255,255,.1); margin-top:12px; border-radius:1px; }
-.progress-fill { height:100%; background:var(--gold); border-radius:1px; transition:width .4s ease; }
-.onboard-body { flex:1; padding:24px; overflow-y:auto; }
-.onboard-desc { font-size:13px; color:var(--text2); line-height:1.7; margin-bottom:24px; }
-.field-label { font-size:10px; font-weight:600; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:8px; display:block; }
-.field-input {
-  width:100%; background:var(--card); border:1px solid rgba(201,169,110,.2);
-  color:var(--text); padding:14px 16px; border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif; font-size:15px; margin-bottom:16px;
-  outline:none; transition:border-color .2s;
-}
-.field-input:focus { border-color:var(--gold); }
-.field-textarea {
-  width:100%; background:var(--card); border:1px solid rgba(201,169,110,.2);
-  color:var(--text); padding:14px 16px; border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif; font-size:14px; margin-bottom:16px;
-  outline:none; transition:border-color .2s; resize:none; min-height:100px; line-height:1.6;
-}
-.field-textarea:focus { border-color:var(--gold); }
-.onboard-footer { padding:16px 24px 32px; flex-shrink:0; }
-.pilar-setup { background:var(--card); border:1px solid rgba(201,169,110,.15); border-radius:var(--radius); padding:16px; margin-bottom:12px; }
-.pilar-setup-name { font-size:12px; font-weight:600; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:4px; }
-.pilar-setup-desc { font-size:12px; color:var(--text2); margin-bottom:12px; line-height:1.5; }
-.pilar-horario { display:flex; align-items:center; gap:8px; }
-.pilar-horario label { font-size:11px; color:var(--text2); white-space:nowrap; }
-.pilar-horario input[type=time] {
-  background:var(--card2); border:1px solid rgba(201,169,110,.2);
-  color:var(--gold); padding:8px 12px; border-radius:6px;
-  font-family:'DM Sans',sans-serif; font-size:14px; outline:none;
-  -webkit-appearance:none;
-}
+#onboarding{background:var(--dark)}
+.onboard-header{background:var(--black);padding:20px 24px 16px;border-bottom:1px solid rgba(201,169,110,.15);flex-shrink:0}
+.onboard-step{font-size:10px;font-weight:600;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+.onboard-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--text)}
+.progress-bar{height:2px;background:rgba(255,255,255,.1);margin-top:12px;border-radius:1px}
+.progress-fill{height:100%;background:var(--gold);border-radius:1px;transition:width .4s}
+.onboard-body{flex:1;padding:24px;overflow-y:auto}
+.onboard-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:24px}
+.field-label{font-size:10px;font-weight:600;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;display:block}
+.field-input,.field-textarea{width:100%;background:var(--card);border:1px solid rgba(201,169,110,.2);color:var(--text);padding:14px 16px;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:15px;margin-bottom:16px;outline:none;transition:border-color .2s}
+.field-input:focus,.field-textarea:focus{border-color:var(--gold)}
+.field-textarea{resize:none;min-height:100px;line-height:1.6;font-size:14px}
+.onboard-footer{padding:16px 24px 32px;flex-shrink:0}
+.pilar-setup{background:var(--card);border:1px solid rgba(201,169,110,.15);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.pilar-setup-name{font-size:12px;font-weight:600;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+.pilar-setup-desc{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5}
+.pilar-horario{display:flex;align-items:center;gap:8px}
+.pilar-horario label{font-size:11px;color:var(--text2);white-space:nowrap}
+.pilar-horario input[type=time]{background:var(--card2);border:1px solid rgba(201,169,110,.2);color:var(--gold);padding:8px 12px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none}
+.antivisao-box{background:rgba(139,32,32,.08);border:1px solid rgba(139,32,32,.3);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px}
+.antivisao-label{font-size:9px;font-weight:700;letter-spacing:3px;color:var(--red-soft);text-transform:uppercase;margin-bottom:6px}
+.visao-box-setup{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px}
+.visao-label-setup{font-size:9px;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
 
-/* ===== MAIN APP ===== */
-#app { background:var(--dark); }
-.app-header {
-  background:var(--black);
-  padding:16px 20px 12px;
-  border-bottom:1px solid rgba(201,169,110,.1);
-  flex-shrink:0;
-  position:sticky; top:0; z-index:100;
-}
-.app-header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-.app-day-info {}
-.app-day-num { font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:700; color:var(--gold); line-height:1; }
-.app-day-label { font-size:9px; letter-spacing:3px; color:var(--text2); text-transform:uppercase; }
-.app-date { font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:var(--text2); margin-top:2px; }
-.app-right { text-align:right; }
-.app-name { font-size:12px; font-weight:500; color:var(--text); }
-.app-fase { font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-top:2px; }
-.progress-99 { position:relative; }
-.progress-99-bar { height:3px; background:rgba(255,255,255,.08); border-radius:2px; }
-.progress-99-fill { height:100%; background:linear-gradient(to right, var(--gold-dark), var(--gold)); border-radius:2px; transition:width .6s ease; }
-.progress-99-label { display:flex; justify-content:space-between; margin-top:4px; }
-.progress-99-label span { font-size:9px; color:var(--text2); letter-spacing:1px; }
+/* ===== APP ===== */
+#app{background:var(--dark)}
+.app-header{background:var(--black);padding:14px 18px 12px;border-bottom:1px solid rgba(201,169,110,.1);position:sticky;top:0;z-index:100;padding-top:max(14px,env(safe-area-inset-top))}
+.app-header-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:12px}
+.app-day-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1}
+.app-day-label{font-size:9px;letter-spacing:3px;color:var(--text2);text-transform:uppercase}
+.app-date{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--text2);margin-top:2px}
+.app-right{text-align:right}
+.app-name{font-size:12px;font-weight:500;color:var(--text)}
+.app-fase{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-top:2px}
+.app-pct{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);font-weight:600;margin-top:4px}
+.progress-99-bar{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.progress-99-fill{height:100%;background:linear-gradient(to right,var(--gold-dark),var(--gold));border-radius:2px;transition:width .6s}
+.progress-99-label{display:flex;justify-content:space-between;margin-top:4px}
+.progress-99-label span{font-size:9px;color:var(--text2);letter-spacing:1px}
 
-/* ===== NAV ===== */
-.app-body { flex:1; overflow-y:auto; padding-bottom:80px; }
-.bottom-nav {
-  position:fixed; bottom:0; left:0; right:0;
-  background:var(--black);
-  border-top:1px solid rgba(201,169,110,.1);
-  display:flex; justify-content:space-around;
-  padding:8px 0 max(8px, env(safe-area-inset-bottom));
-  z-index:100;
-}
-.nav-item {
-  display:flex; flex-direction:column; align-items:center; gap:3px;
-  padding:6px 16px; cursor:pointer; border:none; background:none;
-  transition:all .2s;
-}
-.nav-icon { font-size:20px; filter:grayscale(1) brightness(.5); transition:all .2s; }
-.nav-label { font-size:9px; letter-spacing:1px; color:var(--text2); text-transform:uppercase; font-weight:500; }
-.nav-item.active .nav-icon { filter:none; }
-.nav-item.active .nav-label { color:var(--gold); }
+.app-body{flex:1;overflow-y:auto;padding-bottom:90px;scroll-behavior:smooth}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--black);border-top:1px solid rgba(201,169,110,.1);display:flex;justify-content:space-around;padding:6px 0 max(6px,env(safe-area-inset-bottom));z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 8px;cursor:pointer;border:none;background:none;min-width:60px}
+.nav-icon{font-size:20px;filter:grayscale(1) brightness(.5);transition:all .15s}
+.nav-label{font-size:9px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;font-weight:500}
+.nav-item.active .nav-icon{filter:none}
+.nav-item.active .nav-label{color:var(--gold)}
 
-/* ===== HOJE TAB ===== */
-.tab-content { display:none; }
-.tab-content.active { display:block; padding:16px; }
+.tab-content{display:none}
+.tab-content.active{display:block;padding:16px}
 
-.frase-card {
-  background:var(--black);
-  border:1px solid rgba(201,169,110,.2);
-  border-radius:var(--radius);
-  padding:20px;
-  margin-bottom:16px;
-  position:relative;
-  overflow:hidden;
-}
-.frase-card::before {
-  content:'';
-  position:absolute;
-  left:0; top:0; bottom:0;
-  width:3px;
-  background:var(--gold);
-}
-.frase-text { font-family:'Cormorant Garamond',serif; font-size:17px; font-style:italic; color:var(--text); line-height:1.6; padding-left:8px; }
+.section-title{font-size:9px;font-weight:700;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin:14px 0 12px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:rgba(201,169,110,.15)}
 
-.section-title {
-  font-size:9px; font-weight:700; letter-spacing:4px;
-  color:var(--gold); text-transform:uppercase;
-  margin-bottom:12px; margin-top:4px;
-  display:flex; align-items:center; gap:8px;
-}
-.section-title::after { content:''; flex:1; height:1px; background:rgba(201,169,110,.15); }
+/* CHECKIN BAR */
+.checkin-bar{display:flex;gap:8px;margin-bottom:16px}
+.checkin-pill{flex:1;background:var(--card);border:1px solid rgba(201,169,110,.2);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.checkin-pill.done{background:rgba(201,169,110,.12);border-color:var(--gold)}
+.checkin-pill.done .checkin-pill-label{color:var(--gold)}
+.checkin-pill-icon{font-size:16px;margin-bottom:2px}
+.checkin-pill-label{font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;font-weight:600}
 
-/* PILARES */
-.pilares-card { background:var(--card); border-radius:var(--radius); overflow:hidden; margin-bottom:16px; }
-.pilar-item {
-  display:flex; align-items:center; gap:14px;
-  padding:14px 16px;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  cursor:pointer; transition:background .15s;
-  -webkit-user-select:none; user-select:none;
-}
-.pilar-item:last-child { border-bottom:none; }
-.pilar-item:active { background:rgba(201,169,110,.05); }
-.pilar-check {
-  width:24px; height:24px;
-  border:2px solid rgba(201,169,110,.3);
-  border-radius:6px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  transition:all .2s; position:relative;
-}
-.pilar-check.done { background:var(--gold); border-color:var(--gold); }
-.pilar-check.done::after { content:'✓'; font-size:13px; color:var(--black); font-weight:700; }
-.pilar-info { flex:1; }
-.pilar-name { font-size:14px; font-weight:500; color:var(--text); line-height:1.2; }
-.pilar-name.academia { color:var(--gold); font-weight:600; }
-.pilar-time { font-size:11px; color:var(--text2); margin-top:2px; }
-.pilar-check.academia-off { border-color:rgba(255,255,255,.1); }
-.pilar-name.off { color:var(--gray2); }
+/* CARDS */
+.frase-card{background:var(--black);border:1px solid rgba(201,169,110,.2);border-radius:var(--radius);padding:18px;margin-bottom:16px;position:relative;overflow:hidden}
+.frase-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+.frase-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--text);line-height:1.6;padding-left:8px}
 
-/* FREQUÊNCIA */
-.freq-card { background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:16px; }
-.freq-label { font-size:11px; color:var(--text2); margin-bottom:12px; }
-.freq-slider { display:flex; gap:8px; }
-.freq-btn {
-  flex:1; height:44px; border-radius:8px;
-  border:1.5px solid rgba(201,169,110,.2);
-  background:transparent; color:var(--text2);
-  font-size:16px; font-weight:600; cursor:pointer;
-  transition:all .2s; font-family:'DM Sans',sans-serif;
-}
-.freq-btn.selected { background:var(--gold); border-color:var(--gold); color:var(--black); }
-.freq-labels { display:flex; justify-content:space-between; margin-top:6px; }
-.freq-labels span { font-size:9px; color:var(--text2); letter-spacing:1px; }
+.pilares-card{background:var(--card);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
+.pilar-item{display:flex;align-items:center;gap:14px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;-webkit-user-select:none;user-select:none;transition:background .15s}
+.pilar-item:last-child{border-bottom:none}
+.pilar-item:active{background:rgba(201,169,110,.05)}
+.pilar-check{width:24px;height:24px;border:2px solid rgba(201,169,110,.3);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.pilar-check.done{background:var(--gold);border-color:var(--gold)}
+.pilar-check.done::after{content:'✓';font-size:13px;color:var(--black);font-weight:700}
+.pilar-info{flex:1;min-width:0}
+.pilar-name{font-size:14px;font-weight:500;color:var(--text);line-height:1.2}
+.pilar-name.academia{color:var(--gold);font-weight:600}
+.pilar-name.off{color:var(--gray2)}
+.pilar-time{font-size:11px;color:var(--text2);margin-top:2px}
+.pilar-check.academia-off{border-color:rgba(255,255,255,.1)}
 
-/* GRATIDÃO */
-.grat-card { background:var(--card); border-radius:var(--radius); overflow:hidden; margin-bottom:16px; }
-.grat-item { display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.04); }
-.grat-item:last-child { border-bottom:none; }
-.grat-num { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:700; color:var(--gold); min-width:20px; }
-.grat-input {
-  flex:1; background:transparent; border:none; color:var(--text);
-  font-family:'DM Sans',sans-serif; font-size:14px; outline:none;
-  line-height:1.4;
-}
-.grat-input::placeholder { color:rgba(255,255,255,.2); }
+.freq-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.freq-label{font-size:11px;color:var(--text2);margin-bottom:12px}
+.freq-slider{display:flex;gap:8px}
+.freq-btn{flex:1;height:44px;border-radius:8px;border:1.5px solid rgba(201,169,110,.2);background:transparent;color:var(--text2);font-size:16px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.freq-btn.selected{background:var(--gold);border-color:var(--gold);color:var(--black)}
+.freq-labels{display:flex;justify-content:space-between;margin-top:6px}
+.freq-labels span{font-size:9px;color:var(--text2);letter-spacing:1px}
 
-/* NOTAS */
-.notes-card { background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:16px; }
-.notes-area {
-  width:100%; background:transparent; border:none; color:var(--text);
-  font-family:'DM Sans',sans-serif; font-size:14px; resize:none;
-  outline:none; min-height:100px; line-height:1.7;
-}
-.notes-area::placeholder { color:rgba(255,255,255,.2); }
+.grat-card{background:var(--card);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
+.grat-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04)}
+.grat-item:last-child{border-bottom:none}
+.grat-num{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);min-width:20px}
+.grat-input,.agenda-slot-input{flex:1;background:transparent;border:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;line-height:1.4;width:100%}
+.grat-input::placeholder,.agenda-slot-input::placeholder{color:rgba(255,255,255,.2)}
+
+.notes-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.notes-area{width:100%;background:transparent;border:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;outline:none;min-height:100px;line-height:1.7}
+.notes-area::placeholder{color:rgba(255,255,255,.2)}
+
+.decisao-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.decisao-input{width:100%;background:var(--card2);border:1px solid rgba(201,169,110,.15);color:var(--text);padding:14px;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;resize:none;min-height:80px;line-height:1.6;transition:border-color .2s}
+.decisao-input:focus{border-color:rgba(201,169,110,.4)}
+.decisao-input::placeholder{color:rgba(255,255,255,.2)}
+
+/* RESUMO DIA */
+.resumo-card{background:linear-gradient(135deg,rgba(201,169,110,.12),rgba(201,169,110,.03));border:1px solid rgba(201,169,110,.25);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.resumo-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);margin-bottom:10px}
+.resumo-line{font-size:13px;color:var(--text2);line-height:1.7;display:flex;justify-content:space-between;gap:8px;padding:4px 0}
+.resumo-line strong{color:var(--text);font-weight:500}
+.resumo-mensagem{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text);line-height:1.5;margin-top:12px;padding-top:12px;border-top:1px solid rgba(201,169,110,.15)}
+
+.celebracao{background:linear-gradient(135deg,rgba(201,169,110,.18),rgba(201,169,110,.05));border:1px solid rgba(201,169,110,.35);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:16px;display:none;animation:celebra .5s ease}
+@keyframes celebra{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.celebracao.show{display:block}
+.celebracao-icon{font-size:36px;margin-bottom:8px}
+.celebracao-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--gold);line-height:1.5}
+
+.retorno-card{background:rgba(139,32,32,.10);border:1px solid rgba(139,32,32,.30);border-radius:var(--radius);padding:18px;text-align:center;margin-bottom:16px}
+.retorno-icon{font-size:28px;margin-bottom:6px}
+.retorno-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--red-soft);margin-bottom:6px}
+.retorno-text{font-size:13px;color:var(--text2);line-height:1.6}
+
+.vision-card{background:var(--black);border:1px solid rgba(201,169,110,.15);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.vision-label{font-size:9px;font-weight:700;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.vision-text{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text2);line-height:1.7}
+
+.domingo-badge{background:linear-gradient(135deg,rgba(201,169,110,.2),rgba(201,169,110,.05));border:1px solid rgba(201,169,110,.3);border-radius:var(--radius);padding:14px;text-align:center;margin-bottom:16px}
+.domingo-badge-icon{font-size:24px;margin-bottom:4px}
+.domingo-badge-text{font-size:11px;color:var(--gold);font-weight:500;letter-spacing:1px}
 
 /* AGENDA */
-.agenda-card { background:var(--card); border-radius:var(--radius); overflow:hidden; margin-bottom:16px; }
-.agenda-row { display:grid; grid-template-columns:40px 1fr; border-bottom:1px solid rgba(255,255,255,.04); min-height:44px; }
-.agenda-row:last-child { border-bottom:none; }
-.agenda-time { font-size:10px; font-weight:600; color:var(--gold-dark); padding:12px 8px; border-right:1px solid rgba(255,255,255,.04); display:flex; align-items:flex-start; }
-.agenda-slot { padding:10px 12px; }
-.agenda-slot-fixed { font-size:11px; font-weight:600; color:var(--gold); }
-.agenda-slot-input {
-  width:100%; background:transparent; border:none; color:var(--text);
-  font-family:'DM Sans',sans-serif; font-size:13px; outline:none; line-height:1.4;
-}
-.agenda-slot-input::placeholder { color:rgba(255,255,255,.15); }
-.agenda-row.gold { background:rgba(201,169,110,.06); }
+.agenda-card{background:var(--card);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
+.agenda-row{display:grid;grid-template-columns:46px 1fr;border-bottom:1px solid rgba(255,255,255,.04);min-height:44px}
+.agenda-row:last-child{border-bottom:none}
+.agenda-time{font-size:10px;font-weight:600;color:var(--gold-dark);padding:12px 6px;border-right:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start}
+.agenda-slot{padding:8px 12px}
+.agenda-slot-fixed{font-size:11px;font-weight:600;color:var(--gold)}
+.agenda-row.gold{background:rgba(201,169,110,.06)}
 
-/* DECISÃO */
-.decisao-card { background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:16px; }
-.decisao-input {
-  width:100%; background:var(--card2); border:1px solid rgba(201,169,110,.15);
-  color:var(--text); padding:14px; border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif; font-size:14px; outline:none;
-  resize:none; min-height:80px; line-height:1.6;
-  transition:border-color .2s;
-}
-.decisao-input:focus { border-color:rgba(201,169,110,.4); }
-.decisao-input::placeholder { color:rgba(255,255,255,.2); }
+/* PROGRESSO */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.stat-card{background:var(--card);border-radius:var(--radius);padding:14px;text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--gold);line-height:1}
+.stat-num.small{font-size:18px}
+.stat-label{font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-top:4px;line-height:1.3}
 
-/* CELEBRAÇÃO */
-.celebracao {
-  background:linear-gradient(135deg, rgba(201,169,110,.15), rgba(201,169,110,.05));
-  border:1px solid rgba(201,169,110,.3);
-  border-radius:var(--radius);
-  padding:20px;
-  text-align:center;
-  margin-bottom:16px;
-  display:none;
-  animation:celebra .5s ease;
-}
-@keyframes celebra { from{transform:scale(.9);opacity:0;} to{transform:scale(1);opacity:1;} }
-.celebracao.show { display:block; }
-.celebracao-icon { font-size:36px; margin-bottom:8px; }
-.celebracao-text { font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic; color:var(--gold); line-height:1.5; }
+.painel-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.painel-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+.painel-row:last-child{border-bottom:none}
+.painel-row-label{color:var(--text2)}
+.painel-row-val{color:var(--text);font-weight:600}
+.painel-row-val.gold{color:var(--gold)}
 
-/* RETORNO */
-.retorno-card {
-  background:var(--card2);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:var(--radius);
-  padding:20px;
-  text-align:center;
-  margin-bottom:16px;
-}
-.retorno-icon { font-size:32px; margin-bottom:8px; }
-.retorno-title { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--text); margin-bottom:6px; }
-.retorno-text { font-size:13px; color:var(--text2); line-height:1.6; }
+.tracker-card{background:var(--card);border-radius:var(--radius);padding:14px;margin-bottom:16px}
+.tracker-grid{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tracker-dot{width:calc((100% - 56px)/15);aspect-ratio:1;border-radius:3px;background:rgba(255,255,255,.06);transition:all .15s}
+.tracker-dot.done{background:var(--gold)}
+.tracker-dot.partial{background:rgba(201,169,110,.35)}
+.tracker-dot.today{box-shadow:0 0 0 2px var(--gold)}
 
-/* ===== PROGRESSO TAB ===== */
-.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
-.stat-card { background:var(--card); border-radius:var(--radius); padding:16px; text-align:center; }
-.stat-num { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:700; color:var(--gold); line-height:1; }
-.stat-label { font-size:10px; letter-spacing:2px; color:var(--text2); text-transform:uppercase; margin-top:4px; }
+.fase-card{background:var(--card);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.fase-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fase-name{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase}
+.fase-dates{font-size:11px;color:var(--text2)}
+.fase-progress{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.fase-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s}
+.fase-desc{font-size:12px;color:var(--text2);margin-top:8px;line-height:1.5}
 
-.tracker-card { background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:16px; }
-.tracker-grid { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
-.tracker-dot {
-  width:calc((100% - 56px) / 15);
-  aspect-ratio:1;
-  border-radius:3px;
-  background:rgba(255,255,255,.06);
-  cursor:default;
-  transition:all .2s;
-  position:relative;
-}
-.tracker-dot.done { background:var(--gold); }
-.tracker-dot.partial { background:rgba(201,169,110,.35); }
-.tracker-dot.today { box-shadow:0 0 0 2px var(--gold); }
+/* REVISÃO */
+.revisao-card{background:var(--card);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
+.revisao-header{background:var(--black);padding:14px 16px}
+.revisao-header-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text)}
+.revisao-header-sub{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-top:2px}
+.revisao-item{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.04)}
+.revisao-item:last-child{border-bottom:none}
+.revisao-q{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--gold-light);margin-bottom:8px}
+.revisao-input{width:100%;background:var(--card2);border:1px solid rgba(255,255,255,.06);color:var(--text);padding:12px;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;resize:none;outline:none;min-height:70px;line-height:1.6;transition:border-color .2s}
+.revisao-input:focus{border-color:rgba(201,169,110,.3)}
+.revisao-input::placeholder{color:rgba(255,255,255,.15)}
 
-.fase-card { background:var(--card); border-radius:var(--radius); padding:16px; margin-bottom:12px; }
-.fase-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-.fase-name { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
-.fase-dates { font-size:11px; color:var(--text2); }
-.fase-progress { height:4px; background:rgba(255,255,255,.08); border-radius:2px; }
-.fase-progress-fill { height:100%; background:var(--gold); border-radius:2px; transition:width .4s; }
-.fase-desc { font-size:12px; color:var(--text2); margin-top:8px; line-height:1.5; }
+.como-estou{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap}
+.como-btn{flex:1;min-width:70px;padding:10px 6px;background:var(--card2);border:1.5px solid rgba(255,255,255,.08);color:var(--text2);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer;text-align:center;transition:all .15s}
+.como-btn.selected{background:rgba(201,169,110,.15);border-color:var(--gold);color:var(--gold)}
 
-/* ===== REVISÃO TAB ===== */
-.revisao-card { background:var(--card); border-radius:var(--radius); overflow:hidden; margin-bottom:16px; }
-.revisao-header { background:var(--black); padding:14px 16px; }
-.revisao-header-title { font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--text); }
-.revisao-header-sub { font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-top:2px; }
-.revisao-item { padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.04); }
-.revisao-item:last-child { border-bottom:none; }
-.revisao-q { font-size:11px; font-weight:600; letter-spacing:1px; color:var(--gold-light); margin-bottom:8px; }
-.revisao-input {
-  width:100%; background:var(--card2); border:1px solid rgba(255,255,255,.06);
-  color:var(--text); padding:12px; border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif; font-size:13px; resize:none;
-  outline:none; min-height:70px; line-height:1.6; transition:border-color .2s;
-}
-.revisao-input:focus { border-color:rgba(201,169,110,.3); }
-.revisao-input::placeholder { color:rgba(255,255,255,.15); }
+.palavra-input{width:100%;background:var(--card2);border:1px solid rgba(255,255,255,.06);color:var(--gold);padding:14px 16px;border-radius:var(--radius-sm);font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;outline:none;text-align:center;letter-spacing:2px;transition:border-color .2s}
+.palavra-input:focus{border-color:rgba(201,169,110,.3)}
+.palavra-input::placeholder{color:rgba(201,169,110,.2)}
 
-.como-estou { display:flex; gap:8px; margin-top:4px; flex-wrap:wrap; }
-.como-btn {
-  flex:1; min-width:80px; padding:10px 6px;
-  background:var(--card2); border:1.5px solid rgba(255,255,255,.08);
-  color:var(--text2); border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif; font-size:11px; cursor:pointer;
-  text-align:center; transition:all .2s;
-}
-.como-btn.selected { background:rgba(201,169,110,.15); border-color:var(--gold); color:var(--gold); }
+/* DIAGNÓSTICO E PLANO */
+.diag-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.diag-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);margin-bottom:10px}
+.diag-line{font-size:13px;color:var(--text2);line-height:1.7;padding:4px 0;display:flex;justify-content:space-between;gap:10px}
+.diag-line strong{color:var(--text)}
+.diag-msg{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--text);line-height:1.6;margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,169,110,.15)}
 
-.palavra-input {
-  width:100%; background:var(--card2); border:1px solid rgba(255,255,255,.06);
-  color:var(--gold); padding:14px 16px; border-radius:var(--radius-sm);
-  font-family:'Cormorant Garamond',serif; font-size:22px; font-style:italic;
-  outline:none; text-align:center; letter-spacing:2px; transition:border-color .2s;
-}
-.palavra-input:focus { border-color:rgba(201,169,110,.3); }
-.palavra-input::placeholder { color:rgba(201,169,110,.2); }
+/* METAS */
+.meta-item-card{background:var(--card);border-radius:var(--radius-sm);padding:13px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:background .15s}
+.meta-item-card:active{background:var(--card2)}
+.meta-cb{width:22px;height:22px;border-radius:5px;border:2px solid rgba(201,169,110,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px}
+.meta-cb.done{background:var(--gold);border-color:var(--gold)}
+.meta-cb.done::after{content:'✓';font-size:12px;color:var(--black);font-weight:700}
+.meta-text{font-size:14px;color:var(--text);line-height:1.4;flex:1;word-break:break-word}
+.meta-text.done{text-decoration:line-through;color:var(--text2)}
+.add-meta{display:flex;gap:8px;margin-top:8px}
+.add-meta-input{flex:1;background:var(--card);border:1px solid rgba(201,169,110,.15);color:var(--text);padding:12px 14px;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;outline:none}
+.add-meta-input::placeholder{color:rgba(255,255,255,.2)}
+.add-btn{background:rgba(201,169,110,.15);border:1px solid rgba(201,169,110,.3);color:var(--gold);padding:12px 16px;border-radius:var(--radius-sm);font-size:20px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.add-btn:active{background:rgba(201,169,110,.25)}
 
-/* ===== METAS TAB ===== */
-.meta-categoria { margin-bottom:20px; }
-.meta-cat-title { font-size:9px; font-weight:700; letter-spacing:4px; color:var(--gold); text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-.meta-cat-title::after { content:''; flex:1; height:1px; background:rgba(201,169,110,.15); }
-.meta-item-card {
-  background:var(--card); border-radius:var(--radius-sm);
-  padding:14px 16px; margin-bottom:8px;
-  display:flex; align-items:flex-start; gap:12px;
-  cursor:pointer; transition:background .15s;
-}
-.meta-item-card:active { background:var(--card2); }
-.meta-cb {
-  width:22px; height:22px; border-radius:5px;
-  border:2px solid rgba(201,169,110,.3); flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  transition:all .2s; margin-top:1px;
-}
-.meta-cb.done { background:var(--gold); border-color:var(--gold); }
-.meta-cb.done::after { content:'✓'; font-size:12px; color:var(--black); font-weight:700; }
-.meta-text { font-size:14px; color:var(--text); line-height:1.4; flex:1; }
-.meta-text.done { text-decoration:line-through; color:var(--text2); }
-.meta-prazo { font-size:10px; color:var(--gold-dark); margin-top:3px; }
-.add-meta { display:flex; gap:8px; margin-top:8px; }
-.add-meta-input {
-  flex:1; background:var(--card); border:1px solid rgba(201,169,110,.15);
-  color:var(--text); padding:12px 14px; border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif; font-size:13px; outline:none;
-}
-.add-meta-input::placeholder { color:rgba(255,255,255,.2); }
-.add-btn {
-  background:rgba(201,169,110,.15); border:1px solid rgba(201,169,110,.3);
-  color:var(--gold); padding:12px 16px; border-radius:var(--radius-sm);
-  font-size:20px; cursor:pointer; font-family:'DM Sans',sans-serif;
-  transition:all .2s;
-}
-.add-btn:active { background:rgba(201,169,110,.25); }
+/* CONFIG */
+.config-btn-row{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.config-btn{background:var(--card);border:1px solid rgba(201,169,110,.2);color:var(--text);padding:14px 16px;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:all .15s}
+.config-btn:active{background:var(--card2)}
+.config-btn-icon{font-size:18px}
+.config-btn.danger{color:var(--red-soft);border-color:rgba(139,32,32,.3)}
+
+/* CARTA FINAL / DIA 99 */
+.carta-card{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.carta-intro{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--text2);line-height:1.7;margin-bottom:14px}
+.carta-textarea{width:100%;background:var(--card2);border:1px solid rgba(201,169,110,.15);color:var(--text);padding:14px;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;outline:none;min-height:200px;line-height:1.7;transition:border-color .2s}
+.carta-textarea:focus{border-color:rgba(201,169,110,.3)}
+.transformacao-card{background:linear-gradient(135deg,rgba(201,169,110,.18),rgba(201,169,110,.04));border:1px solid rgba(201,169,110,.35);border-radius:var(--radius);padding:20px;margin-bottom:16px;text-align:center}
+.transformacao-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);margin-bottom:10px}
+.transformacao-text{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:14px}
+.transformacao-stat{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--text2);border-top:1px solid rgba(201,169,110,.15)}
+.transformacao-stat strong{color:var(--gold)}
 
 /* SAVE INDICATOR */
-.save-indicator {
-  position:fixed; top:16px; right:16px;
-  background:rgba(45,106,79,.9);
-  color:white; padding:6px 12px;
-  border-radius:20px; font-size:11px;
-  opacity:0; transition:opacity .3s;
-  z-index:200; pointer-events:none;
-}
-.save-indicator.show { opacity:1; }
-
-/* ANTIVISÃO CARD */
-.vision-card { background:var(--black); border:1px solid rgba(201,169,110,.15); border-radius:var(--radius); padding:20px; margin-bottom:16px; }
-.vision-label { font-size:9px; font-weight:700; letter-spacing:4px; color:var(--gold); text-transform:uppercase; margin-bottom:8px; }
-.vision-text { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:var(--text2); line-height:1.7; }
-
-/* DOMINGO ESPECIAL */
-.domingo-badge {
-  background:linear-gradient(135deg, rgba(201,169,110,.2), rgba(201,169,110,.05));
-  border:1px solid rgba(201,169,110,.3);
-  border-radius:var(--radius);
-  padding:16px;
-  text-align:center;
-  margin-bottom:16px;
-}
-.domingo-badge-icon { font-size:28px; margin-bottom:6px; }
-.domingo-badge-text { font-size:12px; color:var(--gold); font-weight:500; letter-spacing:1px; }
-
-/* SCROLL SMOOTH */
-.app-body { scroll-behavior:smooth; }
-
-/* LOADING */
-.loading { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--black); }
-.loading-dot { width:8px; height:8px; background:var(--gold); border-radius:50%; margin:0 4px; animation:bounce .6s ease infinite; }
-.loading-dot:nth-child(2) { animation-delay:.1s; }
-.loading-dot:nth-child(3) { animation-delay:.2s; }
-@keyframes bounce { 0%,60%,100%{transform:translateY(0);} 30%{transform:translateY(-10px);} }
-
-/* CARTA FINAL */
-.carta-card { background:var(--card); border-radius:var(--radius); padding:20px; margin-bottom:16px; }
-.carta-intro { font-family:'Cormorant Garamond',serif; font-size:14px; font-style:italic; color:var(--text2); line-height:1.7; margin-bottom:16px; }
-.carta-textarea {
-  width:100%; background:var(--card2); border:1px solid rgba(201,169,110,.15);
-  color:var(--text); padding:14px; border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif; font-size:14px; resize:none;
-  outline:none; min-height:200px; line-height:1.7; transition:border-color .2s;
-}
-.carta-textarea:focus { border-color:rgba(201,169,110,.3); }
-.carta-textarea::placeholder { color:rgba(255,255,255,.15); }
-
-/* ANTIVISÃO setup */
-.antivisao-box { background:rgba(139,32,32,.1); border:1px solid rgba(139,32,32,.3); border-radius:var(--radius-sm); padding:12px; margin-bottom:8px; }
-.antivisao-label { font-size:9px; font-weight:700; letter-spacing:3px; color:#cd6666; text-transform:uppercase; margin-bottom:6px; }
-.visao-box-setup { background:rgba(201,169,110,.08); border:1px solid rgba(201,169,110,.2); border-radius:var(--radius-sm); padding:12px; margin-bottom:8px; }
-.visao-label-setup { font-size:9px; font-weight:700; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
+.save-indicator{position:fixed;top:max(14px,env(safe-area-inset-top));right:14px;background:rgba(45,106,79,.92);color:#fff;padding:6px 12px;border-radius:20px;font-size:11px;opacity:0;transition:opacity .3s;z-index:200;pointer-events:none}
+.save-indicator.show{opacity:1}
 
 /* HELPERS */
-.mt8 { margin-top:8px; }
-.mt16 { margin-top:16px; }
-.mb8 { margin-bottom:8px; }
-.gold-text { color:var(--gold); }
-.small-text { font-size:12px; color:var(--text2); line-height:1.6; }
-.center { text-align:center; }
-.gap8 { gap:8px; }
-.flex { display:flex; }
-.align-center { align-items:center; }
-.justify-between { justify-content:space-between; }
+.mt8{margin-top:8px}.mt16{margin-top:16px}.mb8{margin-bottom:8px}.mb16{margin-bottom:16px}
+.gold-text{color:var(--gold)}
+.small-text{font-size:12px;color:var(--text2);line-height:1.6}
+.center{text-align:center}
+
+/* PRINT */
+@media print{
+  body{background:#fff;color:#000}
+  .bottom-nav,.app-header,.save-indicator,.config-btn-row,#cfgBackBtn{display:none!important}
+  .tab-content{display:block!important;padding:0;page-break-after:always}
+  .card,.frase-card,.pilares-card,.freq-card,.grat-card,.notes-card,.decisao-card,
+  .resumo-card,.diag-card,.painel-card,.stat-card,.tracker-card,.fase-card,
+  .revisao-card,.meta-item-card,.transformacao-card{background:#fff!important;color:#000!important;border:1px solid #ccc!important;page-break-inside:avoid}
+  .gold-text,.section-title,.stat-num,.diag-title,.resumo-title{color:#8B6914!important}
+  *{color:#000!important;background:transparent!important}
+}
+
+/* RESPONSIVE TWEAKS */
+@media(max-width:340px){
+  .splash-title{font-size:78px}
+  .app-day-num{font-size:34px}
+  .freq-btn{font-size:14px;height:40px}
+}
 </style>
 </head>
 <body>
 
-<!-- SAVE INDICATOR -->
 <div class="save-indicator" id="saveIndicator">✓ Salvo</div>
 
-<!-- SPLASH -->
+<!-- ====== SPLASH ====== -->
 <div class="screen active" id="splash">
-  <div class="splash-content">
-    <div class="splash-tag">Planner Pessoal e Estratégico</div>
+  <div class="splash-wrap">
+    <div class="splash-tag">Planner Pessoal · 99 Dias</div>
     <div class="splash-title">99</div>
     <div class="splash-sub">Dias</div>
     <div class="splash-divider"></div>
-    <div class="splash-phrase">"Se der medo, vai com medo mesmo.<br>Seja forte e corajosa."<br><br>— Núbia Citty</div>
-    <button class="btn-primary" onclick="iniciarJornada()">Começar minha jornada</button>
-    <button class="btn-secondary" onclick="continuarJornada()">Já tenho um planner</button>
-    <button class="btn-secondary" onclick="recomecarDoZero()" style="border-color:rgba(139,32,32,.4); color:#cd6666;">Recomeçar do zero</button>
+    <div class="splash-promise">"99 dias para voltar para si, organizar sua rotina e executar com mais coragem."</div>
+    <div class="splash-author">— Núbia Citty</div>
+
+    <div class="splash-bullets">
+      <div class="splash-bullet">Rotina diária com 5 pilares — sem teoria, só execução.</div>
+      <div class="splash-bullet">Revisão semanal e diagnóstico automático do seu desempenho.</div>
+      <div class="splash-bullet">Plano da próxima semana feito a partir das suas respostas.</div>
+      <div class="splash-bullet">Funciona 100% offline. Seus dados ficam só no seu celular.</div>
+      <div class="splash-bullet">Exporta em PDF e tem backup em um clique.</div>
+    </div>
+
+    <div class="splash-actions">
+      <button class="btn-primary" onclick="iniciarJornada()">Começar minha jornada</button>
+      <button class="btn-secondary" onclick="continuarJornada()">Continuar de onde parei</button>
+      <div class="splash-info-links">
+        <a onclick="abrirInfo('como')">Como usar</a>
+        <a onclick="abrirInfo('metodo')">O método 99 dias</a>
+        <a onclick="abrirInfo('aviso')">Aviso importante</a>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ONBOARDING -->
+<!-- ====== INFO ====== -->
+<div class="screen" id="infoPage">
+  <div class="info-header">
+    <button class="info-back" onclick="fecharInfo()">←</button>
+    <div class="info-title" id="infoTitle">Como usar</div>
+  </div>
+  <div class="info-body" id="infoBody"></div>
+</div>
+
+<!-- ====== ONBOARDING ====== -->
 <div class="screen" id="onboarding">
-  <!-- STEP 1: Nome -->
-  <div id="step1" class="screen active" style="background:var(--dark);">
+  <div id="step1" class="screen active" style="background:var(--dark)">
     <div class="onboard-header">
       <div class="onboard-step">Passo 1 de 5</div>
       <div class="onboard-title">Quem é você?</div>
@@ -539,17 +372,15 @@ body {
     <div class="onboard-body">
       <p class="onboard-desc">Antes de começar, preciso te conhecer. Isso personaliza toda a sua experiência nos próximos 99 dias.</p>
       <label class="field-label">Seu nome</label>
-      <input type="text" class="field-input" id="inputNome" placeholder="Como você quer ser chamada?" />
+      <input type="text" class="field-input" id="inputNome" placeholder="Como você quer ser chamada?">
       <label class="field-label">Data de início</label>
-      <input type="date" class="field-input" id="inputDataInicio" />
+      <input type="date" class="field-input" id="inputDataInicio">
+      <p class="small-text">Pode escolher hoje ou uma data próxima. A contagem vai do Dia 1 até o Dia 99.</p>
     </div>
-    <div class="onboard-footer">
-      <button class="btn-primary" onclick="step1Next()">Continuar</button>
-    </div>
+    <div class="onboard-footer"><button class="btn-primary" onclick="step1Next()">Continuar</button></div>
   </div>
 
-  <!-- STEP 2: Meta e Anti-visão -->
-  <div id="step2" class="screen" style="background:var(--dark);">
+  <div id="step2" class="screen" style="background:var(--dark)">
     <div class="onboard-header">
       <div class="onboard-step">Passo 2 de 5</div>
       <div class="onboard-title">Sua visão</div>
@@ -557,190 +388,130 @@ body {
     </div>
     <div class="onboard-body">
       <p class="onboard-desc">Seja honesta. Sem filtro. O que você realmente quer e o que você se recusa a aceitar.</p>
-      
       <div class="antivisao-box">
         <div class="antivisao-label">Anti-visão · O que você RECUSA</div>
-        <textarea class="field-textarea" id="inputAntivisao" placeholder="Escreva a vida que você não quer. Em detalhes. Até doer." style="background:transparent;border:none;padding:0;margin:0;"></textarea>
+        <textarea class="field-textarea" id="inputAntivisao" placeholder="A vida que você não quer. Em detalhes. Até doer." style="background:transparent;border:none;padding:0;margin:0"></textarea>
       </div>
-      
       <div class="visao-box-setup">
         <div class="visao-label-setup">Visão · O que já é seu e está chegando</div>
-        <textarea class="field-textarea" id="inputVisao" placeholder="Escreva a vida que você está construindo. Como você acorda, como se sente, o que tem." style="background:transparent;border:none;padding:0;margin:0;"></textarea>
+        <textarea class="field-textarea" id="inputVisao" placeholder="A vida que você está construindo. Como acorda, como se sente, o que tem." style="background:transparent;border:none;padding:0;margin:0"></textarea>
       </div>
-
       <label class="field-label mt8">Sua meta principal nesses 99 dias</label>
-      <input type="text" class="field-input" id="inputMeta" placeholder="Ex: Pagar o casamento, lançar o produto..." />
-      
+      <input type="text" class="field-input" id="inputMeta" placeholder="Ex: Pagar o casamento, lançar o produto...">
       <label class="field-label">Sua frase âncora</label>
-      <input type="text" class="field-input" id="inputFrase" placeholder="A frase que te ancora quando travar" />
+      <input type="text" class="field-input" id="inputFrase" placeholder="A frase que te ancora quando travar">
     </div>
-    <div class="onboard-footer">
-      <button class="btn-primary" onclick="step2Next()">Continuar</button>
-    </div>
+    <div class="onboard-footer"><button class="btn-primary" onclick="step2Next()">Continuar</button></div>
   </div>
 
-  <!-- STEP 3: Pilares -->
-  <div id="step3" class="screen" style="background:var(--dark);">
+  <div id="step3" class="screen" style="background:var(--dark)">
     <div class="onboard-header">
       <div class="onboard-step">Passo 3 de 5</div>
       <div class="onboard-title">Seus pilares diários</div>
       <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
     </div>
     <div class="onboard-body">
-      <p class="onboard-desc">Defina o horário exato de cada pilar. Sem horário definido, vira intenção, não hábito.</p>
-      
-      <div class="pilar-setup">
-        <div class="pilar-setup-name">🙏 Espiritualidade</div>
-        <div class="pilar-setup-desc">Oração ou silêncio intencional. Antes do celular. Todo dia.</div>
-        <div class="pilar-horario"><label>Horário:</label><input type="time" id="h1" value="06:00"></div>
-      </div>
-      
-      <div class="pilar-setup">
-        <div class="pilar-setup-name">💪 Movimento</div>
-        <div class="pilar-setup-desc">Academia, caminhada, pilates ou yoga. Nos dias definidos.</div>
-        <div class="pilar-horario"><label>Horário:</label><input type="time" id="h2" value="10:00"></div>
-      </div>
-      
-      <div class="pilar-setup">
-        <div class="pilar-setup-name">🥗 Alimentação</div>
-        <div class="pilar-setup-desc">Comer com consciência. Sem automatismo de ansiedade.</div>
-        <div class="pilar-horario"><label>Horário:</label><input type="time" id="h3" value="12:00"></div>
-      </div>
-      
-      <div class="pilar-setup">
-        <div class="pilar-setup-name">⭐ Decisão corajosa</div>
-        <div class="pilar-setup-desc">Uma micro decisão alinhada com quem você quer ser.</div>
-        <div class="pilar-horario"><label>Horário:</label><input type="time" id="h4" value="09:00"></div>
-      </div>
-      
-      <div class="pilar-setup">
-        <div class="pilar-setup-name">🌙 Visão noturna</div>
-        <div class="pilar-setup-desc">3 minutos antes de dormir visualizando sua visão real.</div>
-        <div class="pilar-horario"><label>Horário:</label><input type="time" id="h5" value="22:00"></div>
-      </div>
+      <p class="onboard-desc">Defina o horário de cada pilar. Sem horário, vira intenção. Com horário, vira hábito.</p>
+      <div class="pilar-setup"><div class="pilar-setup-name">🙏 Espiritualidade</div><div class="pilar-setup-desc">Oração ou silêncio. Antes do celular.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h1" value="06:00"></div></div>
+      <div class="pilar-setup"><div class="pilar-setup-name">💪 Movimento</div><div class="pilar-setup-desc">Academia, caminhada, pilates ou yoga.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h2" value="10:00"></div></div>
+      <div class="pilar-setup"><div class="pilar-setup-name">🥗 Alimentação</div><div class="pilar-setup-desc">Comer com consciência. Sem automatismo.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h3" value="12:00"></div></div>
+      <div class="pilar-setup"><div class="pilar-setup-name">⭐ Decisão corajosa</div><div class="pilar-setup-desc">Uma micro decisão alinhada com a sua visão.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h4" value="09:00"></div></div>
+      <div class="pilar-setup"><div class="pilar-setup-name">🌙 Visão noturna</div><div class="pilar-setup-desc">3 minutos antes de dormir, vendo a sua visão.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h5" value="22:00"></div></div>
     </div>
-    <div class="onboard-footer">
-      <button class="btn-primary" onclick="step3Next()">Continuar</button>
-    </div>
+    <div class="onboard-footer"><button class="btn-primary" onclick="step3Next()">Continuar</button></div>
   </div>
 
-  <!-- STEP 4: Regras -->
-  <div id="step4" class="screen" style="background:var(--dark);">
+  <div id="step4" class="screen" style="background:var(--dark)">
     <div class="onboard-header">
       <div class="onboard-step">Passo 4 de 5</div>
       <div class="onboard-title">Suas regras inegociáveis</div>
       <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
     </div>
     <div class="onboard-body">
-      <p class="onboard-desc">Essas regras não se negociam com ninguém. Nem com você mesma. Escreva as suas.</p>
-      <label class="field-label">Regra 1</label>
-      <input type="text" class="field-input" id="r1" placeholder="Ex: Zero parcela nova no cartão" />
-      <label class="field-label">Regra 2</label>
-      <input type="text" class="field-input" id="r2" placeholder="Ex: 20 páginas de leitura por dia" />
-      <label class="field-label">Regra 3</label>
-      <input type="text" class="field-input" id="r3" placeholder="Ex: Sem rolagem de rede social antes das 9h" />
-      <label class="field-label">Regra 4</label>
-      <input type="text" class="field-input" id="r4" placeholder="Ex: Pro-labore fixo, sem retirada avulsa" />
-      <label class="field-label">Regra 5</label>
-      <input type="text" class="field-input" id="r5" placeholder="Ex: Academia seg, qua e sex sem negociação" />
-      <label class="field-label">Regra 6</label>
-      <input type="text" class="field-input" id="r6" placeholder="Sua 6ª regra..." />
+      <p class="onboard-desc">Essas regras não se negociam. Nem com você mesma. Escreva as suas.</p>
+      <label class="field-label">Regra 1</label><input type="text" class="field-input" id="r1" placeholder="Ex: Zero parcela nova no cartão">
+      <label class="field-label">Regra 2</label><input type="text" class="field-input" id="r2" placeholder="Ex: 20 páginas de leitura por dia">
+      <label class="field-label">Regra 3</label><input type="text" class="field-input" id="r3" placeholder="Ex: Sem rede social antes das 9h">
+      <label class="field-label">Regra 4</label><input type="text" class="field-input" id="r4" placeholder="Ex: Pro-labore fixo, sem retirada avulsa">
+      <label class="field-label">Regra 5</label><input type="text" class="field-input" id="r5" placeholder="Ex: Academia seg/qua/sex sem negociação">
+      <label class="field-label">Regra 6</label><input type="text" class="field-input" id="r6" placeholder="Sua 6ª regra (opcional)">
     </div>
-    <div class="onboard-footer">
-      <button class="btn-primary" onclick="step4Next()">Continuar</button>
-    </div>
+    <div class="onboard-footer"><button class="btn-primary" onclick="step4Next()">Continuar</button></div>
   </div>
 
-  <!-- STEP 5: Metas -->
-  <div id="step5" class="screen" style="background:var(--dark);">
+  <div id="step5" class="screen" style="background:var(--dark)">
     <div class="onboard-header">
       <div class="onboard-step">Passo 5 de 5</div>
       <div class="onboard-title">Suas metas</div>
       <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
     </div>
     <div class="onboard-body">
-      <p class="onboard-desc">Coloque tudo. Sem filtrar. Sem suavizar. Financeiro, corpo, carreira, família. O que você quer de verdade.</p>
-      <label class="field-label">Meta 1 (mais importante)</label>
-      <input type="text" class="field-input" id="m1" placeholder="Ex: Pagar R$ 95.000 do casamento" />
-      <label class="field-label">Meta 2</label>
-      <input type="text" class="field-input" id="m2" placeholder="" />
-      <label class="field-label">Meta 3</label>
-      <input type="text" class="field-input" id="m3" placeholder="" />
-      <label class="field-label">Meta 4</label>
-      <input type="text" class="field-input" id="m4" placeholder="" />
-      <label class="field-label">Meta 5</label>
-      <input type="text" class="field-input" id="m5" placeholder="" />
-      <label class="field-label">Meta 6</label>
-      <input type="text" class="field-input" id="m6" placeholder="" />
+      <p class="onboard-desc">Coloque tudo. Sem suavizar. Financeiro, corpo, carreira, família. O que você quer de verdade.</p>
+      <label class="field-label">Meta 1 (mais importante)</label><input type="text" class="field-input" id="m1" placeholder="Ex: Pagar R$ 95.000 do casamento">
+      <label class="field-label">Meta 2</label><input type="text" class="field-input" id="m2">
+      <label class="field-label">Meta 3</label><input type="text" class="field-input" id="m3">
+      <label class="field-label">Meta 4</label><input type="text" class="field-input" id="m4">
+      <label class="field-label">Meta 5</label><input type="text" class="field-input" id="m5">
+      <label class="field-label">Meta 6</label><input type="text" class="field-input" id="m6">
     </div>
-    <div class="onboard-footer">
-      <button class="btn-primary" onclick="finalizarOnboarding()">Começar meus 99 dias 🚀</button>
-    </div>
+    <div class="onboard-footer"><button class="btn-primary" onclick="finalizarOnboarding()">Começar meus 99 dias →</button></div>
   </div>
 </div>
 
-<!-- APP PRINCIPAL -->
+<!-- ====== APP ====== -->
 <div class="screen" id="app">
-  <!-- HEADER -->
   <div class="app-header">
     <div class="app-header-top">
-      <div class="app-day-info">
+      <div>
         <div class="app-day-label">Dia</div>
         <div class="app-day-num" id="headerDayNum">01</div>
-        <div class="app-date" id="headerDate">Segunda, 1 de Junho</div>
+        <div class="app-date" id="headerDate">—</div>
       </div>
       <div class="app-right">
-        <div class="app-name" id="headerName">Seu Nome</div>
+        <div class="app-name" id="headerName">—</div>
         <div class="app-fase" id="headerFase">Fase 1 · Reinstalar</div>
+        <div class="app-pct" id="headerPct">1%</div>
       </div>
     </div>
-    <div class="progress-99">
-      <div class="progress-99-bar">
-        <div class="progress-99-fill" id="progressFill" style="width:1%"></div>
-      </div>
-      <div class="progress-99-label">
-        <span>Início</span>
-        <span id="progressLabel">1 de 99</span>
-        <span>Dia 99</span>
-      </div>
-    </div>
+    <div class="progress-99-bar"><div class="progress-99-fill" id="progressFill" style="width:1%"></div></div>
+    <div class="progress-99-label"><span>Início</span><span id="progressLabel">1 de 99</span><span>Dia 99</span></div>
   </div>
 
-  <!-- BODY -->
   <div class="app-body">
     <!-- HOJE -->
     <div class="tab-content active" id="tabHoje">
-      
-      <!-- CARD NOTIFICAÇÕES -->
-      <div id="notifCard" style="display:none; background:linear-gradient(135deg,rgba(201,169,110,.15),rgba(201,169,110,.05)); border:1px solid rgba(201,169,110,.3); border-radius:12px; padding:16px; margin-bottom:16px; text-align:center;">
-        <div style="font-size:24px; margin-bottom:8px;">🔔</div>
-        <div style="font-family:'Cormorant Garamond',serif; font-size:16px; color:#C9A96E; margin-bottom:6px;">Quer que eu te lembre todo dia?</div>
-        <div style="font-size:12px; color:#9E9890; line-height:1.6; margin-bottom:14px;">Vou mandar lembretes nos horários dos seus pilares, avisar quando você não aparecer e mandar mensagens de mentor quando a preguiça bater.</div>
-        <button onclick="ativarNotificacoes()" style="background:#C9A96E; color:#0A0A0A; border:none; padding:12px 28px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; border-radius:8px; cursor:pointer; width:100%;">Sim, me lembra todo dia</button>
-        <button onclick="document.getElementById('notifCard').style.display='none'" style="background:transparent; color:#6A6560; border:none; padding:8px; font-size:11px; cursor:pointer; margin-top:6px; width:100%;">Agora não</button>
-      </div>
 
-      <div id="retornoCard" class="retorno-card" style="display:none;">
+      <div id="retornoCard" class="retorno-card" style="display:none">
         <div class="retorno-icon">🌅</div>
         <div class="retorno-title">Bem-vinda de volta</div>
-        <div class="retorno-text" id="retornoText">Você ficou alguns dias sem entrar. Sem culpa, sem drama. Continue de onde parou.</div>
+        <div class="retorno-text" id="retornoText"></div>
       </div>
 
       <div id="celebracaoCard" class="celebracao">
         <div class="celebracao-icon">✨</div>
-        <div class="celebracao-text" id="celebracaoText">Você completou o dia. Isso é tudo.</div>
+        <div class="celebracao-text" id="celebracaoText"></div>
       </div>
 
-      <div id="domingoBadge" class="domingo-badge" style="display:none;">
+      <div id="domingoBadge" class="domingo-badge" style="display:none">
         <div class="domingo-badge-icon">🔄</div>
         <div class="domingo-badge-text">Domingo · Dia de revisão semanal</div>
       </div>
 
-      <div class="frase-card">
-        <div class="frase-text" id="fraseDodia">"A consistência é mais poderosa que a intensidade."</div>
+      <!-- CHECK-IN MATINAL / NOTURNO -->
+      <div class="checkin-bar">
+        <div class="checkin-pill" id="checkinManha" onclick="toggleCheckin('manha')">
+          <div class="checkin-pill-icon">☀️</div>
+          <div class="checkin-pill-label">Check-in manhã</div>
+        </div>
+        <div class="checkin-pill" id="checkinNoite" onclick="toggleCheckin('noite')">
+          <div class="checkin-pill-icon">🌙</div>
+          <div class="checkin-pill-label">Fechamento noite</div>
+        </div>
       </div>
 
-      <div id="antivisaoCard" class="vision-card" style="display:none;">
+      <div class="frase-card"><div class="frase-text" id="fraseDoDia">""</div></div>
+
+      <div id="antivisaoCard" class="vision-card" style="display:none">
         <div class="vision-label">Sua anti-visão · O que você recusa</div>
         <div class="vision-text" id="antivisaoText"></div>
       </div>
@@ -751,7 +522,7 @@ body {
       <div class="section-title">Regras de hoje</div>
       <div class="pilares-card" id="regrasCard"></div>
 
-      <div class="section-title">Frequência de hoje</div>
+      <div class="section-title">Frequência</div>
       <div class="freq-card">
         <div class="freq-label">Como você está operando agora? 1 = medo · 5 = fé de construir</div>
         <div class="freq-slider" id="freqSlider">
@@ -775,43 +546,31 @@ body {
       <div class="agenda-card" id="agendaCard"></div>
 
       <div class="section-title">Intenção do dia</div>
-      <div class="notes-card">
-        <textarea class="notes-area" id="intencao" placeholder="O que você quer sentir ao final de hoje?" oninput="salvarDia()"></textarea>
-      </div>
+      <div class="notes-card"><textarea class="notes-area" id="intencao" placeholder="O que você quer sentir ao final de hoje?" oninput="salvarDia()"></textarea></div>
 
-      <div class="section-title">Notas · Pensamentos · Insights</div>
-      <div class="notes-card">
-        <textarea class="notes-area" id="notas" placeholder="Escreva livremente..." oninput="salvarDia()"></textarea>
-      </div>
+      <div class="section-title">Notas · Pensamentos</div>
+      <div class="notes-card"><textarea class="notes-area" id="notas" placeholder="Escreva livremente..." oninput="salvarDia()"></textarea></div>
 
-      <div class="section-title">Minha decisão corajosa hoje</div>
-      <div class="decisao-card">
-        <textarea class="decisao-input" id="decisao" placeholder="A decisão que tomei hoje, alinhada com quem quero ser..." oninput="salvarDia()"></textarea>
-      </div>
+      <div class="section-title">Decisão corajosa</div>
+      <div class="decisao-card"><textarea class="decisao-input" id="decisao" placeholder="A decisão que tomei hoje, alinhada com quem quero ser..." oninput="salvarDia()"></textarea></div>
 
-      <div style="height:8px;"></div>
+      <div class="section-title">Resumo automático do dia</div>
+      <div class="resumo-card" id="resumoCard"></div>
+
+      <div style="height:8px"></div>
     </div>
 
     <!-- PROGRESSO -->
     <div class="tab-content" id="tabProgresso">
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-num" id="statDiaAtual">1</div>
-          <div class="stat-label">Dia atual</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" id="statDiasCompletos">0</div>
-          <div class="stat-label">Dias completos</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" id="statFreqMedia">-</div>
-          <div class="stat-label">Frequência média</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" id="statRestam">99</div>
-          <div class="stat-label">Dias restantes</div>
-        </div>
+        <div class="stat-card"><div class="stat-num" id="statDiaAtual">1</div><div class="stat-label">Dia atual</div></div>
+        <div class="stat-card"><div class="stat-num" id="statPct">1%</div><div class="stat-label">Progresso</div></div>
+        <div class="stat-card"><div class="stat-num" id="statDiasCompletos">0</div><div class="stat-label">Dias completos</div></div>
+        <div class="stat-card"><div class="stat-num" id="statRestam">99</div><div class="stat-label">Dias restantes</div></div>
       </div>
+
+      <div class="section-title">Painel de desempenho</div>
+      <div class="painel-card" id="painelCard"></div>
 
       <div class="section-title">Seus 99 dias</div>
       <div class="tracker-card">
@@ -820,74 +579,45 @@ body {
       </div>
 
       <div class="section-title">Fases</div>
-      <div class="fase-card">
-        <div class="fase-header">
-          <div class="fase-name">Fase 1 · Reinstalar</div>
-          <div class="fase-dates">Dias 1–33</div>
-        </div>
-        <div class="fase-progress"><div class="fase-progress-fill" id="fase1Progress" style="width:0%"></div></div>
-        <div class="fase-desc">Parar de sangrar. Reinstalar os fundamentos. Sem base, qualquer crescimento desmorona.</div>
-      </div>
-      <div class="fase-card">
-        <div class="fase-header">
-          <div class="fase-name">Fase 2 · Gerar</div>
-          <div class="fase-dates">Dias 34–66</div>
-        </div>
-        <div class="fase-progress"><div class="fase-progress-fill" id="fase2Progress" style="width:0%"></div></div>
-        <div class="fase-desc">Frequência instalada. Resultado visível. Produto no ar. Corpo transformado.</div>
-      </div>
-      <div class="fase-card">
-        <div class="fase-header">
-          <div class="fase-name">Fase 3 · Colher</div>
-          <div class="fase-dates">Dias 67–99</div>
-        </div>
-        <div class="fase-progress"><div class="fase-progress-fill" id="fase3Progress" style="width:0%"></div></div>
-        <div class="fase-desc">Colher o que foi plantado. Consolidar. Chegar em outubro diferente.</div>
-      </div>
+      <div class="fase-card"><div class="fase-header"><div class="fase-name">Fase 1 · Reinstalar</div><div class="fase-dates">Dias 1–33</div></div><div class="fase-progress"><div class="fase-progress-fill" id="fase1Progress"></div></div><div class="fase-desc">Parar de sangrar. Reinstalar os fundamentos.</div></div>
+      <div class="fase-card"><div class="fase-header"><div class="fase-name">Fase 2 · Gerar</div><div class="fase-dates">Dias 34–66</div></div><div class="fase-progress"><div class="fase-progress-fill" id="fase2Progress"></div></div><div class="fase-desc">Frequência instalada. Resultado visível.</div></div>
+      <div class="fase-card"><div class="fase-header"><div class="fase-name">Fase 3 · Colher</div><div class="fase-dates">Dias 67–99</div></div><div class="fase-progress"><div class="fase-progress-fill" id="fase3Progress"></div></div><div class="fase-desc">Colher o que foi plantado. Consolidar.</div></div>
     </div>
 
     <!-- REVISÃO -->
     <div class="tab-content" id="tabRevisao">
+      <div class="section-title">Diagnóstico da semana</div>
+      <div class="diag-card" id="diagSemana"></div>
+
+      <div class="section-title">Plano da próxima semana</div>
+      <div class="diag-card" id="planoProxSemana"></div>
+
       <div class="revisao-card">
         <div class="revisao-header">
           <div class="revisao-header-title">Revisão Semanal</div>
           <div class="revisao-header-sub" id="revisaoSemanaLabel">Semana 1 · 15 minutos</div>
         </div>
-        <div class="revisao-item">
-          <div class="revisao-q">1. O que avancei nos 5 pilares essa semana?</div>
-          <textarea class="revisao-input" id="rev1" placeholder="Seja específica..." oninput="salvarRevisao()"></textarea>
-        </div>
-        <div class="revisao-item">
-          <div class="revisao-q">2. O que quebrou? Por quê? Sem julgamento.</div>
-          <textarea class="revisao-input" id="rev2" placeholder="Honestidade sem punição..." oninput="salvarRevisao()"></textarea>
-        </div>
-        <div class="revisao-item">
-          <div class="revisao-q">3. Qual foi minha decisão corajosa da semana?</div>
-          <textarea class="revisao-input" id="rev3" placeholder="" oninput="salvarRevisao()"></textarea>
-        </div>
-        <div class="revisao-item">
-          <div class="revisao-q">4. O que não aceito mais na próxima semana?</div>
-          <textarea class="revisao-input" id="rev4" placeholder="" oninput="salvarRevisao()"></textarea>
-        </div>
+        <div class="revisao-item"><div class="revisao-q">1. O que avancei nos 5 pilares essa semana?</div><textarea class="revisao-input" id="rev1" placeholder="Seja específica..." oninput="salvarRevisao()"></textarea></div>
+        <div class="revisao-item"><div class="revisao-q">2. O que quebrou? Por quê? Sem julgamento.</div><textarea class="revisao-input" id="rev2" placeholder="Honestidade sem punição..." oninput="salvarRevisao()"></textarea></div>
+        <div class="revisao-item"><div class="revisao-q">3. Qual foi minha decisão corajosa da semana?</div><textarea class="revisao-input" id="rev3" oninput="salvarRevisao()"></textarea></div>
+        <div class="revisao-item"><div class="revisao-q">4. O que não aceito mais na próxima semana?</div><textarea class="revisao-input" id="rev4" oninput="salvarRevisao()"></textarea></div>
         <div class="revisao-item">
           <div class="revisao-q">5. Como estou em relação à minha visão?</div>
           <div class="como-estou">
-            <button class="como-btn" onclick="setComoEstou('distante')">Distante</button>
-            <button class="como-btn" onclick="setComoEstou('chegando')">Chegando</button>
-            <button class="como-btn" onclick="setComoEstou('dentro')">Dentro dela</button>
-            <button class="como-btn" onclick="setComoEstou('sou')">Sou eu</button>
+            <button class="como-btn" data-val="distante" onclick="setComoEstou('distante')">Distante</button>
+            <button class="como-btn" data-val="chegando" onclick="setComoEstou('chegando')">Chegando</button>
+            <button class="como-btn" data-val="dentro" onclick="setComoEstou('dentro')">Dentro dela</button>
+            <button class="como-btn" data-val="sou" onclick="setComoEstou('sou')">Sou eu</button>
           </div>
         </div>
-        <div class="revisao-item">
-          <div class="revisao-q">Palavra da próxima semana</div>
-          <input type="text" class="palavra-input" id="palavraSemana" placeholder="Uma palavra..." oninput="salvarRevisao()">
-        </div>
+        <div class="revisao-item"><div class="revisao-q">Palavra da próxima semana</div><input type="text" class="palavra-input" id="palavraSemana" placeholder="Uma palavra..." oninput="salvarRevisao()"></div>
       </div>
 
-      <div id="cartaFinalSection" style="display:none;">
-        <div class="section-title">Dia 99 · A Carta</div>
+      <div id="cartaFinalSection" style="display:none">
+        <div class="section-title">Dia 99 · A transformação</div>
+        <div class="transformacao-card" id="transformacaoCard"></div>
         <div class="carta-card">
-          <div class="carta-intro">Você chegou até aqui. 99 dias. Escreve agora o que mudou, o que foi difícil, o que você descobriu e o que nunca mais aceita de volta.</div>
+          <div class="carta-intro">Você chegou até aqui. 99 dias. Escreve agora o que mudou, o que foi difícil, o que descobriu e o que nunca mais aceita de volta.</div>
           <textarea class="carta-textarea" id="cartaFinal" placeholder="Querida eu de 99 dias atrás..." oninput="salvarRevisao()"></textarea>
         </div>
       </div>
@@ -895,72 +625,68 @@ body {
 
     <!-- METAS -->
     <div class="tab-content" id="tabMetas">
-      <div id="fraseAncora" class="frase-card" style="display:none;">
-        <div class="vision-label" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Sua frase âncora</div>
+      <div id="fraseAncora" class="frase-card" style="display:none">
+        <div class="vision-label" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px">Sua frase âncora</div>
         <div class="frase-text" id="fraseAncoraText"></div>
       </div>
-
-      <div id="visaoCard" class="vision-card" style="display:none;">
+      <div id="visaoCard" class="vision-card" style="display:none">
         <div class="vision-label">Sua visão · O que já é seu</div>
         <div class="vision-text" id="visaoText"></div>
       </div>
-
       <div id="metasContainer"></div>
-
       <div class="section-title">Adicionar meta</div>
       <div class="add-meta">
         <input type="text" class="add-meta-input" id="novaMeta" placeholder="Nova meta...">
         <button class="add-btn" onclick="adicionarMeta()">+</button>
       </div>
     </div>
+
+    <!-- CONFIG -->
+    <div class="tab-content" id="tabConfig">
+      <div class="section-title">Configurações</div>
+      <div class="config-btn-row">
+        <button class="config-btn" onclick="window.print()"><span class="config-btn-icon">🖨️</span><span>Exportar / Imprimir como PDF</span></button>
+        <button class="config-btn" onclick="exportarBackup()"><span class="config-btn-icon">💾</span><span>Baixar backup (JSON)</span></button>
+        <button class="config-btn" onclick="document.getElementById('importInput').click()"><span class="config-btn-icon">📥</span><span>Restaurar backup</span></button>
+        <input type="file" id="importInput" accept="application/json" style="display:none" onchange="importarBackup(event)">
+        <button class="config-btn" onclick="abrirInfo('como')"><span class="config-btn-icon">📖</span><span>Como usar o planner</span></button>
+        <button class="config-btn" onclick="abrirInfo('metodo')"><span class="config-btn-icon">✦</span><span>O método 99 dias</span></button>
+        <button class="config-btn" onclick="abrirInfo('aviso')"><span class="config-btn-icon">⚠️</span><span>Aviso importante</span></button>
+        <button class="config-btn danger" onclick="resetarPlanner()"><span class="config-btn-icon">⟳</span><span>Resetar planner</span></button>
+      </div>
+      <p class="small-text center">Planner 99 Dias · Núbia Citty · v2.0</p>
+    </div>
   </div>
 
-  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
-    <button class="nav-item active" onclick="mudarTab('hoje', this)">
-      <span class="nav-icon">☀️</span>
-      <span class="nav-label">Hoje</span>
-    </button>
-    <button class="nav-item" onclick="mudarTab('progresso', this)">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">Progresso</span>
-    </button>
-    <button class="nav-item" onclick="mudarTab('revisao', this)">
-      <span class="nav-icon">🔄</span>
-      <span class="nav-label">Revisão</span>
-    </button>
-    <button class="nav-item" onclick="mudarTab('metas', this)">
-      <span class="nav-icon">🎯</span>
-      <span class="nav-label">Metas</span>
-    </button>
+    <button class="nav-item active" onclick="mudarTab('Hoje',this)"><span class="nav-icon">☀️</span><span class="nav-label">Hoje</span></button>
+    <button class="nav-item" onclick="mudarTab('Progresso',this)"><span class="nav-icon">📊</span><span class="nav-label">Progresso</span></button>
+    <button class="nav-item" onclick="mudarTab('Revisao',this)"><span class="nav-icon">🔄</span><span class="nav-label">Revisão</span></button>
+    <button class="nav-item" onclick="mudarTab('Metas',this)"><span class="nav-icon">🎯</span><span class="nav-label">Metas</span></button>
+    <button class="nav-item" onclick="mudarTab('Config',this)"><span class="nav-icon">⚙️</span><span class="nav-label">Config</span></button>
   </nav>
 </div>
 
 <script>
-// ===== STORAGE =====
+// ============ STATE ============
 let state = {};
+let saveTimer = null;
 
-function salvar() {
-  try {
-    localStorage.setItem('planner99', JSON.stringify(state));
-    mostrarSalvo();
-  } catch(e) {}
+function salvar(){
+  try{ localStorage.setItem('planner99', JSON.stringify(state)); mostrarSalvo(); }catch(e){}
 }
-
-function carregar() {
-  try {
-    const d = localStorage.getItem('planner99');
-    if (d) state = JSON.parse(d);
-  } catch(e) {}
+function carregar(){
+  try{ const d = localStorage.getItem('planner99'); if(d) state = JSON.parse(d); }catch(e){}
 }
-
-function mostrarSalvo() {
+function mostrarSalvo(){
   const el = document.getElementById('saveIndicator');
+  if(!el) return;
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 1500);
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>el.classList.remove('show'), 1200);
 }
 
-// ===== DADOS =====
+// ============ DADOS ============
 const frases = [
   "Se der medo, vai com medo mesmo. Seja forte e corajosa.",
   "A frequência muda quando o corpo se move.",
@@ -973,842 +699,680 @@ const frases = [
   "Sua visão não é sonho. É memória do futuro.",
   "Cada micro decisão hoje constrói a versão que você quer ser.",
   "Dinheiro com destino constrói. Sem destino, some.",
-  "Frequência alta não se sustenta no vácuo. Precisa de ritual diário.",
-  "Você já foi essa pessoa. Ela não foi embora. Está voltando.",
+  "Frequência alta precisa de ritual diário.",
+  "Você já foi essa pessoa. Ela está voltando.",
   "Seja forte e corajosa. Todos os dias.",
-];
-// Frases: Núbia Citty
-
-const celebracoes = [
-  "Você completou o dia. Isso é tudo.",
-  "Mais um dia de decisão. A frequência está mudando.",
-  "Seja forte e corajosa. Você está fazendo certo.",
-  "Cada dia completo é um tijolo. Continue.",
-  "A mulher da sua visão age exatamente assim.",
-  "Você provou para si mesma hoje. De novo.",
-  "Foi com medo mesmo. E foi. Isso é tudo.",
-  "Feito imperfeito vale mais que perfeito na gaveta.",
-  "Você não está construindo algo novo. Está voltando para quem sempre foi.",
 ];
 
 const diasSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
 const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
-// ===== UTILS =====
-function getDiaNum() {
-  if (!state.dataInicio) return 1;
-  // Parsear data como local para evitar problema de fuso horário
-  const partes = state.dataInicio.split('-');
-  const inicio = new Date(parseInt(partes[0]), parseInt(partes[1])-1, parseInt(partes[2]));
-  const hoje = new Date();
-  inicio.setHours(0,0,0,0);
-  hoje.setHours(0,0,0,0);
-  const diff = Math.floor((hoje - inicio) / 86400000) + 1;
+// ============ UTILS DE DATA (sem fuso) ============
+function parseDataInicio(){
+  if(!state.dataInicio) return new Date();
+  const p = state.dataInicio.split('-');
+  return new Date(parseInt(p[0]), parseInt(p[1])-1, parseInt(p[2]));
+}
+function hojeLocal(){
+  const h = new Date();
+  return new Date(h.getFullYear(), h.getMonth(), h.getDate());
+}
+function getDiaNum(){
+  if(!state.dataInicio) return 1;
+  const inicio = parseDataInicio();
+  const hoje = hojeLocal();
+  const diff = Math.floor((hoje - inicio)/86400000) + 1;
   return Math.max(1, Math.min(99, diff));
 }
-
-function getFase(dia) {
-  if (dia <= 33) return {num:1, nome:'Reinstalar'};
-  if (dia <= 66) return {num:2, nome:'Gerar'};
-  return {num:3, nome:'Colher'};
-}
-
-function getChaveDia(dia) { return `dia_${dia}`; }
-function getDadosDia(dia) { return state[getChaveDia(dia)] || {}; }
-
-function formatarData(d) {
-  return `${diasSemana[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]}`;
-}
-
-function parseDataInicio() {
-  const partes = state.dataInicio.split('-');
-  return new Date(parseInt(partes[0]), parseInt(partes[1])-1, parseInt(partes[2]));
-}
-
-function isAcademia(dia) {
-  if (!state.dataInicio) return false;
+function getDataDoDia(dia){
   const inicio = parseDataInicio();
-  const data = new Date(inicio);
-  data.setDate(inicio.getDate() + dia - 1);
-  const dow = data.getDay();
-  return dow === 1 || dow === 3 || dow === 5;
+  const d = new Date(inicio);
+  d.setDate(inicio.getDate() + dia - 1);
+  return d;
 }
+function formatarData(d){ return `${diasSemana[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]}`; }
+function getFase(dia){ if(dia<=33) return {num:1,nome:'Reinstalar'}; if(dia<=66) return {num:2,nome:'Gerar'}; return {num:3,nome:'Colher'}; }
+function isAcademia(dia){ const dow = getDataDoDia(dia).getDay(); return dow===1||dow===3||dow===5; }
+function isDomingo(dia){ return getDataDoDia(dia).getDay()===0; }
+function getSemana(dia){ return Math.ceil(dia/7); }
+function getChaveDia(dia){ return `dia_${dia}`; }
+function getDadosDia(dia){ return state[getChaveDia(dia)] || {}; }
 
-function isDomingo(dia) {
-  if (!state.dataInicio) return false;
-  const inicio = parseDataInicio();
-  const data = new Date(inicio);
-  data.setDate(inicio.getDate() + dia - 1);
-  return data.getDay() === 0;
-}
-
-function getSemana(dia) { return Math.ceil(dia / 7); }
-
-// ===== SPLASH =====
-function iniciarJornada() {
+// ============ SPLASH ============
+function iniciarJornada(){
   carregar();
-  if (state.configurado) {
-    mostrarApp();
-    return;
-  }
+  if(state.configurado){ mostrarApp(); return; }
   abrirOnboarding();
 }
-
-function abrirOnboarding() {
-  document.getElementById('inputDataInicio').value = '2026-06-02';
+function continuarJornada(){
+  carregar();
+  if(state.configurado) mostrarApp(); else abrirOnboarding();
+}
+function abrirOnboarding(){
+  const hoje = new Date();
+  const iso = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,'0')}-${String(hoje.getDate()).padStart(2,'0')}`;
+  document.getElementById('inputDataInicio').value = state.dataInicio || iso;
   document.getElementById('splash').classList.remove('active');
   document.getElementById('onboarding').classList.add('active');
-  document.querySelectorAll('#onboarding .screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#onboarding .screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('step1').classList.add('active');
 }
 
-function recomecarDoZero() {
-  if (!confirm('Tem certeza? Isso apaga tudo e recomeça do Dia 1. Sem volta.')) return;
-  try { localStorage.removeItem('planner99'); } catch(e) {}
-  state = {};
-  abrirOnboarding();
+// ============ INFO ============
+const INFO_CONTENT = {
+  como: { titulo:'Como usar este planner', html:`
+    <h3>1. Configure uma única vez</h3>
+    <p>Você passa pelo onboarding (5 passos rápidos) definindo nome, data de início, sua visão, anti-visão, pilares, regras e metas. Isso personaliza tudo.</p>
+    <h3>2. Use todos os dias</h3>
+    <p>Abra a aba <strong>Hoje</strong>. Marque os 5 pilares conforme cumprir. Defina sua frequência (1 a 5). Escreva 3 gratidões, sua intenção, sua decisão corajosa.</p>
+    <h3>3. Faça o check-in</h3>
+    <p>Marque <strong>Check-in manhã</strong> ao acordar e <strong>Fechamento noite</strong> antes de dormir. Esses dois cliques criam o ritual.</p>
+    <h3>4. Reveja toda semana</h3>
+    <p>Aos domingos, abra a aba <strong>Revisão</strong>. O planner gera automaticamente seu diagnóstico e o plano da próxima semana. Você só responde 5 perguntas curtas.</p>
+    <h3>5. Acompanhe o progresso</h3>
+    <p>Na aba <strong>Progresso</strong> você vê: dia atual, % concluído, sequência, melhor e pior pilar, frequência média.</p>
+    <h3>6. Backup e PDF</h3>
+    <p>Em <strong>Config</strong> você pode imprimir como PDF, baixar backup JSON e restaurar em outro celular.</p>
+  `},
+  metodo: { titulo:'O método dos 99 dias', html:`
+    <p>99 dias é tempo suficiente para reinstalar uma rotina, gerar resultado e colher. Curto o bastante para não desistir. Longo o bastante para transformar.</p>
+    <h3>Fase 1 · Reinstalar (Dias 1–33)</h3>
+    <p>Parar de sangrar. Voltar para o básico. Acordar cedo, comer com consciência, movimentar o corpo, decidir com coragem, dormir com intenção. Sem base, qualquer crescimento desmorona.</p>
+    <h3>Fase 2 · Gerar (Dias 34–66)</h3>
+    <p>Com a frequência instalada, você começa a gerar resultado real. Corpo mudando, finanças sob controle, projeto andando, decisões mais alinhadas.</p>
+    <h3>Fase 3 · Colher (Dias 67–99)</h3>
+    <p>Você consolida. Vê o que floresceu, o que precisa podar, o que leva para o próximo ciclo. Termina os 99 dias diferente de quem começou.</p>
+    <h3>Os 5 pilares</h3>
+    <ul>
+      <li><strong>Espiritualidade</strong> — antes do celular, antes de tudo.</li>
+      <li><strong>Movimento</strong> — o corpo parado é frequência baixa.</li>
+      <li><strong>Alimentação</strong> — comer com consciência, sem automatismo.</li>
+      <li><strong>Decisão corajosa</strong> — uma micro decisão alinhada por dia.</li>
+      <li><strong>Visão noturna</strong> — 3 minutos antes de dormir vendo sua visão.</li>
+    </ul>
+  `},
+  aviso: { titulo:'Aviso importante', html:`
+    <div class="info-warning"><p><strong>Este planner é uma ferramenta de organização pessoal.</strong> Não substitui acompanhamento médico, psicológico, nutricional, financeiro ou jurídico.</p></div>
+    <p>Se você está em sofrimento emocional, com sintomas físicos persistentes, com dívidas que comprometem sua subsistência ou em qualquer situação que peça apoio profissional, busque ajuda especializada.</p>
+    <p>O conteúdo deste planner é educativo e motivacional. As frases, sugestões e estrutura refletem a visão pessoal de Núbia Citty e não constituem orientação clínica, psicológica, nutricional ou financeira individualizada.</p>
+    <p>Seus dados ficam armazenados <strong>apenas no seu próprio dispositivo</strong> (localStorage do navegador). Não enviamos, vendemos ou compartilhamos nada. Faça backup periodicamente.</p>
+    <p class="small-text">© Núbia Citty · Planner 99 Dias · Uso pessoal.</p>
+  `},
+};
+function abrirInfo(key){
+  const info = INFO_CONTENT[key]; if(!info) return;
+  document.getElementById('infoTitle').textContent = info.titulo;
+  document.getElementById('infoBody').innerHTML = info.html;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('infoPage').classList.add('active');
+}
+function fecharInfo(){
+  document.getElementById('infoPage').classList.remove('active');
+  if(state.configurado){ document.getElementById('app').classList.add('active'); }
+  else { document.getElementById('splash').classList.add('active'); }
 }
 
-function continuarJornada() {
-  carregar();
-  if (state.configurado) {
-    mostrarApp();
-  } else {
-    iniciarJornada();
-  }
-}
-
-// ===== ONBOARDING =====
-function mudarStep(atual, proximo) {
-  document.getElementById(atual).classList.remove('active');
-  document.getElementById(proximo).classList.add('active');
-}
-
-function step1Next() {
+// ============ ONBOARDING ============
+function mudarStep(a,b){ document.getElementById(a).classList.remove('active'); document.getElementById(b).classList.add('active'); }
+function step1Next(){
   const nome = document.getElementById('inputNome').value.trim();
   const data = document.getElementById('inputDataInicio').value;
-  if (!nome) { alert('Digite seu nome para continuar.'); return; }
-  if (!data) { alert('Escolha a data de início.'); return; }
-  state.nome = nome;
-  state.dataInicio = data;
+  if(!nome){ alert('Digite seu nome para continuar.'); return; }
+  if(!data){ alert('Escolha a data de início.'); return; }
+  state.nome = nome; state.dataInicio = data;
   mudarStep('step1','step2');
 }
-
-function step2Next() {
+function step2Next(){
   state.antivisao = document.getElementById('inputAntivisao').value.trim();
   state.visao = document.getElementById('inputVisao').value.trim();
   state.metaPrincipal = document.getElementById('inputMeta').value.trim();
   state.fraseAncora = document.getElementById('inputFrase').value.trim();
   mudarStep('step2','step3');
 }
-
-function step3Next() {
+function step3Next(){
   state.pilares = [
-    {icon:'🙏', nome:'Espiritualidade', desc:'Antes do celular', horario: document.getElementById('h1').value},
-    {icon:'💪', nome:'Movimento', desc:'Academia ou atividade física', horario: document.getElementById('h2').value},
-    {icon:'🥗', nome:'Alimentação', desc:'Com consciência', horario: document.getElementById('h3').value},
-    {icon:'⭐', nome:'Decisão corajosa', desc:'Uma por dia', horario: document.getElementById('h4').value},
-    {icon:'🌙', nome:'Visão noturna', desc:'3 min antes de dormir', horario: document.getElementById('h5').value},
+    {icon:'🙏',nome:'Espiritualidade',desc:'Antes do celular',horario:document.getElementById('h1').value},
+    {icon:'💪',nome:'Movimento',desc:'Academia ou atividade física',horario:document.getElementById('h2').value},
+    {icon:'🥗',nome:'Alimentação',desc:'Com consciência',horario:document.getElementById('h3').value},
+    {icon:'⭐',nome:'Decisão corajosa',desc:'Uma por dia',horario:document.getElementById('h4').value},
+    {icon:'🌙',nome:'Visão noturna',desc:'3 min antes de dormir',horario:document.getElementById('h5').value},
   ];
   mudarStep('step3','step4');
 }
-
-function step4Next() {
-  state.regras = [
-    document.getElementById('r1').value.trim(),
-    document.getElementById('r2').value.trim(),
-    document.getElementById('r3').value.trim(),
-    document.getElementById('r4').value.trim(),
-    document.getElementById('r5').value.trim(),
-    document.getElementById('r6').value.trim(),
-  ].filter(r => r);
+function step4Next(){
+  state.regras = ['r1','r2','r3','r4','r5','r6'].map(id=>document.getElementById(id).value.trim()).filter(Boolean);
   mudarStep('step4','step5');
 }
-
-function finalizarOnboarding() {
-  state.metas = [
-    {texto: document.getElementById('m1').value.trim(), feita: false},
-    {texto: document.getElementById('m2').value.trim(), feita: false},
-    {texto: document.getElementById('m3').value.trim(), feita: false},
-    {texto: document.getElementById('m4').value.trim(), feita: false},
-    {texto: document.getElementById('m5').value.trim(), feita: false},
-    {texto: document.getElementById('m6').value.trim(), feita: false},
-  ].filter(m => m.texto);
-  
+function finalizarOnboarding(){
+  state.metas = ['m1','m2','m3','m4','m5','m6'].map(id=>({texto:document.getElementById(id).value.trim(),feita:false})).filter(m=>m.texto);
   state.configurado = true;
   state.ultimoAcesso = new Date().toISOString();
   salvar();
-  
   document.getElementById('onboarding').classList.remove('active');
   mostrarApp();
-  setTimeout(() => mostrarCardNotificacao(), 2000);
 }
 
-// ===== APP =====
-function mostrarApp() {
+// ============ APP ============
+function mostrarApp(){
   carregar();
-  document.getElementById('splash').classList.remove('active');
-  document.getElementById('onboarding').classList.remove('active');
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('app').classList.add('active');
-  
   atualizarHeader();
   renderizarHoje();
   renderizarProgresso();
   renderizarMetas();
+  renderizarRevisao();
   verificarRetorno();
-  verificarRetornoComNotificacao();
-  setTimeout(() => mostrarCardNotificacao(), 1500);
-  if (state.notificacoesAtivas) agendarNotificacoesDoDia();
-  
-  // Salvar acesso
   state.ultimoAcesso = new Date().toISOString();
   salvar();
 }
 
-function atualizarHeader() {
+function atualizarHeader(){
   const dia = getDiaNum();
   const fase = getFase(dia);
-  
+  const pct = Math.round((dia/99)*100);
   document.getElementById('headerDayNum').textContent = String(dia).padStart(2,'0');
-  document.getElementById('headerName').textContent = state.nome || 'Seu Planner';
+  document.getElementById('headerName').textContent = state.nome || '—';
   document.getElementById('headerFase').textContent = `Fase ${fase.num} · ${fase.nome}`;
-  
-  // Data
-  const inicio = parseDataInicio();
-  const dataHoje = new Date(inicio);
-  dataHoje.setDate(inicio.getDate() + dia - 1);
-  document.getElementById('headerDate').textContent = formatarData(dataHoje);
-  
-  // Progress
-  const pct = (dia / 99) * 100;
+  document.getElementById('headerPct').textContent = pct + '%';
+  document.getElementById('headerDate').textContent = formatarData(getDataDoDia(dia));
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = `${dia} de 99`;
 }
 
-function verificarRetorno() {
-  if (!state.ultimoAcesso) return;
+function verificarRetorno(){
+  if(!state.ultimoAcesso) return;
   const ultimo = new Date(state.ultimoAcesso);
-  const hoje = new Date();
-  const diff = Math.floor((hoje - ultimo) / 86400000);
-  
-  const retornoCard = document.getElementById('retornoCard');
-  if (diff >= 2) {
-    retornoCard.style.display = 'block';
-    document.getElementById('retornoText').textContent = 
-      `Você ficou ${diff} dias sem entrar. Sem culpa, sem drama. Continue de onde parou. A frequência se reconstrói a cada decisão.`;
+  const diff = Math.floor((new Date() - ultimo)/86400000);
+  const card = document.getElementById('retornoCard');
+  if(diff >= 2){
+    card.style.display = 'block';
+    document.getElementById('retornoText').textContent =
+      `Você ficou ${diff} dias sem entrar. Sem culpa, sem drama. A frequência se reconstrói a cada decisão. Continua de onde parou.`;
+  } else {
+    card.style.display = 'none';
   }
 }
 
-function renderizarHoje() {
+// ============ RENDER HOJE ============
+function renderizarHoje(){
   const dia = getDiaNum();
   const dados = getDadosDia(dia);
-  const domingo = isDomingo(dia);
-  const academia = isAcademia(dia);
-  
-  // Frase
-  const fraseIdx = (dia - 1) % frases.length;
-  document.getElementById('fraseDodia').textContent = `"${frases[fraseIdx]}"`;
-  
-  // Anti-visão: mostrar só na segunda-feira ou no dia 1
-  const partesInicio = state.dataInicio.split('-');
-  const inicioLocal = new Date(parseInt(partesInicio[0]), parseInt(partesInicio[1])-1, parseInt(partesInicio[2]));
-  const dataHoje = new Date(inicioLocal);
-  dataHoje.setDate(inicioLocal.getDate() + dia - 1);
-  const isSegunda = dataHoje.getDay() === 1;
-  const isDia1 = dia === 1;
-  if ((isSegunda || isDia1) && state.antivisao) {
-    document.getElementById('antivisaoCard').style.display = 'block';
-    document.getElementById('antivisaoText').textContent = state.antivisao;
-  }
-  
-  // Domingo
-  document.getElementById('domingoBadge').style.display = domingo ? 'block' : 'none';
-  
+
+  document.getElementById('fraseDoDia').textContent = `"${frases[(dia-1)%frases.length]}"`;
+
+  // Anti-visão: dia 1 ou segundas
+  const dow = getDataDoDia(dia).getDay();
+  const mostrarAntivisao = (dia===1 || dow===1) && state.antivisao;
+  document.getElementById('antivisaoCard').style.display = mostrarAntivisao ? 'block' : 'none';
+  if(mostrarAntivisao) document.getElementById('antivisaoText').textContent = state.antivisao;
+
+  document.getElementById('domingoBadge').style.display = isDomingo(dia) ? 'block' : 'none';
+
+  // Check-ins
+  document.getElementById('checkinManha').classList.toggle('done', !!dados.checkinManha);
+  document.getElementById('checkinNoite').classList.toggle('done', !!dados.checkinNoite);
+
   // Pilares
   const pilaresCard = document.getElementById('pilaresCard');
-  const pilaresDados = dados.pilares || {};
   pilaresCard.innerHTML = '';
-  
-  if (state.pilares) {
-    state.pilares.forEach((pilar, i) => {
-      const feito = pilaresDados[i] || false;
-      const isMovimento = pilar.nome === 'Movimento';
-      const offDay = isMovimento && !academia;
-      
-      const el = document.createElement('div');
-      el.className = 'pilar-item';
-      el.onclick = () => togglePilar(i);
-      
-      el.innerHTML = `
-        <div class="pilar-check ${feito ? 'done' : ''} ${offDay ? 'academia-off' : ''}"></div>
-        <div class="pilar-info">
-          <div class="pilar-name ${academia && isMovimento ? 'academia' : ''} ${offDay ? 'off' : ''}">
-            ${pilar.icon} ${pilar.nome}${academia && isMovimento ? ' ★' : ''}${offDay ? ' · não é dia de treino' : ''}
-          </div>
-          <div class="pilar-time">${pilar.horario} · ${pilar.desc}</div>
-        </div>`;
-      pilaresCard.appendChild(el);
-    });
-  }
-  
+  const pilaresDados = dados.pilares || {};
+  const acad = isAcademia(dia);
+  (state.pilares||[]).forEach((p, i) => {
+    const feito = !!pilaresDados[i];
+    const isMov = p.nome === 'Movimento';
+    const off = isMov && !acad;
+    const el = document.createElement('div');
+    el.className = 'pilar-item';
+    el.onclick = () => togglePilar(i);
+    el.innerHTML = `
+      <div class="pilar-check ${feito?'done':''} ${off?'academia-off':''}"></div>
+      <div class="pilar-info">
+        <div class="pilar-name ${acad&&isMov?'academia':''} ${off?'off':''}">${p.icon} ${p.nome}${acad&&isMov?' ★':''}${off?' · descanso':''}</div>
+        <div class="pilar-time">${p.horario} · ${p.desc}</div>
+      </div>`;
+    pilaresCard.appendChild(el);
+  });
+
   // Regras
   const regrasCard = document.getElementById('regrasCard');
-  const regrasDados = dados.regras || {};
   regrasCard.innerHTML = '';
-  
-  const todasRegras = [
-    ...(state.regras || []),
-    '20 páginas de leitura',
-  ];
-  
-  todasRegras.forEach((regra, i) => {
-    const feita = regrasDados[i] || false;
+  const regrasDados = dados.regras || {};
+  (state.regras||[]).forEach((r,i)=>{
+    const feita = !!regrasDados[i];
     const el = document.createElement('div');
     el.className = 'pilar-item';
     el.onclick = () => toggleRegra(i);
-    el.innerHTML = `
-      <div class="pilar-check ${feita ? 'done' : ''}"></div>
-      <div class="pilar-info">
-        <div class="pilar-name">${regra}</div>
-      </div>`;
+    el.innerHTML = `<div class="pilar-check ${feita?'done':''}"></div><div class="pilar-info"><div class="pilar-name">${r}</div></div>`;
     regrasCard.appendChild(el);
   });
-  
+
   // Frequência
-  if (dados.freq) {
-    setFreqVisual(dados.freq);
-  }
-  
-  // Gratidões
-  ['g1','g2','g3'].forEach((id, i) => {
-    document.getElementById(id).value = (dados.gratidoes || [])[i] || '';
-  });
-  
-  // Agenda
-  renderizarAgenda(dia, dados);
-  
-  // Intenção e notas
+  setFreqVisual(dados.freq||0);
+
+  // Gratidões / textos
+  ['g1','g2','g3'].forEach((id,i)=>{ document.getElementById(id).value = (dados.gratidoes||[])[i] || ''; });
   document.getElementById('intencao').value = dados.intencao || '';
   document.getElementById('notas').value = dados.notas || '';
   document.getElementById('decisao').value = dados.decisao || '';
-  
-  // Revisão semana
-  const semana = getSemana(dia);
-  document.getElementById('revisaoSemanaLabel').textContent = `Semana ${semana} · 15 minutos`;
-  const revisao = state[`revisao_${semana}`] || {};
-  document.getElementById('rev1').value = revisao.r1 || '';
-  document.getElementById('rev2').value = revisao.r2 || '';
-  document.getElementById('rev3').value = revisao.r3 || '';
-  document.getElementById('rev4').value = revisao.r4 || '';
-  document.getElementById('palavraSemana').value = revisao.palavra || '';
-  if (revisao.comoEstou) setComoEstouVisual(revisao.comoEstou);
-  
-  // Carta final dia 99
-  if (dia === 99) {
-    document.getElementById('cartaFinalSection').style.display = 'block';
-    document.getElementById('cartaFinal').value = state.cartaFinal || '';
-  }
-  
-  // Celebração
+
+  renderizarAgenda(dia, dados);
+  renderizarResumoDia(dia, dados);
   verificarCelebracao(dia, dados);
 }
 
-function renderizarAgenda(dia, dados) {
-  const agendaCard = document.getElementById('agendaCard');
-  const agendaDados = dados.agenda || {};
-  const academia = isAcademia(dia);
+function renderizarAgenda(dia, dados){
+  const card = document.getElementById('agendaCard');
+  const ag = dados.agenda || {};
+  const acad = isAcademia(dia);
   const horarios = ['08h','09h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h'];
-  
-  agendaCard.innerHTML = `
-    <div class="agenda-row gold">
-      <div class="agenda-time">Manhã</div>
-      <div class="agenda-slot"><div class="agenda-slot-fixed">🙏 ${state.pilares ? state.pilares[0].horario : '06:00'} · Espiritualidade · Oração · Afirmações</div></div>
-    </div>`;
-  
-  if (academia) {
-    agendaCard.innerHTML += `
-      <div class="agenda-row" style="background:rgba(201,169,110,.05);">
-        <div class="agenda-time">${state.pilares ? state.pilares[1].horario : '10h'}</div>
-        <div class="agenda-slot"><div class="agenda-slot-fixed" style="color:var(--gold);">💪 Academia ★</div></div>
-      </div>`;
+  let html = `<div class="agenda-row gold"><div class="agenda-time">Manhã</div><div class="agenda-slot"><div class="agenda-slot-fixed">🙏 ${state.pilares?.[0]?.horario||'06:00'} · Espiritualidade</div></div></div>`;
+  if(acad){
+    html += `<div class="agenda-row" style="background:rgba(201,169,110,.05)"><div class="agenda-time">${state.pilares?.[1]?.horario||'10h'}</div><div class="agenda-slot"><div class="agenda-slot-fixed" style="color:var(--gold)">💪 Movimento ★</div></div></div>`;
   }
-  
-  horarios.forEach((h, i) => {
-    agendaCard.innerHTML += `
-      <div class="agenda-row">
-        <div class="agenda-time">${h}</div>
-        <div class="agenda-slot">
-          <input type="text" class="agenda-slot-input" value="${agendaDados[i] || ''}" 
-            placeholder="..." oninput="salvarAgenda(${i}, this.value)">
-        </div>
-      </div>`;
+  horarios.forEach((h,i)=>{
+    const val = (ag[i]||'').replace(/"/g,'&quot;');
+    html += `<div class="agenda-row"><div class="agenda-time">${h}</div><div class="agenda-slot"><input type="text" class="agenda-slot-input" value="${val}" placeholder="..." oninput="salvarAgenda(${i},this.value)"></div></div>`;
   });
-  
-  agendaCard.innerHTML += `
-    <div class="agenda-row gold">
-      <div class="agenda-time">Noite</div>
-      <div class="agenda-slot"><div class="agenda-slot-fixed">🌙 ${state.pilares ? state.pilares[4].horario : '22:00'} · Visão · 3 minutos antes de dormir</div></div>
-    </div>`;
+  html += `<div class="agenda-row gold"><div class="agenda-time">Noite</div><div class="agenda-slot"><div class="agenda-slot-fixed">🌙 ${state.pilares?.[4]?.horario||'22:00'} · Visão</div></div></div>`;
+  card.innerHTML = html;
 }
 
-function verificarCelebracao(dia, dados) {
+// ============ RESUMO AUTOMÁTICO DIA ============
+function renderizarResumoDia(dia, dados){
   const pilares = dados.pilares || {};
-  const totalPilares = state.pilares ? state.pilares.length : 5;
-  const feitosCount = Object.values(pilares).filter(v => v).length;
-  
-  if (feitosCount === totalPilares && dados.decisao && dados.freq) {
-    const cel = document.getElementById('celebracaoCard');
+  const regras = dados.regras || {};
+  const totalP = (state.pilares||[]).length;
+  const acad = isAcademia(dia);
+  const totalEsperado = (state.pilares||[]).reduce((s,p,i)=>{
+    if(p.nome==='Movimento' && !acad) return s; return s+1;
+  }, 0) || totalP;
+  const feitosP = Object.values(pilares).filter(Boolean).length;
+  const feitasR = Object.values(regras).filter(Boolean).length;
+  const totalR = (state.regras||[]).length;
+  const freq = dados.freq || 0;
+  const pctDia = totalEsperado ? Math.round((feitosP/totalEsperado)*100) : 0;
+  const msg = mensagemMotivacional(pctDia, freq, feitosP, totalEsperado);
+
+  document.getElementById('resumoCard').innerHTML = `
+    <div class="resumo-title">Seu dia ${dia} em números</div>
+    <div class="resumo-line"><span>Pilares cumpridos</span><strong>${feitosP}/${totalEsperado}</strong></div>
+    <div class="resumo-line"><span>Regras cumpridas</span><strong>${feitasR}/${totalR||0}</strong></div>
+    <div class="resumo-line"><span>Frequência</span><strong>${freq?freq+'/5':'—'}</strong></div>
+    <div class="resumo-line"><span>Check-in manhã</span><strong>${dados.checkinManha?'✓':'—'}</strong></div>
+    <div class="resumo-line"><span>Fechamento noite</span><strong>${dados.checkinNoite?'✓':'—'}</strong></div>
+    <div class="resumo-line"><span>Decisão corajosa</span><strong>${dados.decisao?'✓':'—'}</strong></div>
+    <div class="resumo-line"><span>Conclusão do dia</span><strong>${pctDia}%</strong></div>
+    <div class="resumo-mensagem">${msg}</div>
+  `;
+}
+
+function mensagemMotivacional(pct, freq, feitos, total){
+  if(pct >= 100 && freq >= 4) return '"Dia inteiro entregue. Frequência alta. A mulher da sua visão acabou de operar." — Núbia Citty';
+  if(pct >= 80) return '"Quase tudo. Repete amanhã com a mesma postura." — Núbia Citty';
+  if(pct >= 50) return '"Meio caminho é caminho. Volta no fechamento da noite e fecha o resto." — Núbia Citty';
+  if(pct > 0)  return '"Começou. Isso já te separa de quem só pensa. Mais um pilar agora." — Núbia Citty';
+  if(freq && freq <= 2) return '"Frequência baixa não é fim. É aviso. Respira, marca um pilar, recomeça." — Núbia Citty';
+  return '"Abre o planner é o primeiro pilar. Marca o próximo. Vai com medo mesmo." — Núbia Citty';
+}
+
+// ============ TOGGLES ============
+function ensureDia(dia){ const c = getChaveDia(dia); if(!state[c]) state[c] = {}; return state[c]; }
+function togglePilar(i){ const dia=getDiaNum(); const d=ensureDia(dia); if(!d.pilares) d.pilares={}; d.pilares[i]=!d.pilares[i]; salvar(); renderizarHoje(); renderizarProgresso(); }
+function toggleRegra(i){ const dia=getDiaNum(); const d=ensureDia(dia); if(!d.regras) d.regras={}; d.regras[i]=!d.regras[i]; salvar(); renderizarHoje(); }
+function toggleCheckin(qual){ const dia=getDiaNum(); const d=ensureDia(dia); const k = qual==='manha'?'checkinManha':'checkinNoite'; d[k]=!d[k]; salvar(); renderizarHoje(); }
+function setFreq(v){ const dia=getDiaNum(); const d=ensureDia(dia); d.freq=v; setFreqVisual(v); salvar(); renderizarHoje(); renderizarProgresso(); }
+function setFreqVisual(v){ document.querySelectorAll('.freq-btn').forEach((b,i)=>b.classList.toggle('selected', i+1===v)); }
+
+function verificarCelebracao(dia, dados){
+  const total = (state.pilares||[]).length;
+  const feitos = Object.values(dados.pilares||{}).filter(Boolean).length;
+  const cel = document.getElementById('celebracaoCard');
+  if(feitos===total && dados.decisao && dados.freq){
     cel.classList.add('show');
-    document.getElementById('celebracaoText').textContent = celebracoes[dia % celebracoes.length];
-  }
-}
-
-// ===== TOGGLES =====
-function togglePilar(idx) {
-  const dia = getDiaNum();
-  const chave = getChaveDia(dia);
-  if (!state[chave]) state[chave] = {};
-  if (!state[chave].pilares) state[chave].pilares = {};
-  state[chave].pilares[idx] = !state[chave].pilares[idx];
-  salvar();
-  renderizarHoje();
-}
-
-function toggleRegra(idx) {
-  const dia = getDiaNum();
-  const chave = getChaveDia(dia);
-  if (!state[chave]) state[chave] = {};
-  if (!state[chave].regras) state[chave].regras = {};
-  state[chave].regras[idx] = !state[chave].regras[idx];
-  salvar();
-  renderizarHoje();
-}
-
-function setFreq(val) {
-  const dia = getDiaNum();
-  const chave = getChaveDia(dia);
-  if (!state[chave]) state[chave] = {};
-  state[chave].freq = val;
-  setFreqVisual(val);
-  salvar();
-  verificarCelebracao(dia, state[chave]);
-}
-
-function setFreqVisual(val) {
-  document.querySelectorAll('.freq-btn').forEach((btn, i) => {
-    btn.classList.toggle('selected', i + 1 === val);
-  });
-}
-
-function setComoEstou(val) {
-  const dia = getDiaNum();
-  const semana = getSemana(dia);
-  if (!state[`revisao_${semana}`]) state[`revisao_${semana}`] = {};
-  state[`revisao_${semana}`].comoEstou = val;
-  setComoEstouVisual(val);
-  salvar();
-}
-
-function setComoEstouVisual(val) {
-  document.querySelectorAll('.como-btn').forEach(btn => {
-    btn.classList.toggle('selected', btn.onclick.toString().includes(`'${val}'`));
-  });
-}
-
-// ===== SALVAR =====
-let saveTimer = null;
-function salvarDia() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    const dia = getDiaNum();
-    const chave = getChaveDia(dia);
-    if (!state[chave]) state[chave] = {};
-    state[chave].gratidoes = [
-      document.getElementById('g1').value,
-      document.getElementById('g2').value,
-      document.getElementById('g3').value,
+    const msgs = [
+      "Você completou o dia. Isso é tudo.",
+      "Seja forte e corajosa. Você está fazendo certo.",
+      "Feito imperfeito vale mais que perfeito na gaveta.",
+      "Você não está construindo algo novo. Está voltando para quem sempre foi.",
+      "A mulher da sua visão age exatamente assim.",
     ];
-    state[chave].intencao = document.getElementById('intencao').value;
-    state[chave].notas = document.getElementById('notas').value;
-    state[chave].decisao = document.getElementById('decisao').value;
+    document.getElementById('celebracaoText').textContent = msgs[dia%msgs.length];
+  } else { cel.classList.remove('show'); }
+}
+
+// ============ SALVAR ============
+function salvarDia(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{
+    const dia = getDiaNum();
+    const d = ensureDia(dia);
+    d.gratidoes = [document.getElementById('g1').value, document.getElementById('g2').value, document.getElementById('g3').value];
+    d.intencao = document.getElementById('intencao').value;
+    d.notas = document.getElementById('notas').value;
+    d.decisao = document.getElementById('decisao').value;
     salvar();
-    verificarCelebracao(dia, state[chave]);
-  }, 800);
+    renderizarResumoDia(dia, d);
+    verificarCelebracao(dia, d);
+  }, 500);
 }
-
-function salvarAgenda(idx, val) {
+function salvarAgenda(i,v){
   const dia = getDiaNum();
-  const chave = getChaveDia(dia);
-  if (!state[chave]) state[chave] = {};
-  if (!state[chave].agenda) state[chave].agenda = {};
-  state[chave].agenda[idx] = val;
+  const d = ensureDia(dia);
+  if(!d.agenda) d.agenda = {};
+  d.agenda[i] = v;
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => salvar(), 800);
+  saveTimer = setTimeout(()=>salvar(), 500);
 }
-
-function salvarRevisao() {
+function salvarRevisao(){
   const dia = getDiaNum();
-  const semana = getSemana(dia);
-  if (!state[`revisao_${semana}`]) state[`revisao_${semana}`] = {};
-  state[`revisao_${semana}`].r1 = document.getElementById('rev1').value;
-  state[`revisao_${semana}`].r2 = document.getElementById('rev2').value;
-  state[`revisao_${semana}`].r3 = document.getElementById('rev3').value;
-  state[`revisao_${semana}`].r4 = document.getElementById('rev4').value;
-  state[`revisao_${semana}`].palavra = document.getElementById('palavraSemana').value;
-  if (document.getElementById('cartaFinal')) {
-    state.cartaFinal = document.getElementById('cartaFinal').value;
-  }
+  const sem = getSemana(dia);
+  const k = `revisao_${sem}`;
+  if(!state[k]) state[k] = {};
+  state[k].r1 = document.getElementById('rev1').value;
+  state[k].r2 = document.getElementById('rev2').value;
+  state[k].r3 = document.getElementById('rev3').value;
+  state[k].r4 = document.getElementById('rev4').value;
+  state[k].palavra = document.getElementById('palavraSemana').value;
+  const carta = document.getElementById('cartaFinal');
+  if(carta) state.cartaFinal = carta.value;
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => salvar(), 800);
+  saveTimer = setTimeout(()=>salvar(), 500);
+}
+function setComoEstou(v){
+  const dia = getDiaNum();
+  const sem = getSemana(dia);
+  const k = `revisao_${sem}`;
+  if(!state[k]) state[k] = {};
+  state[k].comoEstou = v;
+  document.querySelectorAll('.como-btn').forEach(b=>b.classList.toggle('selected', b.dataset.val===v));
+  salvar();
 }
 
-// ===== PROGRESSO =====
-function renderizarProgresso() {
+// ============ PROGRESSO ============
+function calcStats(){
   const dia = getDiaNum();
-  
-  // Stats
-  document.getElementById('statDiaAtual').textContent = dia;
-  document.getElementById('statRestam').textContent = 99 - dia;
-  
-  let completos = 0;
-  let totalFreq = 0;
-  let countFreq = 0;
-  
-  for (let d = 1; d <= dia; d++) {
+  let completos=0, parciais=0, totalFreq=0, countFreq=0;
+  let streak=0, currentStreak=0;
+  const pilarHits = new Array((state.pilares||[]).length).fill(0);
+  const pilarTotal = new Array((state.pilares||[]).length).fill(0);
+  const totalP = (state.pilares||[]).length;
+  for(let d=1; d<=dia; d++){
     const dados = getDadosDia(d);
     const pilares = dados.pilares || {};
-    const totalP = state.pilares ? state.pilares.length : 5;
-    const feitos = Object.values(pilares).filter(v => v).length;
-    if (feitos === totalP) completos++;
-    if (dados.freq) { totalFreq += dados.freq; countFreq++; }
+    const acad = isAcademia(d);
+    const esperado = (state.pilares||[]).reduce((s,p,i)=>(p.nome==='Movimento'&&!acad)?s:s+1, 0) || totalP;
+    const feitos = (state.pilares||[]).reduce((s,p,i)=>{
+      if(p.nome==='Movimento' && !acad) return s;
+      pilarTotal[i]++;
+      if(pilares[i]){ pilarHits[i]++; return s+1; }
+      return s;
+    }, 0);
+    if(feitos===esperado && esperado>0){ completos++; currentStreak++; if(currentStreak>streak) streak=currentStreak; }
+    else { if(feitos>0) parciais++; currentStreak=0; }
+    if(dados.freq){ totalFreq += dados.freq; countFreq++; }
   }
-  
-  document.getElementById('statDiasCompletos').textContent = completos;
-  document.getElementById('statFreqMedia').textContent = countFreq > 0 ? (totalFreq/countFreq).toFixed(1) : '-';
-  
-  // Tracker
+  // melhor / pior pilar
+  let melhorIdx=-1, piorIdx=-1, melhorPct=-1, piorPct=2;
+  pilarHits.forEach((h,i)=>{
+    const t = pilarTotal[i]; if(!t) return;
+    const p = h/t;
+    if(p>melhorPct){ melhorPct=p; melhorIdx=i; }
+    if(p<piorPct){ piorPct=p; piorIdx=i; }
+  });
+  return {
+    dia, completos, parciais,
+    freqMedia: countFreq? (totalFreq/countFreq) : 0,
+    streak: currentStreak,
+    streakMax: streak,
+    melhorPilar: melhorIdx>=0 ? (state.pilares[melhorIdx]?.nome+' '+Math.round(melhorPct*100)+'%') : '—',
+    piorPilar: piorIdx>=0 ? (state.pilares[piorIdx]?.nome+' '+Math.round(piorPct*100)+'%') : '—',
+  };
+}
+
+function renderizarProgresso(){
+  const s = calcStats();
+  const pct = Math.round((s.dia/99)*100);
+  document.getElementById('statDiaAtual').textContent = s.dia;
+  document.getElementById('statPct').textContent = pct + '%';
+  document.getElementById('statDiasCompletos').textContent = s.completos;
+  document.getElementById('statRestam').textContent = 99 - s.dia;
+
+  const painel = document.getElementById('painelCard');
+  painel.innerHTML = `
+    <div class="painel-row"><span class="painel-row-label">Dias completos</span><span class="painel-row-val gold">${s.completos}</span></div>
+    <div class="painel-row"><span class="painel-row-label">Dias parciais</span><span class="painel-row-val">${s.parciais}</span></div>
+    <div class="painel-row"><span class="painel-row-label">Frequência média</span><span class="painel-row-val">${s.freqMedia?s.freqMedia.toFixed(1):'—'} / 5</span></div>
+    <div class="painel-row"><span class="painel-row-label">Sequência atual</span><span class="painel-row-val gold">${s.streak} dias</span></div>
+    <div class="painel-row"><span class="painel-row-label">Maior sequência</span><span class="painel-row-val">${s.streakMax} dias</span></div>
+    <div class="painel-row"><span class="painel-row-label">Melhor pilar</span><span class="painel-row-val gold">${s.melhorPilar}</span></div>
+    <div class="painel-row"><span class="painel-row-label">Pilar mais negligenciado</span><span class="painel-row-val">${s.piorPilar}</span></div>
+  `;
+
   const grid = document.getElementById('trackerGrid');
   grid.innerHTML = '';
-  for (let d = 1; d <= 99; d++) {
+  const totalP = (state.pilares||[]).length;
+  for(let d=1; d<=99; d++){
     const el = document.createElement('div');
     el.className = 'tracker-dot';
-    if (d === dia) el.classList.add('today');
-    else if (d < dia) {
-      const dados = getDadosDia(d);
-      const pilares = dados.pilares || {};
-      const totalP = state.pilares ? state.pilares.length : 5;
-      const feitos = Object.values(pilares).filter(v => v).length;
-      if (feitos === totalP) el.classList.add('done');
-      else if (feitos > 0) el.classList.add('partial');
+    if(d===s.dia) el.classList.add('today');
+    else if(d<s.dia){
+      const dd = getDadosDia(d);
+      const p = dd.pilares || {};
+      const acad = isAcademia(d);
+      const esperado = (state.pilares||[]).reduce((acc,pp,i)=>(pp.nome==='Movimento'&&!acad)?acc:acc+1, 0) || totalP;
+      const fe = Object.values(p).filter(Boolean).length;
+      if(fe===esperado && esperado>0) el.classList.add('done');
+      else if(fe>0) el.classList.add('partial');
     }
     el.title = `Dia ${d}`;
     grid.appendChild(el);
   }
-  
-  // Fases
-  const f1 = Math.min(Math.max(dia - 1, 0) / 33 * 100, 100);
-  const f2 = Math.min(Math.max(dia - 33, 0) / 33 * 100, 100);
-  const f3 = Math.min(Math.max(dia - 66, 0) / 33 * 100, 100);
-  document.getElementById('fase1Progress').style.width = f1 + '%';
-  document.getElementById('fase2Progress').style.width = f2 + '%';
-  document.getElementById('fase3Progress').style.width = f3 + '%';
+  document.getElementById('fase1Progress').style.width = Math.min(Math.max(s.dia,0)/33*100,100)+'%';
+  document.getElementById('fase2Progress').style.width = Math.min(Math.max(s.dia-33,0)/33*100,100)+'%';
+  document.getElementById('fase3Progress').style.width = Math.min(Math.max(s.dia-66,0)/33*100,100)+'%';
 }
 
-// ===== METAS =====
-function renderizarMetas() {
-  // Frase âncora
-  if (state.fraseAncora) {
-    document.getElementById('fraseAncora').style.display = 'block';
-    document.getElementById('fraseAncoraText').textContent = `"${state.fraseAncora}"`;
+// ============ REVISÃO + DIAGNÓSTICO + PLANO ============
+function renderizarRevisao(){
+  const dia = getDiaNum();
+  const sem = getSemana(dia);
+  document.getElementById('revisaoSemanaLabel').textContent = `Semana ${sem} · 15 minutos`;
+  const k = `revisao_${sem}`;
+  const r = state[k] || {};
+  document.getElementById('rev1').value = r.r1 || '';
+  document.getElementById('rev2').value = r.r2 || '';
+  document.getElementById('rev3').value = r.r3 || '';
+  document.getElementById('rev4').value = r.r4 || '';
+  document.getElementById('palavraSemana').value = r.palavra || '';
+  document.querySelectorAll('.como-btn').forEach(b=>b.classList.toggle('selected', b.dataset.val===r.comoEstou));
+
+  renderizarDiagnostico(sem);
+  renderizarPlanoProx(sem);
+
+  if(dia===99){
+    document.getElementById('cartaFinalSection').style.display = 'block';
+    document.getElementById('cartaFinal').value = state.cartaFinal || '';
+    renderizarTransformacao();
+  } else {
+    document.getElementById('cartaFinalSection').style.display = 'none';
   }
-  
-  // Visão
-  if (state.visao) {
-    document.getElementById('visaoCard').style.display = 'block';
-    document.getElementById('visaoText').textContent = state.visao;
+}
+
+function statsSemana(sem){
+  const inicio = (sem-1)*7 + 1;
+  const fim = Math.min(sem*7, 99);
+  const diaAtual = getDiaNum();
+  let completos=0, parciais=0, freqTot=0, freqCount=0;
+  const pilarHits = new Array((state.pilares||[]).length).fill(0);
+  const pilarTot = new Array((state.pilares||[]).length).fill(0);
+  const totalP = (state.pilares||[]).length;
+  for(let d=inicio; d<=fim && d<=diaAtual; d++){
+    const dd = getDadosDia(d);
+    const acad = isAcademia(d);
+    const esperado = (state.pilares||[]).reduce((s,p,i)=>(p.nome==='Movimento'&&!acad)?s:s+1, 0) || totalP;
+    const feitos = (state.pilares||[]).reduce((s,p,i)=>{
+      if(p.nome==='Movimento' && !acad) return s;
+      pilarTot[i]++;
+      if((dd.pilares||{})[i]){ pilarHits[i]++; return s+1; }
+      return s;
+    }, 0);
+    if(feitos===esperado && esperado>0) completos++; else if(feitos>0) parciais++;
+    if(dd.freq){ freqTot+=dd.freq; freqCount++; }
   }
-  
-  // Metas
+  let melhorIdx=-1, piorIdx=-1, melhor=-1, pior=2;
+  pilarHits.forEach((h,i)=>{ const t=pilarTot[i]; if(!t) return; const p=h/t; if(p>melhor){melhor=p;melhorIdx=i;} if(p<pior){pior=p;piorIdx=i;} });
+  return {
+    inicio, fim, completos, parciais,
+    freqMedia: freqCount?freqTot/freqCount:0,
+    melhorPilar: melhorIdx>=0?state.pilares[melhorIdx].nome:'—',
+    piorPilar: piorIdx>=0?state.pilares[piorIdx].nome:'—',
+    pctSemana: ((completos*1 + parciais*0.5)/(fim-inicio+1))*100,
+  };
+}
+
+function renderizarDiagnostico(sem){
+  const s = statsSemana(sem);
+  let msg = '';
+  if(s.pctSemana >= 80) msg = '"Semana entregue. Frequência consolidada. A sua versão está alinhada — mantém."';
+  else if(s.pctSemana >= 50) msg = '"Boa execução com furos. Olha o pilar mais negligenciado e prioriza ele na próxima semana."';
+  else if(s.pctSemana > 0) msg = '"Semana truncada. Sem drama. Reinstala 1 pilar por vez. Começa pelo da manhã."';
+  else msg = '"Semana em branco. O recomeço é segunda. Marca um pilar hoje. Só um."';
+  document.getElementById('diagSemana').innerHTML = `
+    <div class="diag-title">Semana ${sem}</div>
+    <div class="diag-line"><span>Período</span><strong>Dia ${s.inicio} a ${s.fim}</strong></div>
+    <div class="diag-line"><span>Dias completos</span><strong>${s.completos}</strong></div>
+    <div class="diag-line"><span>Dias parciais</span><strong>${s.parciais}</strong></div>
+    <div class="diag-line"><span>Frequência média</span><strong>${s.freqMedia?s.freqMedia.toFixed(1):'—'} / 5</strong></div>
+    <div class="diag-line"><span>Melhor pilar</span><strong>${s.melhorPilar}</strong></div>
+    <div class="diag-line"><span>Pilar mais negligenciado</span><strong>${s.piorPilar}</strong></div>
+    <div class="diag-line"><span>Conclusão</span><strong>${Math.round(s.pctSemana)}%</strong></div>
+    <div class="diag-msg">${msg}</div>
+  `;
+}
+
+function renderizarPlanoProx(sem){
+  const s = statsSemana(sem);
+  const proxSem = sem + 1;
+  const palavra = (state[`revisao_${sem}`]?.palavra) || '—';
+  const foco = s.piorPilar && s.piorPilar !== '—' ? s.piorPilar : 'todos os 5 pilares';
+  let acao = '';
+  if(s.pctSemana >= 80) acao = `Manter a frequência. Subir o nível em ${foco}.`;
+  else if(s.pctSemana >= 50) acao = `Blindar o pilar "${foco}". Marcar nele todos os dias antes das 12h.`;
+  else acao = `Reinstalar o básico. Começar pelo pilar 1 (Espiritualidade) e ir somando.`;
+  document.getElementById('planoProxSemana').innerHTML = `
+    <div class="diag-title">Plano · Semana ${proxSem}</div>
+    <div class="diag-line"><span>Palavra da semana</span><strong>${palavra}</strong></div>
+    <div class="diag-line"><span>Foco principal</span><strong>${foco}</strong></div>
+    <div class="diag-line"><span>Ação prioritária</span><strong style="text-align:right;max-width:60%">${acao}</strong></div>
+    <div class="diag-msg">"O plano da próxima semana é simples: protege o que funcionou e ataca um único pilar fraco. Não tudo. Um." — Núbia Citty</div>
+  `;
+}
+
+function renderizarTransformacao(){
+  const s = calcStats();
+  const r1 = state.revisao_1?.palavra || '—';
+  const r14 = state.revisao_14?.palavra || '—';
+  document.getElementById('transformacaoCard').innerHTML = `
+    <div class="transformacao-title">99 dias depois</div>
+    <div class="transformacao-text">"Você não voltou ao ponto de partida. Você voltou para quem sempre foi — agora com prova."</div>
+    <div class="transformacao-stat"><span>Dias completos</span><strong>${s.completos} / 99</strong></div>
+    <div class="transformacao-stat"><span>Dias parciais</span><strong>${s.parciais}</strong></div>
+    <div class="transformacao-stat"><span>Frequência média</span><strong>${s.freqMedia.toFixed(1)} / 5</strong></div>
+    <div class="transformacao-stat"><span>Maior sequência</span><strong>${s.streakMax} dias</strong></div>
+    <div class="transformacao-stat"><span>Melhor pilar</span><strong>${s.melhorPilar}</strong></div>
+    <div class="transformacao-stat"><span>Palavra da semana 1</span><strong>${r1}</strong></div>
+    <div class="transformacao-stat"><span>Palavra da semana 14</span><strong>${r14}</strong></div>
+  `;
+}
+
+// ============ METAS ============
+function renderizarMetas(){
+  if(state.fraseAncora){ document.getElementById('fraseAncora').style.display = 'block'; document.getElementById('fraseAncoraText').textContent = `"${state.fraseAncora}"`; }
+  if(state.visao){ document.getElementById('visaoCard').style.display = 'block'; document.getElementById('visaoText').textContent = state.visao; }
   const container = document.getElementById('metasContainer');
   container.innerHTML = '';
-  
-  if (!state.metas || state.metas.length === 0) {
-    container.innerHTML = '<div class="small-text center" style="padding:20px;">Adicione suas metas abaixo.</div>';
-    return;
+  if(!state.metas || state.metas.length===0){
+    container.innerHTML = '<div class="small-text center" style="padding:20px">Adicione suas metas abaixo.</div>'; return;
   }
-  
   const div = document.createElement('div');
   div.innerHTML = '<div class="section-title">Suas metas</div>';
-  
-  state.metas.forEach((meta, i) => {
+  state.metas.forEach((m,i)=>{
     const el = document.createElement('div');
     el.className = 'meta-item-card';
     el.onclick = () => toggleMeta(i);
-    el.innerHTML = `
-      <div class="meta-cb ${meta.feita ? 'done' : ''}"></div>
-      <div>
-        <div class="meta-text ${meta.feita ? 'done' : ''}">${meta.texto}</div>
-      </div>`;
+    el.innerHTML = `<div class="meta-cb ${m.feita?'done':''}"></div><div><div class="meta-text ${m.feita?'done':''}">${m.texto}</div></div>`;
     div.appendChild(el);
   });
-  
   container.appendChild(div);
 }
-
-function toggleMeta(idx) {
-  if (!state.metas) return;
-  state.metas[idx].feita = !state.metas[idx].feita;
-  salvar();
-  renderizarMetas();
-}
-
-function adicionarMeta() {
+function toggleMeta(i){ if(!state.metas) return; state.metas[i].feita = !state.metas[i].feita; salvar(); renderizarMetas(); }
+function adicionarMeta(){
   const input = document.getElementById('novaMeta');
-  const texto = input.value.trim();
-  if (!texto) return;
-  if (!state.metas) state.metas = [];
-  state.metas.push({texto, feita: false});
-  input.value = '';
-  salvar();
-  renderizarMetas();
+  const t = input.value.trim(); if(!t) return;
+  if(!state.metas) state.metas = [];
+  state.metas.push({texto:t, feita:false});
+  input.value = ''; salvar(); renderizarMetas();
 }
 
-// ===== TABS =====
-function mudarTab(tab, btn) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+// ============ TABS ============
+function mudarTab(tab, btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('tab'+tab).classList.add('active');
   btn.classList.add('active');
-  
-  if (tab === 'progresso') renderizarProgresso();
-  if (tab === 'metas') renderizarMetas();
-  if (tab === 'revisao') {
-    const dia = getDiaNum();
-    const semana = getSemana(dia);
-    document.getElementById('revisaoSemanaLabel').textContent = `Semana ${semana} · 15 minutos`;
-  }
-  
+  if(tab==='Progresso') renderizarProgresso();
+  if(tab==='Metas') renderizarMetas();
+  if(tab==='Revisao') renderizarRevisao();
+  if(tab==='Hoje') renderizarHoje();
   document.querySelector('.app-body').scrollTop = 0;
 }
 
-
-// ===== SISTEMA DE NOTIFICAÇÕES =====
-const MSGS_MANHA = [
-  "Bom dia. Antes do celular, antes de tudo. Deus primeiro.",
-  "A frequência muda quando o corpo se move. Começa hoje.",
-  "Hoje é mais um dia de decisão. Não de motivação.",
-  "Se der medo, vai com medo mesmo. Seja forte e corajosa.",
-  "A mulher da sua visão já está acordada.",
-  "Você não precisa de disposição. Precisa de decisão.",
-  "Cada manhã é um recomeço. Usa bem o de hoje.",
-  "Feito imperfeito vale mais que perfeito na gaveta.",
-  "Você não está construindo algo novo. Está voltando para quem sempre foi.",
-];
-
-const MSGS_TREINO = [
-  "💪 Hora do movimento. Sem negociação.",
-  "💪 O corpo parado é frequência baixa. Se move agora.",
-  "💪 Academia hoje. Não quando der. Agora.",
-  "💪 A versão que você quer ser já está lá. Vai encontrá-la.",
-];
-
-const MSGS_NOITE = [
-  "🌙 Fecha os olhos por 3 minutos. Vê a sua visão. Todo dia.",
-  "🌙 Como você operou hoje? Medo ou fé? Registra.",
-  "🌙 Você foi corajosa hoje? Anota antes de dormir.",
-  "🌙 Amanhã começa agora. Encerra o dia com intenção.",
-];
-
-const MSGS_RETORNO = [
-  "Você está aqui. Isso é tudo. Vai com medo mesmo.",
-  "Sem culpa, sem drama. Continua de onde parou.",
-  "A frequência se reconstrói a cada decisão. Começa agora.",
-  "Você não abandonou. Você voltou. Diferença enorme.",
-];
-
-const MSGS_OBJECAO = [
-  "Preguiça é o medo usando outra roupa. Reconhece e vai.",
-  "Você vai se arrepender de não ter aberto o planner. Abre.",
-  "A versão cansada de você também consegue fazer isso. Vai.",
-  "99 dias. Você está no dia ___. Não perde agora.",
-  "O sentimento de completar o dia vale mais que o de pular.",
-];
-
-async function pedirPermissaoNotificacoes() {
-  if (!('Notification' in window)) return false;
-  if (!('serviceWorker' in navigator)) return false;
-  
-  let permissao = Notification.permission;
-  
-  if (permissao === 'default') {
-    permissao = await Notification.requestPermission();
-  }
-  
-  return permissao === 'granted';
+// ============ BACKUP / EXPORT ============
+function exportarBackup(){
+  const dataStr = JSON.stringify(state, null, 2);
+  const blob = new Blob([dataStr], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const hoje = new Date().toISOString().slice(0,10);
+  a.href = url; a.download = `planner99-backup-${hoje}.json`;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
 }
-
-async function registrarServiceWorker() {
-  if (!('serviceWorker' in navigator)) return null;
-  try {
-    const reg = await navigator.serviceWorker.register('/sw.js');
-    return reg;
-  } catch(e) {
-    console.log('SW não registrado:', e);
-    return null;
-  }
-}
-
-function mostrarNotificacaoLocal(titulo, corpo, delay = 0) {
-  if (Notification.permission !== 'granted') return;
-  
-  setTimeout(() => {
+function importarBackup(e){
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
     try {
-      new Notification(titulo, {
-        body: corpo,
-        icon: '/icon.png',
-        badge: '/icon.png',
-        vibrate: [200, 100, 200],
-        tag: 'planner99',
-        renotify: true,
-      });
-    } catch(e) {
-      // Fallback para service worker
-      navigator.serviceWorker.ready.then(reg => {
-        reg.showNotification(titulo, {
-          body: corpo,
-          vibrate: [200, 100, 200],
-          tag: 'planner99',
-          renotify: true,
-        });
-      });
-    }
-  }, delay);
+      const novo = JSON.parse(ev.target.result);
+      if(!novo || typeof novo!=='object') throw 0;
+      if(!confirm('Restaurar este backup vai sobrescrever seus dados atuais. Continuar?')) return;
+      state = novo; salvar();
+      alert('Backup restaurado.');
+      mostrarApp();
+    } catch(err){ alert('Arquivo inválido.'); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+function resetarPlanner(){
+  if(!confirm('Resetar apaga TUDO e recomeça do zero. Tem certeza?')) return;
+  if(!confirm('Última confirmação. Isso é definitivo. Apagar tudo?')) return;
+  try{ localStorage.removeItem('planner99'); }catch(e){}
+  state = {};
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('splash').classList.add('active');
 }
 
-function agendarNotificacoesDoDia() {
-  if (Notification.permission !== 'granted') return;
-  if (!state.pilares) return;
-  
-  const agora = new Date();
-  const dia = getDiaNum();
-  const academia = isAcademia(dia);
-  
-  // Horário manhã (pilar 1)
-  const horaManha = state.pilares[0]?.horario || '06:00';
-  const [hM, mM] = horaManha.split(':').map(Number);
-  const notifManha = new Date();
-  notifManha.setHours(hM, mM, 0, 0);
-  
-  if (notifManha > agora) {
-    const delay = notifManha - agora;
-    const msg = MSGS_MANHA[dia % MSGS_MANHA.length];
-    mostrarNotificacaoLocal('Planner 99 Dias ☀️', msg, delay);
-  }
-  
-  // Horário academia (pilar 2) - só nos dias certos
-  if (academia) {
-    const horaAcad = state.pilares[1]?.horario || '10:00';
-    const [hA, mA] = horaAcad.split(':').map(Number);
-    const notifAcad = new Date();
-    notifAcad.setHours(hA, mA, 0, 0);
-    
-    if (notifAcad > agora) {
-      const delay = notifAcad - agora;
-      const msg = MSGS_TREINO[dia % MSGS_TREINO.length];
-      mostrarNotificacaoLocal('Planner 99 Dias 💪', msg, delay);
-    }
-  }
-  
-  // Horário noturno (pilar 5)
-  const horaNoite = state.pilares[4]?.horario || '22:00';
-  const [hN, mN] = horaNoite.split(':').map(Number);
-  const notifNoite = new Date();
-  notifNoite.setHours(hN, mN, 0, 0);
-  
-  if (notifNoite > agora) {
-    const delay = notifNoite - agora;
-    const msg = MSGS_NOITE[dia % MSGS_NOITE.length];
-    mostrarNotificacaoLocal('Planner 99 Dias 🌙', msg, delay);
-  }
-  
-  // Lembrete anti-preguiça às 12h se não abriu pilares ainda
-  const notif12 = new Date();
-  notif12.setHours(12, 0, 0, 0);
-  if (notif12 > agora) {
-    const delay = notif12 - agora;
-    setTimeout(() => {
-      const dados = getDadosDia(getDiaNum());
-      const pilares = dados.pilares || {};
-      const feitos = Object.values(pilares).filter(v => v).length;
-      if (feitos === 0) {
-        const msg = MSGS_OBJECAO[dia % MSGS_OBJECAO.length];
-        mostrarNotificacaoLocal('Planner 99 Dias ⚡', msg);
-      }
-    }, delay);
-  }
-}
-
-function verificarRetornoComNotificacao() {
-  if (!state.ultimoAcesso) return;
-  const ultimo = new Date(state.ultimoAcesso);
-  const hoje = new Date();
-  const diff = Math.floor((hoje - ultimo) / 86400000);
-  
-  if (diff >= 1 && Notification.permission === 'granted') {
-    const msg = MSGS_RETORNO[getDiaNum() % MSGS_RETORNO.length];
-    mostrarNotificacaoLocal(
-      diff === 1 ? 'Planner 99 Dias · Ontem você não apareceu' : `Planner 99 Dias · ${diff} dias sem entrar`,
-      msg
-    );
-  }
-}
-
-// Card de pedido de notificação
-function mostrarCardNotificacao() {
-  if (!('Notification' in window)) return;
-  if (Notification.permission === 'granted') {
-    agendarNotificacoesDoDia();
-    return;
-  }
-  if (Notification.permission === 'denied') return;
-  if (!state.configurado) return;
-  
-  const card = document.getElementById('notifCard');
-  if (card) {
-    card.style.display = 'block';
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-}
-
-async function ativarNotificacoes() {
-  const ok = await pedirPermissaoNotificacoes();
-  await registrarServiceWorker();
-  
-  const card = document.getElementById('notifCard');
-  if (card) card.style.display = 'none';
-  
-  if (ok) {
-    state.notificacoesAtivas = true;
-    salvar();
-    agendarNotificacoesDoDia();
-    mostrarNotificacaoLocal(
-      'Planner 99 Dias ✓',
-      'Notificações ativadas. Vou te lembrar todos os dias. Vai com medo mesmo.'
-    );
-  }
-}
-
-// ===== INIT =====
-window.addEventListener('load', () => {
+// ============ INIT ============
+window.addEventListener('load', ()=>{
   carregar();
-  // Se já configurado e veio de refresh, mostrar app
-  // Caso contrário, splash aparece naturalmente
+  if(state.configurado){
+    document.getElementById('splash').classList.remove('active');
+    mostrarApp();
+  }
 });
-
-// Enter na nova meta
-document.getElementById('novaMeta')?.addEventListener('keydown', e => {
-  if (e.key === 'Enter') adicionarMeta();
-});
+document.getElementById('novaMeta')?.addEventListener('keydown', e=>{ if(e.key==='Enter') adicionarMeta(); });
 </script>
 </body>
 </html>
