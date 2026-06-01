@@ -345,6 +345,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
       <button class="btn-secondary" onclick="continuarJornada()">Continuar de onde parei</button>
       <div class="splash-info-links">
         <a onclick="abrirInfo('como')">Como usar</a>
+        <a onclick="abrirInfo('lembretes')">Lembretes</a>
         <a onclick="abrirInfo('metodo')">O método 99 dias</a>
         <a onclick="abrirInfo('aviso')">Aviso importante</a>
       </div>
@@ -649,6 +650,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
         <button class="config-btn" onclick="exportarBackup()"><span class="config-btn-icon">💾</span><span>Baixar backup (JSON)</span></button>
         <button class="config-btn" onclick="document.getElementById('importInput').click()"><span class="config-btn-icon">📥</span><span>Restaurar backup</span></button>
         <input type="file" id="importInput" accept="application/json" style="display:none" onchange="importarBackup(event)">
+        <button class="config-btn" onclick="abrirInfo('lembretes')"><span class="config-btn-icon">🔔</span><span>Como ativar lembretes</span></button>
         <button class="config-btn" onclick="abrirInfo('como')"><span class="config-btn-icon">📖</span><span>Como usar o planner</span></button>
         <button class="config-btn" onclick="abrirInfo('metodo')"><span class="config-btn-icon">✦</span><span>O método 99 dias</span></button>
         <button class="config-btn" onclick="abrirInfo('aviso')"><span class="config-btn-icon">⚠️</span><span>Aviso importante</span></button>
@@ -790,6 +792,47 @@ const INFO_CONTENT = {
       <li><strong>Decisão corajosa</strong> — uma micro decisão alinhada por dia.</li>
       <li><strong>Visão noturna</strong> — 3 minutos antes de dormir vendo sua visão.</li>
     </ul>
+  `},
+  lembretes: { titulo:'Como ativar lembretes', html:`
+    <p>O planner é seu compromisso diário, mas o celular pode te avisar. Sem login, sem servidor, sem pagar nada a mais. Você tem <strong>três caminhos</strong> — use os três juntos para não falhar.</p>
+
+    <h3>Caminho 1 · Instalar o planner na tela inicial</h3>
+    <p>Isso transforma o site num app de verdade. Abre mais rápido, ocupa um ícone próprio e libera notificação.</p>
+    <p><strong>No iPhone (Safari):</strong></p>
+    <ol>
+      <li>Toque no botão <strong>compartilhar</strong> (quadrado com seta para cima) na barra de baixo.</li>
+      <li>Role e toque em <strong>"Adicionar à Tela de Início"</strong>.</li>
+      <li>Toque em <strong>Adicionar</strong>. Pronto — o ícone do planner aparece na tela.</li>
+    </ol>
+    <p><strong>No Android (Chrome):</strong></p>
+    <ol>
+      <li>Toque nos <strong>três pontinhos</strong> no canto superior direito.</li>
+      <li>Toque em <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar app"</strong>.</li>
+      <li>Confirme. Pronto.</li>
+    </ol>
+
+    <h3>Caminho 2 · Alarme nativo do celular (mais confiável)</h3>
+    <p>O melhor lembrete ainda é o alarme do próprio celular. Toca mesmo offline, mesmo sem bateria de notificação, mesmo se você desinstalar tudo.</p>
+    <p>Abra o app <strong>Relógio</strong> e crie 3 alarmes recorrentes, com os mesmos horários que você definiu no onboarding dos pilares:</p>
+    <ul>
+      <li>🙏 <strong>Manhã</strong> — Espiritualidade · "Antes do celular. Abre o planner."</li>
+      <li>💪 <strong>Movimento</strong> — segunda, quarta e sexta · "Hora do corpo se mover."</li>
+      <li>🌙 <strong>Noite</strong> — Visão · "3 minutos antes de dormir. Fecha o dia."</li>
+    </ul>
+    <p>Coloque o texto do alarme já como uma instrução. Quando tocar, abre o planner direto.</p>
+
+    <h3>Caminho 3 · Lembrete recorrente do Google/Apple</h3>
+    <p>Crie um lembrete diário recorrente:</p>
+    <ul>
+      <li><strong>iPhone:</strong> app <strong>Lembretes</strong> → Novo lembrete → Repetir "Diariamente" → Hora do seu pilar matinal.</li>
+      <li><strong>Android:</strong> Google Agenda → Novo evento → Repetir "Todos os dias" → Hora do seu pilar matinal.</li>
+    </ul>
+    <p>Crie 2 ou 3 (manhã, tarde, noite). É 3 minutos de configuração que sustentam 99 dias.</p>
+
+    <div class="info-warning"><p><strong>Importante:</strong> notificações pelo navegador no iPhone só funcionam se o planner estiver instalado na tela inicial e com restrições. Por isso recomendamos o <strong>alarme nativo</strong> como ferramenta principal. Ele nunca falha.</p></div>
+
+    <h3>Bônus · Modo ritual</h3>
+    <p>Coloque o ícone do planner ao lado do despertador na sua tela inicial. Ao desligar o alarme, abrir o planner vira o gesto seguinte automático. Em 7 dias o gesto já é hábito.</p>
   `},
   aviso: { titulo:'Aviso importante', html:`
     <div class="info-warning"><p><strong>Este planner é uma ferramenta de organização pessoal.</strong> Não substitui acompanhamento médico, psicológico, nutricional, financeiro ou jurídico.</p></div>
