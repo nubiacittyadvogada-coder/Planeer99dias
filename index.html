@@ -1044,11 +1044,7 @@ function iniciarJornada() {
     return;
   }
   // Definir data padrão como hoje
-  const hoje = new Date();
-  const yyyy = hoje.getFullYear();
-  const mm = String(hoje.getMonth()+1).padStart(2,'0');
-  const dd = String(hoje.getDate()).padStart(2,'0');
-  document.getElementById('inputDataInicio').value = `${yyyy}-${mm}-${dd}`;
+  document.getElementById('inputDataInicio').value = '2026-06-01';
   
   document.getElementById('splash').classList.remove('active');
   document.getElementById('onboarding').classList.add('active');
@@ -1127,6 +1123,7 @@ function finalizarOnboarding() {
   
   document.getElementById('onboarding').classList.remove('active');
   mostrarApp();
+  setTimeout(() => mostrarCardNotificacao(), 2000);
 }
 
 // ===== APP =====
@@ -1142,7 +1139,7 @@ function mostrarApp() {
   renderizarMetas();
   verificarRetorno();
   verificarRetornoComNotificacao();
-  setTimeout(() => mostrarCardNotificacao(), 3000);
+  setTimeout(() => mostrarCardNotificacao(), 1500);
   if (state.notificacoesAtivas) agendarNotificacoesDoDia();
   
   // Salvar acesso
@@ -1748,12 +1745,19 @@ function verificarRetornoComNotificacao() {
 
 // Card de pedido de notificação
 function mostrarCardNotificacao() {
-  if (Notification.permission === 'granted') return;
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'granted') {
+    agendarNotificacoesDoDia();
+    return;
+  }
   if (Notification.permission === 'denied') return;
   if (!state.configurado) return;
   
   const card = document.getElementById('notifCard');
-  if (card) card.style.display = 'block';
+  if (card) {
+    card.style.display = 'block';
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
 
 async function ativarNotificacoes() {
