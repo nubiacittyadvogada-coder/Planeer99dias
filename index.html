@@ -996,7 +996,9 @@ const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Ag
 // ===== UTILS =====
 function getDiaNum() {
   if (!state.dataInicio) return 1;
-  const inicio = new Date(state.dataInicio);
+  // Parsear data como local para evitar problema de fuso horário
+  const partes = state.dataInicio.split('-');
+  const inicio = new Date(parseInt(partes[0]), parseInt(partes[1])-1, parseInt(partes[2]));
   const hoje = new Date();
   inicio.setHours(0,0,0,0);
   hoje.setHours(0,0,0,0);
@@ -1191,12 +1193,14 @@ function renderizarHoje() {
   const fraseIdx = (dia - 1) % frases.length;
   document.getElementById('fraseDodia').textContent = `"${frases[fraseIdx]}"`;
   
-  // Anti-visão (mostrar uma vez por semana - segunda-feira)
-  const inicio = new Date(state.dataInicio);
-  const dataHoje = new Date(inicio);
-  dataHoje.setDate(inicio.getDate() + dia - 1);
+  // Anti-visão: mostrar só na segunda-feira ou no dia 1
+  const partesInicio = state.dataInicio.split('-');
+  const inicioLocal = new Date(parseInt(partesInicio[0]), parseInt(partesInicio[1])-1, parseInt(partesInicio[2]));
+  const dataHoje = new Date(inicioLocal);
+  dataHoje.setDate(inicioLocal.getDate() + dia - 1);
   const isSegunda = dataHoje.getDay() === 1;
-  if (isSegunda && state.antivisao) {
+  const isDia1 = dia === 1;
+  if ((isSegunda || isDia1) && state.antivisao) {
     document.getElementById('antivisaoCard').style.display = 'block';
     document.getElementById('antivisaoText').textContent = state.antivisao;
   }
