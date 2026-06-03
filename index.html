@@ -326,8 +326,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
 .card-do-dia-num{position:relative;font-family:'Cormorant Garamond',serif;font-size:54px;color:var(--gold);line-height:1;font-weight:700;letter-spacing:-2px}
 .card-do-dia-label{position:relative;font-size:10px;letter-spacing:5px;color:var(--text2);text-transform:uppercase;margin-top:2px}
 .card-do-dia-divider{position:relative;width:36px;height:1px;background:var(--gold);margin:14px auto}
-.card-do-dia-frase{position:relative;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:12px}
+.card-do-dia-frase{position:relative;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:8px}
 .card-do-dia-autor{position:relative;font-size:10px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;margin-bottom:14px}
+.card-do-dia-vers{position:relative;border-top:1px solid rgba(201,169,110,.18);margin-top:14px;padding-top:14px;font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold-light);font-style:italic;line-height:1.5}
+.card-do-dia-ref{position:relative;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-top:6px;margin-bottom:14px;font-weight:600}
 .btn-share{background:var(--gold);color:var(--black);border:none;padding:12px 18px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;width:100%;display:block;text-align:center;position:relative;transition:transform .15s,opacity .15s}
 .btn-share:active{transform:scale(.98);opacity:.9}
 
@@ -621,6 +623,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
         <div class="card-do-dia-divider"></div>
         <div class="card-do-dia-frase" id="fraseDoDia">""</div>
         <div class="card-do-dia-autor">— Núbia Citty</div>
+        <div class="card-do-dia-vers" id="versDoDia">""</div>
+        <div class="card-do-dia-ref" id="versRef">—</div>
         <button class="btn-share" onclick="abrirShareCard()">✦ Compartilhar este dia</button>
       </div>
 
@@ -803,6 +807,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
     <div class="saud-day-sub">de 99</div>
     <div class="saud-frase" id="saudFrase">""</div>
     <div class="saud-autor">— Núbia Citty</div>
+    <div style="width:36px;height:1px;background:rgba(201,169,110,.4);margin:0 auto 18px"></div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold-light);font-style:italic;line-height:1.5;margin-bottom:6px;padding:0 12px" id="saudVers">""</div>
+    <div style="font-size:9px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:36px" id="saudRef">—</div>
     <button class="saud-btn" onclick="fecharSaudacao()">Começar o dia</button>
   </div>
 </div>
@@ -822,6 +829,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
         <div class="share-day-sub">de 99</div>
         <div class="share-divider-mid"></div>
         <div class="share-frase" id="shareFrase">""</div>
+        <div style="font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-top:8px">— Núbia Citty</div>
+        <div style="margin-top:18px;padding-top:16px;border-top:1px solid rgba(201,169,110,.25);font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold-light);font-style:italic;line-height:1.4;padding-left:8px;padding-right:8px" id="shareVers">""</div>
+        <div style="font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-top:6px;font-weight:700" id="shareRef">—</div>
       </div>
       <div class="share-card-bottom">
         <div class="share-autor">Núbia Citty</div>
@@ -889,6 +899,111 @@ const frases = [
   "Mulher forte não chega pronta. Chega construindo.",
   "Cansaço não é desculpa. É informação.",
   "Você acorda sendo. Ou acorda fingindo.",
+];
+
+const versiculos = [
+  {t:"Tudo posso naquele que me fortalece.", r:"Filipenses 4:13"},
+  {t:"O Senhor é a minha luz e a minha salvação. A quem temerei?", r:"Salmos 27:1"},
+  {t:"Sê forte e corajosa. Não temas.", r:"Josué 1:9"},
+  {t:"Em paz me deito e logo durmo, porque tu me sustentas.", r:"Salmos 4:8"},
+  {t:"Não temas, porque eu sou contigo.", r:"Isaías 41:10"},
+  {t:"Os que esperam no Senhor renovarão as forças.", r:"Isaías 40:31"},
+  {t:"Todas as coisas cooperam para o bem.", r:"Romanos 8:28"},
+  {t:"Ele se alegra em ti com cânticos.", r:"Sofonias 3:17"},
+  {t:"O Senhor é o meu pastor. Nada me faltará.", r:"Salmos 23:1"},
+  {t:"Confia no Senhor de todo o teu coração.", r:"Provérbios 3:5"},
+  {t:"Deus não me deu espírito de medo, mas de poder, amor e equilíbrio.", r:"2 Timóteo 1:7"},
+  {t:"Bem-aventurada a mulher que espera no Senhor.", r:"Salmos 40:4"},
+  {t:"Aquietai-vos e sabei que eu sou Deus.", r:"Salmos 46:10"},
+  {t:"Os meus pensamentos sobre ti são de paz, não de mal.", r:"Jeremias 29:11"},
+  {t:"Sou guardada pelo poder de Deus.", r:"1 Pedro 1:5"},
+  {t:"A alegria do Senhor é a minha força.", r:"Neemias 8:10"},
+  {t:"Vós sois a luz do mundo.", r:"Mateus 5:14"},
+  {t:"Vós sois o sal da terra.", r:"Mateus 5:13"},
+  {t:"A justa florescerá como a palmeira.", r:"Salmos 92:12"},
+  {t:"O temor do Senhor é o princípio da sabedoria.", r:"Provérbios 9:10"},
+  {t:"O Senhor pelejará por mim e eu me aquietarei.", r:"Êxodo 14:14"},
+  {t:"Sou mais que vencedora por aquele que me amou.", r:"Romanos 8:37"},
+  {t:"Esforça-te e tem bom ânimo.", r:"Josué 1:6"},
+  {t:"As suas misericórdias se renovam a cada manhã.", r:"Lamentações 3:23"},
+  {t:"O meu socorro vem do Senhor.", r:"Salmos 121:1-2"},
+  {t:"Sou maravilhosamente feita.", r:"Salmos 139:14"},
+  {t:"Ele não deixará vacilar o meu pé.", r:"Salmos 121:3"},
+  {t:"Posso esquecer uma mãe, mas eu de ti não me esquecerei.", r:"Isaías 49:15"},
+  {t:"Ainda que eu ande pelo vale da sombra, não temerei mal algum.", r:"Salmos 23:4"},
+  {t:"Eu me alegrarei no Senhor, exultarei no Deus da minha salvação.", r:"Habacuque 3:18"},
+  {t:"Sou fortalecida no Senhor e na força do seu poder.", r:"Efésios 6:10"},
+  {t:"Lança sobre ele toda a tua ansiedade, porque ele tem cuidado de ti.", r:"1 Pedro 5:7"},
+  {t:"Serei como árvore plantada junto a ribeiros de águas.", r:"Salmos 1:3"},
+  {t:"Esperei com paciência no Senhor, e ele se inclinou para mim.", r:"Salmos 40:1"},
+  {t:"Se alguém está em Cristo, é nova criatura.", r:"2 Coríntios 5:17"},
+  {t:"Onde está o Espírito do Senhor, aí há liberdade.", r:"2 Coríntios 3:17"},
+  {t:"Todavia, eu estou sempre contigo: tu me seguras pela mão direita.", r:"Salmos 73:23"},
+  {t:"Tudo tem o seu tempo determinado.", r:"Eclesiastes 3:1"},
+  {t:"Com amor eterno eu te amei.", r:"Jeremias 31:3"},
+  {t:"Se somos filhas, somos também herdeiras de Deus.", r:"Romanos 8:17"},
+  {t:"Bendito o Deus que me abençoou com toda sorte de bênçãos espirituais.", r:"Efésios 1:3"},
+  {t:"Eu te chamei pelo teu nome. Tu és minha.", r:"Isaías 43:1"},
+  {t:"És preciosa aos meus olhos, és digna de honra, e eu te amo.", r:"Isaías 43:4"},
+  {t:"Vinde e andemos na luz do Senhor.", r:"Isaías 2:5"},
+  {t:"Quando cair, não ficará prostrada, porque o Senhor a sustém pela mão.", r:"Salmos 37:24"},
+  {t:"Para quem crê, tudo é possível.", r:"Marcos 9:23"},
+  {t:"A paz de Deus, que excede todo entendimento, guardará o meu coração.", r:"Filipenses 4:7"},
+  {t:"Clamam os justos, e o Senhor os ouve.", r:"Salmos 34:17"},
+  {t:"Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar.", r:"1 João 1:9"},
+  {t:"Alegrai-vos sempre no Senhor. Outra vez digo: alegrai-vos.", r:"Filipenses 4:4"},
+  {t:"Eis que faço novas todas as coisas.", r:"Apocalipse 21:5"},
+  {t:"Graças a Deus, que sempre nos conduz em triunfo em Cristo.", r:"2 Coríntios 2:14"},
+  {t:"A nossa capacidade vem de Deus.", r:"2 Coríntios 3:5"},
+  {t:"Estou perfeitamente preparada para toda boa obra.", r:"2 Timóteo 3:17"},
+  {t:"O meu coração se alegra no Senhor.", r:"1 Samuel 2:1"},
+  {t:"De modo nenhum te deixarei, de modo nenhum te abandonarei.", r:"Hebreus 13:5"},
+  {t:"Considera o que digo. O Senhor te dará entendimento em tudo.", r:"2 Timóteo 2:7"},
+  {t:"A paz de Cristo governe no meu coração.", r:"Colossenses 3:15"},
+  {t:"Outrora éreis trevas, mas agora sois luz no Senhor.", r:"Efésios 5:8"},
+  {t:"Cheia do Espírito Santo e de fé.", r:"Atos 6:5"},
+  {t:"Quem é fiel no pouco também é fiel no muito.", r:"Lucas 16:10"},
+  {t:"Aquela que permanece em mim dá muito fruto.", r:"João 15:5"},
+  {t:"Todas as que são guiadas pelo Espírito de Deus, essas são filhas de Deus.", r:"Romanos 8:14"},
+  {t:"Justificadas pela fé, temos paz com Deus.", r:"Romanos 5:1"},
+  {t:"Eis aqui a serva do Senhor. Cumpra-se em mim a sua palavra.", r:"Lucas 1:38"},
+  {t:"O Deus de toda consolação me consola em toda tribulação.", r:"2 Coríntios 1:4"},
+  {t:"O meu Deus suprirá todas as minhas necessidades.", r:"Filipenses 4:19"},
+  {t:"Ele me guia mansamente a águas tranquilas.", r:"Salmos 23:2"},
+  {t:"Eu andarei na minha integridade.", r:"Salmos 26:11"},
+  {t:"Ele me trouxe para um lugar largo, porque se agrada de mim.", r:"Salmos 18:19"},
+  {t:"Não temerei más notícias. O meu coração está firme.", r:"Salmos 112:7"},
+  {t:"O Senhor me cerca de favor como de um escudo.", r:"Salmos 5:12"},
+  {t:"O Senhor levanta do pó o necessitado.", r:"1 Samuel 2:8"},
+  {t:"Quem se une ao Senhor é um só espírito com ele.", r:"1 Coríntios 6:17"},
+  {t:"Bem-aventurada a mulher que persevera na provação.", r:"Tiago 1:12"},
+  {t:"Em Cristo estou completa.", r:"Colossenses 2:10"},
+  {t:"Vós também sois edificadas como habitação de Deus em Espírito.", r:"Efésios 2:22"},
+  {t:"Vós sois pedras vivas, edificadas como casa espiritual.", r:"1 Pedro 2:5"},
+  {t:"Sois geração eleita, sacerdócio real, nação santa.", r:"1 Pedro 2:9"},
+  {t:"Povo de propriedade exclusiva de Deus.", r:"1 Pedro 2:9"},
+  {t:"Fui chamada das trevas para a sua maravilhosa luz.", r:"1 Pedro 2:9"},
+  {t:"Os que entram no descanso de Deus, esses estão crendo.", r:"Hebreus 4:3"},
+  {t:"Alegrai-vos porque os vossos nomes estão escritos nos céus.", r:"Lucas 10:20"},
+  {t:"Elas o venceram pelo sangue do Cordeiro.", r:"Apocalipse 12:11"},
+  {t:"Eis que Deus é a minha salvação. Confiarei e não temerei.", r:"Isaías 12:2"},
+  {t:"Espera no Senhor. Anima-te, e ele fortalecerá o teu coração.", r:"Salmos 27:14"},
+  {t:"Cantai ao Senhor um cântico novo.", r:"Salmos 96:1"},
+  {t:"Saciar-me-ei à vista da tua face.", r:"Salmos 17:15"},
+  {t:"O Senhor está perto dos que têm coração quebrantado.", r:"Salmos 34:18"},
+  {t:"Entrega o teu caminho ao Senhor. Confia nele, e o mais ele fará.", r:"Salmos 37:5"},
+  {t:"Aquele que começou a boa obra em ti há de completá-la.", r:"Filipenses 1:6"},
+  {t:"Tu és minha rocha e minha fortaleza.", r:"Salmos 31:3"},
+  {t:"Bom é louvar ao Senhor, anunciar de manhã a tua benignidade.", r:"Salmos 92:1-2"},
+  {t:"O Senhor é a força da minha vida. De quem terei pavor?", r:"Salmos 27:1"},
+  {t:"Não desfaleças, porque eu sou o teu Deus.", r:"Isaías 41:10"},
+  {t:"Buscai primeiro o reino de Deus, e tudo vos será acrescentado.", r:"Mateus 6:33"},
+  {t:"Pedi, e dar-se-vos-á. Buscai e achareis.", r:"Mateus 7:7"},
+  {t:"Vinde a mim e eu vos aliviarei.", r:"Mateus 11:28"},
+  {t:"O reino de Deus está dentro de vós.", r:"Lucas 17:21"},
+  {t:"Eu sou o caminho, a verdade e a vida.", r:"João 14:6"},
+  {t:"Conhecereis a verdade, e a verdade vos libertará.", r:"João 8:32"},
+  {t:"Vai em paz.", r:"Lucas 8:48"},
 ];
 
 const diasSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
@@ -1131,6 +1246,11 @@ function renderizarHoje(){
   document.getElementById('fraseDoDia').textContent = `"${frases[(dia-1)%frases.length]}"`;
   const numEl = document.getElementById('cardDiaNum');
   if(numEl) numEl.textContent = String(dia).padStart(2,'0');
+  const v = versiculos[(dia-1)%versiculos.length];
+  const vEl = document.getElementById('versDoDia');
+  const rEl = document.getElementById('versRef');
+  if(vEl) vEl.textContent = `"${v.t}"`;
+  if(rEl) rEl.textContent = v.r;
 
   // Anti-visão: dia 1 ou segundas
   const dow = getDataDoDia(dia).getDay();
@@ -1802,6 +1922,9 @@ function mostrarSaudacao(){
   document.getElementById('saudData').textContent = formatarData(hoje);
   document.getElementById('saudDayNum').textContent = String(dia).padStart(2,'0');
   document.getElementById('saudFrase').textContent = `"${frases[(dia-1)%frases.length]}"`;
+  const v = versiculos[(dia-1)%versiculos.length];
+  document.getElementById('saudVers').textContent = `"${v.t}"`;
+  document.getElementById('saudRef').textContent = v.r;
   document.querySelector('.saud-bomdia').firstChild.textContent = periodo + ', ';
   document.getElementById('saudacao').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -1819,6 +1942,9 @@ function abrirShareCard(){
   const dia = getDiaNum();
   document.getElementById('shareDayNum').textContent = String(dia).padStart(2,'0');
   document.getElementById('shareFrase').textContent = `"${frases[(dia-1)%frases.length]}"`;
+  const v = versiculos[(dia-1)%versiculos.length];
+  document.getElementById('shareVers').textContent = `"${v.t}"`;
+  document.getElementById('shareRef').textContent = v.r;
   document.getElementById('shareModal').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
@@ -1829,7 +1955,8 @@ function fecharShareCard(){
 async function tentarCompartilharNativo(){
   const dia = getDiaNum();
   const frase = frases[(dia-1)%frases.length];
-  const texto = `Dia ${dia} dos meus 99 dias.\n\n"${frase}"\n\n— Núbia Citty | @nubiacitty\nplaneer99dias.pages.dev`;
+  const v = versiculos[(dia-1)%versiculos.length];
+  const texto = `Dia ${dia} dos meus 99 dias.\n\n"${frase}"\n— Núbia Citty\n\n"${v.t}"\n${v.r}\n\n@nubiacitty | planeer99dias.pages.dev`;
   if(navigator.share){
     try{
       await navigator.share({text: texto, title:`Dia ${dia} · Planner 99 Dias`});
