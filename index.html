@@ -298,6 +298,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
 .small-text{font-size:12px;color:var(--text2);line-height:1.6}
 .center{text-align:center}
 
+/* SAUDAÇÃO DIÁRIA (overlay tela cheia) */
+.saudacao{position:fixed;inset:0;background:radial-gradient(ellipse at top,#1a1a1a 0%,#0a0a0a 70%);z-index:2000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;animation:fadeIn .6s ease}
+.saudacao.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.saud-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,169,110,.12),transparent 70%);pointer-events:none;animation:pulseGlow 3s ease-in-out infinite}
+@keyframes pulseGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+.saud-content{position:relative;z-index:1;max-width:380px;animation:fadeUpSlow .8s ease .2s both}
+@keyframes fadeUpSlow{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.saud-eyebrow{font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:14px}
+.saud-bomdia{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--text);line-height:1.2;font-weight:400;margin-bottom:6px}
+.saud-bomdia strong{color:var(--gold);font-style:italic;font-weight:600}
+.saud-data{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--text2);margin-bottom:32px}
+.saud-divider{width:40px;height:1px;background:var(--gold);margin:0 auto 28px}
+.saud-day-label{font-size:10px;letter-spacing:5px;color:var(--text2);text-transform:uppercase;margin-bottom:2px}
+.saud-day-num{font-family:'Cormorant Garamond',serif;font-size:96px;color:var(--gold);line-height:1;font-weight:700;letter-spacing:-3px;margin-bottom:4px}
+.saud-day-sub{font-size:10px;letter-spacing:5px;color:var(--text2);text-transform:uppercase;margin-bottom:32px}
+.saud-frase{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:14px;padding:0 12px}
+.saud-autor{font-size:10px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;margin-bottom:40px}
+.saud-btn{background:var(--gold);color:var(--black);border:none;padding:18px 32px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;width:100%;max-width:300px;transition:transform .15s,opacity .15s}
+.saud-btn:active{transform:scale(.98);opacity:.9}
+
 /* CARD DO DIA (na timeline Hoje) */
 .card-do-dia{background:linear-gradient(135deg,#1a1a1a,#0a0a0a);border:1px solid rgba(201,169,110,.35);border-radius:var(--radius);padding:22px 20px;margin-bottom:16px;position:relative;overflow:hidden;text-align:center}
 .card-do-dia::before{content:'';position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(201,169,110,.12),transparent 70%);top:-80px;right:-80px;pointer-events:none}
@@ -769,6 +790,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
   </nav>
 </div>
 
+<!-- SAUDAÇÃO DIÁRIA -->
+<div class="saudacao" id="saudacao">
+  <div class="saud-glow"></div>
+  <div class="saud-content">
+    <div class="saud-eyebrow" id="saudPeriodo">Bom dia</div>
+    <div class="saud-bomdia">Bom dia, <strong id="saudNome">você</strong>.</div>
+    <div class="saud-data" id="saudData">—</div>
+    <div class="saud-divider"></div>
+    <div class="saud-day-label">Dia</div>
+    <div class="saud-day-num" id="saudDayNum">01</div>
+    <div class="saud-day-sub">de 99</div>
+    <div class="saud-frase" id="saudFrase">""</div>
+    <div class="saud-autor">— Núbia Citty</div>
+    <button class="saud-btn" onclick="fecharSaudacao()">Começar o dia</button>
+  </div>
+</div>
+
 <!-- MODAL CARD COMPARTILHAR -->
 <div class="share-modal" id="shareModal">
   <button class="share-close" onclick="fecharShareCard()">×</button>
@@ -1055,6 +1093,7 @@ function mostrarApp(){
   verificarRetorno();
   state.ultimoAcesso = new Date().toISOString();
   salvar();
+  setTimeout(mostrarSaudacao, 300);
 }
 
 function atualizarHeader(){
@@ -1743,6 +1782,36 @@ function resetarPlanner(){
   state = {};
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('splash').classList.add('active');
+}
+
+// ============ SAUDAÇÃO DIÁRIA ============
+function mostrarSaudacao(){
+  if(!state.configurado) return;
+  const hoje = new Date();
+  const chaveHoje = `${hoje.getFullYear()}-${hoje.getMonth()+1}-${hoje.getDate()}`;
+  if(state.ultimaSaudacao === chaveHoje) return;
+
+  const dia = getDiaNum();
+  const h = hoje.getHours();
+  let periodo = 'Bom dia';
+  if(h >= 12 && h < 18) periodo = 'Boa tarde';
+  else if(h >= 18 || h < 5) periodo = 'Boa noite';
+
+  document.getElementById('saudPeriodo').textContent = periodo;
+  document.getElementById('saudNome').textContent = state.nome || 'você';
+  document.getElementById('saudData').textContent = formatarData(hoje);
+  document.getElementById('saudDayNum').textContent = String(dia).padStart(2,'0');
+  document.getElementById('saudFrase').textContent = `"${frases[(dia-1)%frases.length]}"`;
+  document.querySelector('.saud-bomdia').firstChild.textContent = periodo + ', ';
+  document.getElementById('saudacao').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function fecharSaudacao(){
+  const hoje = new Date();
+  state.ultimaSaudacao = `${hoje.getFullYear()}-${hoje.getMonth()+1}-${hoje.getDate()}`;
+  salvar();
+  document.getElementById('saudacao').classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 // ============ SHARE CARD ============
