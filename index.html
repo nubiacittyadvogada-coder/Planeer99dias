@@ -298,6 +298,47 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
 .small-text{font-size:12px;color:var(--text2);line-height:1.6}
 .center{text-align:center}
 
+/* CARD DO DIA (na timeline Hoje) */
+.card-do-dia{background:linear-gradient(135deg,#1a1a1a,#0a0a0a);border:1px solid rgba(201,169,110,.35);border-radius:var(--radius);padding:22px 20px;margin-bottom:16px;position:relative;overflow:hidden;text-align:center}
+.card-do-dia::before{content:'';position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(201,169,110,.12),transparent 70%);top:-80px;right:-80px;pointer-events:none}
+.card-do-dia-eyebrow{position:relative;font-size:9px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.card-do-dia-num{position:relative;font-family:'Cormorant Garamond',serif;font-size:54px;color:var(--gold);line-height:1;font-weight:700;letter-spacing:-2px}
+.card-do-dia-label{position:relative;font-size:10px;letter-spacing:5px;color:var(--text2);text-transform:uppercase;margin-top:2px}
+.card-do-dia-divider{position:relative;width:36px;height:1px;background:var(--gold);margin:14px auto}
+.card-do-dia-frase{position:relative;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:12px}
+.card-do-dia-autor{position:relative;font-size:10px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;margin-bottom:14px}
+.btn-share{background:var(--gold);color:var(--black);border:none;padding:12px 18px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;width:100%;display:block;text-align:center;position:relative;transition:transform .15s,opacity .15s}
+.btn-share:active{transform:scale(.98);opacity:.9}
+
+/* MODAL CARD COMPARTILHAR */
+.share-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.95);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.share-modal.show{display:flex}
+.share-wrap{width:100%;max-width:360px;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 0}
+.share-card{width:100%;aspect-ratio:9/16;background:linear-gradient(160deg,#1a1a1a 0%,#0a0a0a 50%,#1a1a1a 100%);border:2px solid var(--gold);border-radius:24px;padding:36px 28px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.share-card::before,.share-card::after{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(201,169,110,.14),transparent 70%);pointer-events:none}
+.share-card::before{top:-100px;left:-100px}
+.share-card::after{bottom:-100px;right:-100px}
+.share-card-top{position:relative;z-index:1;width:100%}
+.share-tag{font-size:10px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:14px}
+.share-divider-top{width:32px;height:1px;background:var(--gold);margin:0 auto}
+.share-card-center{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;width:100%;padding:24px 0}
+.share-day-label{font-size:11px;letter-spacing:5px;color:var(--text2);text-transform:uppercase;margin-bottom:4px;font-weight:500}
+.share-day-num{font-family:'Cormorant Garamond',serif;font-size:120px;color:var(--gold);line-height:1;font-weight:700;letter-spacing:-4px;margin-bottom:6px}
+.share-day-sub{font-size:11px;letter-spacing:6px;color:var(--text2);text-transform:uppercase;margin-bottom:30px}
+.share-divider-mid{width:44px;height:1px;background:var(--gold);margin:0 auto 24px}
+.share-frase{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text);font-style:italic;line-height:1.45;padding:0 8px}
+.share-card-bottom{position:relative;z-index:1;width:100%}
+.share-autor{font-size:13px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-style:italic;margin-bottom:4px}
+.share-brand{font-size:9px;letter-spacing:4px;color:var(--text2);text-transform:uppercase;font-weight:600}
+.share-brand strong{color:var(--gold);font-weight:700}
+.share-actions{display:flex;flex-direction:column;gap:8px;width:100%}
+.share-actions button{padding:14px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius-sm);cursor:pointer;border:none}
+.share-actions .btn-fill{background:var(--gold);color:var(--black)}
+.share-actions .btn-ghost{background:transparent;color:var(--text2);border:1px solid rgba(201,169,110,.3)}
+.share-tip{font-size:11px;color:var(--text2);text-align:center;line-height:1.5}
+.share-tip strong{color:var(--gold)}
+.share-close{position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(0,0,0,.6);border:1px solid rgba(201,169,110,.3);border-radius:50%;color:var(--gold);font-size:20px;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center}
+
 /* CONQUISTAS */
 .conquistas-grid{display:grid;grid-template-columns:1fr;gap:8px}
 .conquista-card{background:var(--card);border:1px solid rgba(201,169,110,.10);border-radius:var(--radius-sm);padding:14px;display:flex;gap:12px;align-items:center;transition:all .2s}
@@ -552,7 +593,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
         </div>
       </div>
 
-      <div class="frase-card"><div class="frase-text" id="fraseDoDia">""</div></div>
+      <div class="card-do-dia" id="cardDoDiaBox">
+        <div class="card-do-dia-eyebrow">Card do dia</div>
+        <div class="card-do-dia-num" id="cardDiaNum">01</div>
+        <div class="card-do-dia-label">/ 99 Dias</div>
+        <div class="card-do-dia-divider"></div>
+        <div class="card-do-dia-frase" id="fraseDoDia">""</div>
+        <div class="card-do-dia-autor">— Núbia Citty</div>
+        <button class="btn-share" onclick="abrirShareCard()">✦ Compartilhar este dia</button>
+      </div>
 
       <div id="antivisaoCard" class="vision-card" style="display:none">
         <div class="vision-label">Sua anti-visão · O que você recusa</div>
@@ -720,6 +769,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
   </nav>
 </div>
 
+<!-- MODAL CARD COMPARTILHAR -->
+<div class="share-modal" id="shareModal">
+  <button class="share-close" onclick="fecharShareCard()">×</button>
+  <div class="share-wrap">
+    <div class="share-card" id="shareCardEl">
+      <div class="share-card-top">
+        <div class="share-tag">Planner 99 Dias</div>
+        <div class="share-divider-top"></div>
+      </div>
+      <div class="share-card-center">
+        <div class="share-day-label">Dia</div>
+        <div class="share-day-num" id="shareDayNum">01</div>
+        <div class="share-day-sub">de 99</div>
+        <div class="share-divider-mid"></div>
+        <div class="share-frase" id="shareFrase">""</div>
+      </div>
+      <div class="share-card-bottom">
+        <div class="share-autor">Núbia Citty</div>
+        <div class="share-brand">@nubiacitty · <strong>99 Dias</strong></div>
+      </div>
+    </div>
+    <div class="share-tip">
+      <strong>Tire um print desta tela</strong> e poste nos seus stories marcando <strong>@nubiacitty</strong>.
+    </div>
+    <div class="share-actions">
+      <button class="btn-fill" onclick="tentarCompartilharNativo()">Compartilhar</button>
+      <button class="btn-ghost" onclick="fecharShareCard()">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ============ STATE ============
 let state = {};
@@ -755,6 +835,22 @@ const frases = [
   "Frequência alta precisa de ritual diário.",
   "Você já foi essa pessoa. Ela está voltando.",
   "Seja forte e corajosa. Todos os dias.",
+  "Hoje é mais um dia de decisão. Não de motivação.",
+  "Você não precisa de disposição. Precisa de estrutura.",
+  "Acordar não é evento. É decisão tomada antes de dormir.",
+  "Ritual ganha de inspiração todos os dias.",
+  "A versão de você que você quer ser já existe. Você só precisa segui-la.",
+  "Pequeno feito todos os dias vira tudo.",
+  "Você não está atrasada. Você está em construção.",
+  "Sustentar é mais difícil que começar. E mais valioso.",
+  "O corpo guarda o que a mente esquece. Cuida dele.",
+  "Antes do celular. Antes de tudo. Você primeiro.",
+  "Quem é tudo, não é nada. Foca.",
+  "Você não precisa contar pra ninguém. Você precisa fazer.",
+  "Hoje é o único dia que existe. Sustenta esse.",
+  "Mulher forte não chega pronta. Chega construindo.",
+  "Cansaço não é desculpa. É informação.",
+  "Você acorda sendo. Ou acorda fingindo.",
 ];
 
 const diasSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
@@ -994,6 +1090,8 @@ function renderizarHoje(){
   const dados = getDadosDia(dia);
 
   document.getElementById('fraseDoDia').textContent = `"${frases[(dia-1)%frases.length]}"`;
+  const numEl = document.getElementById('cardDiaNum');
+  if(numEl) numEl.textContent = String(dia).padStart(2,'0');
 
   // Anti-visão: dia 1 ou segundas
   const dow = getDataDoDia(dia).getDay();
@@ -1645,6 +1743,36 @@ function resetarPlanner(){
   state = {};
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('splash').classList.add('active');
+}
+
+// ============ SHARE CARD ============
+function abrirShareCard(){
+  const dia = getDiaNum();
+  document.getElementById('shareDayNum').textContent = String(dia).padStart(2,'0');
+  document.getElementById('shareFrase').textContent = `"${frases[(dia-1)%frases.length]}"`;
+  document.getElementById('shareModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function fecharShareCard(){
+  document.getElementById('shareModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+async function tentarCompartilharNativo(){
+  const dia = getDiaNum();
+  const frase = frases[(dia-1)%frases.length];
+  const texto = `Dia ${dia} dos meus 99 dias.\n\n"${frase}"\n\n— Núbia Citty | @nubiacitty\nplaneer99dias.pages.dev`;
+  if(navigator.share){
+    try{
+      await navigator.share({text: texto, title:`Dia ${dia} · Planner 99 Dias`});
+    } catch(e){}
+  } else {
+    try{
+      await navigator.clipboard.writeText(texto);
+      alert('Texto copiado. Cole no seu story junto com o print desta tela.');
+    } catch(e){
+      alert('Tire um print desta tela para postar nos stories.');
+    }
+  }
 }
 
 // ============ INIT ============
