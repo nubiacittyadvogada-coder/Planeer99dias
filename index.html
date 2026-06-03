@@ -1952,23 +1952,149 @@ function fecharShareCard(){
   document.getElementById('shareModal').classList.remove('show');
   document.body.style.overflow = '';
 }
+// Gera a imagem do card em PNG (formato story 1080x1920)
+async function gerarImagemCard(){
+  const dia = getDiaNum();
+  const frase = frases[(dia-1)%frases.length];
+  const v = versiculos[(dia-1)%versiculos.length];
+
+  const W = 1080, H = 1920;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  // Fundo gradiente
+  const grad = ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'#1a1a1a'); grad.addColorStop(.5,'#0a0a0a'); grad.addColorStop(1,'#1a1a1a');
+  ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+
+  // Glows radiais dourados
+  const glow1 = ctx.createRadialGradient(150,150,0,150,150,500);
+  glow1.addColorStop(0,'rgba(201,169,110,0.18)'); glow1.addColorStop(1,'rgba(201,169,110,0)');
+  ctx.fillStyle = glow1; ctx.fillRect(0,0,W,H);
+  const glow2 = ctx.createRadialGradient(W-150,H-150,0,W-150,H-150,500);
+  glow2.addColorStop(0,'rgba(201,169,110,0.14)'); glow2.addColorStop(1,'rgba(201,169,110,0)');
+  ctx.fillStyle = glow2; ctx.fillRect(0,0,W,H);
+
+  // Borda dourada
+  ctx.strokeStyle = '#C9A96E'; ctx.lineWidth = 6;
+  ctx.strokeRect(40,40,W-80,H-80);
+
+  // Helpers
+  const center = W/2;
+  const wrap = (txt, maxW, font, lineH) => {
+    ctx.font = font;
+    const words = txt.split(' ');
+    const lines = []; let line = '';
+    words.forEach(w => {
+      const test = line ? line+' '+w : w;
+      if(ctx.measureText(test).width > maxW){ lines.push(line); line = w; }
+      else line = test;
+    });
+    if(line) lines.push(line);
+    return lines;
+  };
+  const drawLines = (lines, y, lineH) => {
+    lines.forEach((l,i)=>ctx.fillText(l, center, y + i*lineH));
+    return y + lines.length*lineH;
+  };
+
+  ctx.textAlign = 'center';
+
+  // TAG topo
+  ctx.fillStyle = '#C9A96E';
+  ctx.font = '700 30px "DM Sans", sans-serif';
+  ctx.fillText('PLANNER · 99 DIAS', center, 180);
+  // Divisor topo
+  ctx.fillRect(center-50, 220, 100, 3);
+
+  // DIA label
+  ctx.fillStyle = '#B0AA9F';
+  ctx.font = '500 32px "DM Sans", sans-serif';
+  ctx.fillText('DIA', center, 360);
+
+  // DIA número gigante
+  ctx.fillStyle = '#C9A96E';
+  ctx.font = '700 360px "Cormorant Garamond", serif';
+  ctx.fillText(String(dia).padStart(2,'0'), center, 700);
+
+  // de 99
+  ctx.fillStyle = '#B0AA9F';
+  ctx.font = '500 32px "DM Sans", sans-serif';
+  ctx.fillText('DE 99', center, 770);
+
+  // Divisor médio
+  ctx.fillStyle = '#C9A96E';
+  ctx.fillRect(center-60, 830, 120, 2);
+
+  // FRASE Núbia
+  ctx.fillStyle = '#F0EDE8';
+  const fraseLines = wrap(`"${frase}"`, W-200, 'italic 600 52px "Cormorant Garamond", serif', 68);
+  ctx.font = 'italic 600 52px "Cormorant Garamond", serif';
+  let yPos = drawLines(fraseLines, 920, 68);
+
+  // Núbia Citty
+  ctx.fillStyle = '#C9A96E';
+  ctx.font = '700 26px "DM Sans", sans-serif';
+  ctx.fillText('— NÚBIA CITTY', center, yPos + 50);
+
+  // Divisor entre frase e versículo
+  ctx.fillStyle = 'rgba(201,169,110,0.4)';
+  ctx.fillRect(center-80, yPos + 110, 160, 1);
+
+  // VERSÍCULO
+  ctx.fillStyle = '#E8D5B0';
+  const versLines = wrap(`"${v.t}"`, W-220, 'italic 600 42px "Cormorant Garamond", serif', 58);
+  ctx.font = 'italic 600 42px "Cormorant Garamond", serif';
+  yPos = drawLines(versLines, yPos + 180, 58);
+
+  // Referência
+  ctx.fillStyle = '#C9A96E';
+  ctx.font = '700 28px "DM Sans", sans-serif';
+  ctx.fillText(v.r.toUpperCase(), center, yPos + 50);
+
+  // Rodapé
+  ctx.fillStyle = '#B0AA9F';
+  ctx.font = '600 26px "DM Sans", sans-serif';
+  ctx.fillText('@NUBIACITTY  ·  PLANNER 99 DIAS', center, H - 110);
+
+  return new Promise(res => canvas.toBlob(b => res(b), 'image/png', 0.95));
+}
+
 async function tentarCompartilharNativo(){
   const dia = getDiaNum();
   const frase = frases[(dia-1)%frases.length];
   const v = versiculos[(dia-1)%versiculos.length];
   const texto = `Dia ${dia} dos meus 99 dias.\n\n"${frase}"\n— Núbia Citty\n\n"${v.t}"\n${v.r}\n\n@nubiacitty | planeer99dias.pages.dev`;
-  if(navigator.share){
-    try{
-      await navigator.share({text: texto, title:`Dia ${dia} · Planner 99 Dias`});
-    } catch(e){}
-  } else {
-    try{
-      await navigator.clipboard.writeText(texto);
-      alert('Texto copiado. Cole no seu story junto com o print desta tela.');
-    } catch(e){
-      alert('Tire um print desta tela para postar nos stories.');
-    }
+
+  let blob;
+  try { blob = await gerarImagemCard(); } catch(e){}
+
+  if(blob && navigator.canShare && navigator.canShare({files:[new File([blob],'x.png',{type:'image/png'})]})){
+    try {
+      const file = new File([blob], `planner-99-dia-${dia}.png`, {type:'image/png'});
+      await navigator.share({files:[file], text: texto, title:`Dia ${dia} · Planner 99 Dias`});
+      return;
+    } catch(e){ if(e.name === 'AbortError') return; }
   }
+
+  // Fallback: baixa o PNG
+  if(blob){
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `planner-99-dia-${dia}.png`;
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
+    try { await navigator.clipboard.writeText(texto); } catch(e){}
+    alert('Imagem salva. Abra o Instagram, crie um story, escolha esta imagem e cole o texto que já foi copiado.');
+    return;
+  }
+
+  // Último fallback
+  try {
+    await navigator.clipboard.writeText(texto);
+    alert('Texto copiado. Tire um print da tela e poste no story.');
+  } catch(e){ alert('Tire um print desta tela para postar nos stories.'); }
 }
 
 // ============ INIT ============
