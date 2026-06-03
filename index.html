@@ -79,6 +79,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
 .pilar-horario{display:flex;align-items:center;gap:8px}
 .pilar-horario label{font-size:11px;color:var(--text2);white-space:nowrap}
 .pilar-horario input[type=time]{background:var(--card2);border:1px solid rgba(201,169,110,.2);color:var(--gold);padding:8px 12px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none}
+.pilar-acao-wrap{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(201,169,110,.15)}
+.pilar-acao-label{font-size:9px;letter-spacing:2px;color:var(--gold-dark);text-transform:uppercase;margin-bottom:4px;font-weight:700}
+.pilar-acao{width:100%;background:var(--card2);border:1px solid rgba(201,169,110,.15);color:var(--text);padding:10px 12px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none}
+.pilar-acao:focus{border-color:var(--gold)}
+.pilar-acao::placeholder{color:rgba(255,255,255,.2);font-size:12px}
+.if-then-display{font-size:11px;color:var(--gold-dark);margin-top:4px;font-style:italic;line-height:1.4}
 .antivisao-box{background:rgba(139,32,32,.08);border:1px solid rgba(139,32,32,.3);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px}
 .antivisao-label{font-size:9px;font-weight:700;letter-spacing:3px;color:var(--red-soft);text-transform:uppercase;margin-bottom:6px}
 .visao-box-setup{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px}
@@ -507,6 +513,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
       <input type="text" class="field-input" id="inputMeta" placeholder="Ex: Pagar o casamento, lançar o produto...">
       <label class="field-label">Sua frase âncora</label>
       <input type="text" class="field-input" id="inputFrase" placeholder="A frase que te ancora quando travar">
+
+      <div style="background:rgba(139,32,32,.08);border:1px solid rgba(139,32,32,.25);border-radius:var(--radius-sm);padding:14px;margin-top:16px">
+        <div class="antivisao-label">Quando bater preguiça · Plano B</div>
+        <p class="small-text" style="margin-bottom:10px"><strong style="color:var(--gold)">Ciência:</strong> antecipar o obstáculo reduz desistência. Quando o sabotador aparecer, você já decidiu o que fazer.</p>
+        <label class="field-label" style="color:var(--red-soft);font-size:9px">Obstáculo provável</label>
+        <textarea class="field-textarea" id="inputObstaculo" placeholder="Ex: Vou querer ficar na cama mexendo no celular" style="background:var(--card2);min-height:60px;font-size:13px"></textarea>
+        <label class="field-label" style="color:var(--gold);font-size:9px">Se isso acontecer, eu vou:</label>
+        <textarea class="field-textarea" id="inputPlanoB" placeholder="Ex: Levanto, abro o planner, marco só o pilar 1 e volto pra cama se quiser. Mas abro." style="background:var(--card2);min-height:60px;font-size:13px"></textarea>
+      </div>
     </div>
     <div class="onboard-footer"><button class="btn-primary" onclick="step2Next()">Continuar</button></div>
   </div>
@@ -519,11 +534,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
     </div>
     <div class="onboard-body">
       <p class="onboard-desc">Defina o horário de cada pilar. Sem horário, vira intenção. Com horário, vira hábito.</p>
-      <div class="pilar-setup"><div class="pilar-setup-name">🙏 Espiritualidade</div><div class="pilar-setup-desc">Oração ou silêncio. Antes do celular.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h1" value="06:00"></div></div>
-      <div class="pilar-setup"><div class="pilar-setup-name">💪 Movimento</div><div class="pilar-setup-desc">Academia, caminhada, pilates ou yoga.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h2" value="10:00"></div></div>
-      <div class="pilar-setup"><div class="pilar-setup-name">🥗 Alimentação</div><div class="pilar-setup-desc">Comer com consciência. Sem automatismo.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h3" value="12:00"></div></div>
-      <div class="pilar-setup"><div class="pilar-setup-name">⭐ Decisão corajosa</div><div class="pilar-setup-desc">Uma micro decisão alinhada com a sua visão.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h4" value="09:00"></div></div>
-      <div class="pilar-setup"><div class="pilar-setup-name">🌙 Visão noturna</div><div class="pilar-setup-desc">3 minutos antes de dormir, vendo a sua visão.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h5" value="22:00"></div></div>
+      <p class="small-text" style="margin-bottom:14px"><strong style="color:var(--gold)">Ciência:</strong> escreva a <strong>ação concreta</strong> de cada pilar. Quando o gatilho (horário) acontecer, a ação está pré-decidida. Isso é chamado de <em>implementação de intenção</em> e aumenta sua adesão.</p>
+      <div class="pilar-setup"><div class="pilar-setup-name">🙏 Espiritualidade</div><div class="pilar-setup-desc">Oração ou silêncio. Antes do celular.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h1" value="06:00"></div><div class="pilar-acao-wrap"><div class="pilar-acao-label">Ação concreta</div><input type="text" class="pilar-acao" id="a1" placeholder="Ex: Oração de 5 min sem pegar o celular"></div></div>
+      <div class="pilar-setup"><div class="pilar-setup-name">💪 Movimento</div><div class="pilar-setup-desc">Academia, caminhada, pilates ou yoga.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h2" value="10:00"></div><div class="pilar-acao-wrap"><div class="pilar-acao-label">Ação concreta</div><input type="text" class="pilar-acao" id="a2" placeholder="Ex: 30 min de bicicleta antes do café"></div></div>
+      <div class="pilar-setup"><div class="pilar-setup-name">🥗 Alimentação</div><div class="pilar-setup-desc">Comer com consciência. Sem automatismo.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h3" value="12:00"></div><div class="pilar-acao-wrap"><div class="pilar-acao-label">Ação concreta</div><input type="text" class="pilar-acao" id="a3" placeholder="Ex: Almoçar sem celular na mesa"></div></div>
+      <div class="pilar-setup"><div class="pilar-setup-name">⭐ Decisão corajosa</div><div class="pilar-setup-desc">Uma micro decisão alinhada com a sua visão.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h4" value="09:00"></div><div class="pilar-acao-wrap"><div class="pilar-acao-label">Ação concreta</div><input type="text" class="pilar-acao" id="a4" placeholder="Ex: Dizer um não que sempre adio"></div></div>
+      <div class="pilar-setup"><div class="pilar-setup-name">🌙 Visão noturna</div><div class="pilar-setup-desc">3 minutos antes de dormir, vendo a sua visão.</div><div class="pilar-horario"><label>Horário:</label><input type="time" id="h5" value="22:00"></div><div class="pilar-acao-wrap"><div class="pilar-acao-label">Ação concreta</div><input type="text" class="pilar-acao" id="a5" placeholder="Ex: 3 min de olhos fechados vendo minha visão"></div></div>
     </div>
     <div class="onboard-footer"><button class="btn-primary" onclick="step3Next()">Continuar</button></div>
   </div>
@@ -758,6 +774,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
       <div id="visaoCard" class="vision-card" style="display:none">
         <div class="vision-label">Sua visão · O que já é seu</div>
         <div class="vision-text" id="visaoText"></div>
+      </div>
+      <div id="planoBCard" class="vision-card" style="display:none;background:rgba(139,32,32,.06);border-color:rgba(139,32,32,.25)">
+        <div class="vision-label" style="color:var(--red-soft)">Quando bater preguiça</div>
+        <div class="vision-text" style="font-size:13px;color:var(--text2);margin-bottom:8px"><strong style="color:var(--red-soft)">Obstáculo:</strong> <span id="planoBObst"></span></div>
+        <div class="vision-text" style="font-size:14px;color:var(--text)"><strong style="color:var(--gold)">Plano B:</strong> <span id="planoBText"></span></div>
       </div>
       <div id="metasContainer"></div>
       <div class="section-title">Adicionar meta</div>
@@ -1170,15 +1191,18 @@ function step2Next(){
   state.visao = document.getElementById('inputVisao').value.trim();
   state.metaPrincipal = document.getElementById('inputMeta').value.trim();
   state.fraseAncora = document.getElementById('inputFrase').value.trim();
+  state.obstaculo = document.getElementById('inputObstaculo').value.trim();
+  state.planoB = document.getElementById('inputPlanoB').value.trim();
   mudarStep('step2','step3');
 }
 function step3Next(){
+  const a = id => document.getElementById(id).value.trim();
   state.pilares = [
-    {icon:'🙏',nome:'Espiritualidade',desc:'Antes do celular',horario:document.getElementById('h1').value},
-    {icon:'💪',nome:'Movimento',desc:'Academia ou atividade física',horario:document.getElementById('h2').value},
-    {icon:'🥗',nome:'Alimentação',desc:'Com consciência',horario:document.getElementById('h3').value},
-    {icon:'⭐',nome:'Decisão corajosa',desc:'Uma por dia',horario:document.getElementById('h4').value},
-    {icon:'🌙',nome:'Visão noturna',desc:'3 min antes de dormir',horario:document.getElementById('h5').value},
+    {icon:'🙏',nome:'Espiritualidade',desc:'Antes do celular',horario:a('h1'),acao:a('a1')},
+    {icon:'💪',nome:'Movimento',desc:'Academia ou atividade física',horario:a('h2'),acao:a('a2')},
+    {icon:'🥗',nome:'Alimentação',desc:'Com consciência',horario:a('h3'),acao:a('a3')},
+    {icon:'⭐',nome:'Decisão corajosa',desc:'Uma por dia',horario:a('h4'),acao:a('a4')},
+    {icon:'🌙',nome:'Visão noturna',desc:'3 min antes de dormir',horario:a('h5'),acao:a('a5')},
   ];
   mudarStep('step3','step4');
 }
@@ -1231,8 +1255,12 @@ function verificarRetorno(){
   const card = document.getElementById('retornoCard');
   if(diff >= 2){
     card.style.display = 'block';
-    document.getElementById('retornoText').textContent =
-      `Você ficou ${diff} dias sem entrar. Sem culpa, sem drama. A frequência se reconstrói a cada decisão. Continua de onde parou.`;
+    const txt = document.getElementById('retornoText');
+    let html = `Você ficou ${diff} dias sem entrar. Sem culpa, sem drama. A frequência se reconstrói a cada decisão.`;
+    if(state.planoB){
+      html += `<br><br><span style="display:block;background:rgba(201,169,110,.10);border-left:3px solid var(--gold);padding:12px 14px;border-radius:6px;margin-top:10px;text-align:left;font-size:13px;color:var(--text)"><strong style="color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:6px">Você se prometeu:</strong>"${state.planoB}"</span>`;
+    }
+    txt.innerHTML = html;
   } else {
     card.style.display = 'none';
   }
@@ -1276,11 +1304,13 @@ function renderizarHoje(){
     const el = document.createElement('div');
     el.className = 'pilar-item';
     el.onclick = () => togglePilar(i);
+    const ifthen = p.acao ? `<div class="if-then-display">Se ${p.horario}, então ${p.acao}.</div>` : '';
     el.innerHTML = `
       <div class="pilar-check ${feito?'done':''} ${off?'academia-off':''}"></div>
       <div class="pilar-info">
         <div class="pilar-name ${acad&&isMov?'academia':''} ${off?'off':''}">${p.icon} ${p.nome}${acad&&isMov?' ★':''}${off?' · descanso':''}</div>
         <div class="pilar-time">${p.horario} · ${p.desc}</div>
+        ${ifthen}
       </div>`;
     pilaresCard.appendChild(el);
   });
@@ -1830,6 +1860,11 @@ body{font-family:'DM Sans',sans-serif;background:#0A0A0A;color:#F0EDE8;min-heigh
 function renderizarMetas(){
   if(state.fraseAncora){ document.getElementById('fraseAncora').style.display = 'block'; document.getElementById('fraseAncoraText').textContent = `"${state.fraseAncora}"`; }
   if(state.visao){ document.getElementById('visaoCard').style.display = 'block'; document.getElementById('visaoText').textContent = state.visao; }
+  if(state.planoB){
+    document.getElementById('planoBCard').style.display = 'block';
+    document.getElementById('planoBText').textContent = state.planoB;
+    document.getElementById('planoBObst').textContent = state.obstaculo || '—';
+  }
   const container = document.getElementById('metasContainer');
   container.innerHTML = '';
   if(!state.metas || state.metas.length===0){
