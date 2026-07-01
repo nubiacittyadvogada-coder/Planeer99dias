@@ -355,7 +355,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
 .share-day-num{font-family:'Cormorant Garamond',serif;font-size:120px;color:var(--gold);line-height:1;font-weight:700;letter-spacing:-4px;margin-bottom:6px}
 .share-day-sub{font-size:11px;letter-spacing:6px;color:var(--text2);text-transform:uppercase;margin-bottom:30px}
 .share-divider-mid{width:44px;height:1px;background:var(--gold);margin:0 auto 24px}
-.share-frase{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text);font-style:italic;line-height:1.45;padding:0 8px}
+.share-frase{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold-light);font-style:italic;line-height:1.45;padding:0 8px}
+.share-vers-grande{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--text);font-style:italic;line-height:1.4;padding:0 8px;font-weight:600}
 .share-card-bottom{position:relative;z-index:1;width:100%}
 .share-autor{font-size:13px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-style:italic;margin-bottom:4px}
 .share-brand{font-size:9px;letter-spacing:4px;color:var(--text2);text-transform:uppercase;font-weight:600}
@@ -462,6 +463,54 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
         <a onclick="abrirInfo('aviso')">Aviso importante</a>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ====== EDITAR PERFIL ====== -->
+<div class="screen" id="editarPerfil">
+  <div class="info-header">
+    <button class="info-back" onclick="fecharEditar()">←</button>
+    <div class="info-title">Editar perfil</div>
+  </div>
+  <div class="info-body">
+    <p class="onboard-desc">Atualize seus dados sem perder os 99 dias. Tudo que você mudar entra em vigor imediatamente.</p>
+
+    <div class="section-title">Identidade</div>
+    <label class="field-label">Seu nome</label>
+    <input type="text" class="field-input" id="edNome">
+    <label class="field-label">Data de início</label>
+    <input type="date" class="field-input" id="edDataInicio">
+    <p class="small-text mb16" style="color:var(--red-soft)">⚠ Mudar a data de início recalcula o dia atual. Cuidado.</p>
+
+    <div class="section-title">Visão e Anti-visão</div>
+    <label class="field-label">Anti-visão (o que você recusa)</label>
+    <textarea class="field-textarea" id="edAntivisao"></textarea>
+    <label class="field-label">Visão (o que está construindo)</label>
+    <textarea class="field-textarea" id="edVisao"></textarea>
+    <label class="field-label">Meta principal dos 99 dias</label>
+    <input type="text" class="field-input" id="edMeta">
+    <label class="field-label">Frase âncora</label>
+    <input type="text" class="field-input" id="edFrase">
+
+    <div class="section-title">Plano B (quando bater preguiça)</div>
+    <label class="field-label">Obstáculo provável</label>
+    <textarea class="field-textarea" id="edObstaculo"></textarea>
+    <label class="field-label">Se isso acontecer, eu vou:</label>
+    <textarea class="field-textarea" id="edPlanoB"></textarea>
+
+    <div class="section-title">Pilares · horário e ação concreta</div>
+    <div id="edPilaresContainer"></div>
+
+    <div class="section-title">Regras inegociáveis (até 6)</div>
+    <div id="edRegrasContainer"></div>
+
+    <div class="section-title">Metas dos 99 dias (até 6)</div>
+    <div id="edMetasContainer"></div>
+
+    <div style="height:30px"></div>
+    <button class="btn-primary" onclick="salvarEditar()">Salvar alterações</button>
+    <button class="btn-secondary" onclick="fecharEditar()">Cancelar</button>
+    <div style="height:30px"></div>
   </div>
 </div>
 
@@ -792,6 +841,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
     <div class="tab-content" id="tabConfig">
       <div class="section-title">Configurações</div>
       <div class="config-btn-row">
+        <button class="config-btn" onclick="abrirEditar()"><span class="config-btn-icon">✦</span><span>Editar meu perfil</span></button>
         <button class="config-btn" onclick="window.print()"><span class="config-btn-icon">🖨️</span><span>Exportar / Imprimir como PDF</span></button>
         <button class="config-btn" onclick="exportarBackup()"><span class="config-btn-icon">💾</span><span>Baixar backup (JSON)</span></button>
         <button class="config-btn" onclick="document.getElementById('importInput').click()"><span class="config-btn-icon">📥</span><span>Restaurar backup</span></button>
@@ -842,21 +892,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);
     <div class="share-card" id="shareCardEl">
       <div class="share-card-top">
         <div class="share-tag">Planner 99 Dias</div>
-        <div class="share-divider-top"></div>
+        <div style="font-size:10px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-top:4px">por Núbia Citty</div>
+        <div class="share-divider-top" style="margin-top:12px"></div>
       </div>
       <div class="share-card-center">
-        <div class="share-day-label">Dia</div>
-        <div class="share-day-num" id="shareDayNum">01</div>
-        <div class="share-day-sub">de 99</div>
-        <div class="share-divider-mid"></div>
+        <div class="share-vers-grande" id="shareVers">""</div>
+        <div style="font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-top:12px;font-weight:700" id="shareRef">—</div>
+        <div class="share-divider-mid" style="margin-top:22px"></div>
         <div class="share-frase" id="shareFrase">""</div>
-        <div style="font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-top:8px">— Núbia Citty</div>
-        <div style="margin-top:18px;padding-top:16px;border-top:1px solid rgba(201,169,110,.25);font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold-light);font-style:italic;line-height:1.4;padding-left:8px;padding-right:8px" id="shareVers">""</div>
-        <div style="font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-top:6px;font-weight:700" id="shareRef">—</div>
+        <div style="font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-top:10px">— Núbia Citty</div>
       </div>
       <div class="share-card-bottom">
-        <div class="share-autor">Núbia Citty</div>
-        <div class="share-brand">@nubiacitty · <strong>99 Dias</strong></div>
+        <div style="font-size:13px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:4px">99 dias para voltar para si</div>
+        <div style="font-size:11px;color:var(--text2);margin-bottom:6px">planeer99dias.pages.dev</div>
+        <div class="share-brand">@nubiacitty</div>
       </div>
     </div>
     <div class="share-tip">
@@ -1939,6 +1988,109 @@ function resetarPlanner(){
   document.getElementById('splash').classList.add('active');
 }
 
+// ============ EDITAR PERFIL ============
+const PILAR_DEFAULTS = [
+  {icon:'🙏',nome:'Espiritualidade',desc:'Antes do celular',horario:'06:00',acao:''},
+  {icon:'💪',nome:'Movimento',desc:'Academia ou atividade física',horario:'10:00',acao:''},
+  {icon:'🥗',nome:'Alimentação',desc:'Com consciência',horario:'12:00',acao:''},
+  {icon:'⭐',nome:'Decisão corajosa',desc:'Uma por dia',horario:'09:00',acao:''},
+  {icon:'🌙',nome:'Visão noturna',desc:'3 min antes de dormir',horario:'22:00',acao:''},
+];
+
+function abrirEditar(){
+  document.getElementById('edNome').value = state.nome || '';
+  document.getElementById('edDataInicio').value = state.dataInicio || '';
+  document.getElementById('edAntivisao').value = state.antivisao || '';
+  document.getElementById('edVisao').value = state.visao || '';
+  document.getElementById('edMeta').value = state.metaPrincipal || '';
+  document.getElementById('edFrase').value = state.fraseAncora || '';
+  document.getElementById('edObstaculo').value = state.obstaculo || '';
+  document.getElementById('edPlanoB').value = state.planoB || '';
+
+  // Pilares (mescla com defaults se faltar campos)
+  const pilCont = document.getElementById('edPilaresContainer');
+  pilCont.innerHTML = '';
+  const pilares = state.pilares && state.pilares.length===5 ? state.pilares : PILAR_DEFAULTS.slice();
+  pilares.forEach((p,i)=>{
+    const def = PILAR_DEFAULTS[i];
+    const horario = (p.horario||def.horario).replace(/"/g,'&quot;');
+    const acao = (p.acao||'').replace(/"/g,'&quot;');
+    pilCont.innerHTML += `
+      <div class="pilar-setup">
+        <div class="pilar-setup-name">${def.icon} ${def.nome}</div>
+        <div class="pilar-horario"><label>Horário:</label><input type="time" id="edH${i+1}" value="${horario}"></div>
+        <div class="pilar-acao-wrap">
+          <div class="pilar-acao-label">Ação concreta</div>
+          <input type="text" class="pilar-acao" id="edA${i+1}" value="${acao}" placeholder="O que você vai fazer concretamente neste horário?">
+        </div>
+      </div>`;
+  });
+
+  // Regras
+  const regCont = document.getElementById('edRegrasContainer');
+  regCont.innerHTML = '';
+  for(let i=0;i<6;i++){
+    const v = ((state.regras||[])[i]||'').replace(/"/g,'&quot;');
+    regCont.innerHTML += `<label class="field-label">Regra ${i+1}</label><input type="text" class="field-input" id="edR${i+1}" value="${v}">`;
+  }
+
+  // Metas
+  const metCont = document.getElementById('edMetasContainer');
+  metCont.innerHTML = '';
+  for(let i=0;i<6;i++){
+    const v = ((state.metas||[])[i]?.texto||'').replace(/"/g,'&quot;');
+    metCont.innerHTML += `<label class="field-label">Meta ${i+1}</label><input type="text" class="field-input" id="edM${i+1}" value="${v}">`;
+  }
+
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('editarPerfil').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function fecharEditar(){
+  document.getElementById('editarPerfil').classList.remove('active');
+  document.getElementById('app').classList.add('active');
+}
+
+function salvarEditar(){
+  const get = id => document.getElementById(id).value;
+  const nome = get('edNome').trim();
+  const data = get('edDataInicio');
+  if(!nome){ alert('O nome não pode ficar vazio.'); return; }
+  if(!data){ alert('A data de início é obrigatória.'); return; }
+
+  state.nome = nome;
+  state.dataInicio = data;
+  state.antivisao = get('edAntivisao').trim();
+  state.visao = get('edVisao').trim();
+  state.metaPrincipal = get('edMeta').trim();
+  state.fraseAncora = get('edFrase').trim();
+  state.obstaculo = get('edObstaculo').trim();
+  state.planoB = get('edPlanoB').trim();
+
+  state.pilares = PILAR_DEFAULTS.map((def,i)=>({
+    icon:def.icon, nome:def.nome, desc:def.desc,
+    horario: get(`edH${i+1}`) || def.horario,
+    acao: get(`edA${i+1}`).trim()
+  }));
+
+  state.regras = [1,2,3,4,5,6].map(i=>get(`edR${i}`).trim()).filter(Boolean);
+
+  // Preservar status "feita" das metas existentes pelo texto
+  const metasAntigas = state.metas || [];
+  state.metas = [1,2,3,4,5,6].map(i=>{
+    const txt = get(`edM${i}`).trim();
+    if(!txt) return null;
+    const antiga = metasAntigas.find(m=>m.texto===txt);
+    return {texto:txt, feita: antiga?.feita || false};
+  }).filter(Boolean);
+
+  salvar();
+  alert('Alterações salvas.');
+  fecharEditar();
+  mostrarApp();
+}
+
 // ============ SAUDAÇÃO DIÁRIA ============
 function mostrarSaudacao(){
   if(!state.configurado) return;
@@ -1975,7 +2127,6 @@ function fecharSaudacao(){
 // ============ SHARE CARD ============
 function abrirShareCard(){
   const dia = getDiaNum();
-  document.getElementById('shareDayNum').textContent = String(dia).padStart(2,'0');
   document.getElementById('shareFrase').textContent = `"${frases[(dia-1)%frases.length]}"`;
   const v = versiculos[(dia-1)%versiculos.length];
   document.getElementById('shareVers').textContent = `"${v.t}"`;
@@ -2036,62 +2187,60 @@ async function gerarImagemCard(){
 
   ctx.textAlign = 'center';
 
-  // TAG topo
+  // "99" ornamento grande no topo (marca)
+  ctx.fillStyle = 'rgba(201,169,110,0.10)';
+  ctx.font = '700 380px "Cormorant Garamond", serif';
+  ctx.fillText('99', center, 380);
+
+  // TAG topo (por cima do 99)
   ctx.fillStyle = '#C9A96E';
   ctx.font = '700 30px "DM Sans", sans-serif';
-  ctx.fillText('PLANNER · 99 DIAS', center, 180);
-  // Divisor topo
-  ctx.fillRect(center-50, 220, 100, 3);
-
-  // DIA label
+  ctx.fillText('PLANNER · 99 DIAS', center, 500);
   ctx.fillStyle = '#B0AA9F';
-  ctx.font = '500 32px "DM Sans", sans-serif';
-  ctx.fillText('DIA', center, 360);
+  ctx.font = '500 24px "DM Sans", sans-serif';
+  ctx.fillText('POR NÚBIA CITTY', center, 550);
 
-  // DIA número gigante
+  // Divisor superior
   ctx.fillStyle = '#C9A96E';
-  ctx.font = '700 360px "Cormorant Garamond", serif';
-  ctx.fillText(String(dia).padStart(2,'0'), center, 700);
+  ctx.fillRect(center-40, 610, 80, 2);
 
-  // de 99
-  ctx.fillStyle = '#B0AA9F';
-  ctx.font = '500 32px "DM Sans", sans-serif';
-  ctx.fillText('DE 99', center, 770);
-
-  // Divisor médio
-  ctx.fillStyle = '#C9A96E';
-  ctx.fillRect(center-60, 830, 120, 2);
-
-  // FRASE Núbia
+  // VERSÍCULO em destaque (título principal do card)
   ctx.fillStyle = '#F0EDE8';
-  const fraseLines = wrap(`"${frase}"`, W-200, 'italic 600 52px "Cormorant Garamond", serif', 68);
-  ctx.font = 'italic 600 52px "Cormorant Garamond", serif';
-  let yPos = drawLines(fraseLines, 920, 68);
+  const versLines = wrap(`"${v.t}"`, W-200, 'italic 600 56px "Cormorant Garamond", serif', 76);
+  ctx.font = 'italic 600 56px "Cormorant Garamond", serif';
+  let yPos = drawLines(versLines, 750, 76);
 
-  // Núbia Citty
+  // Referência bíblica
   ctx.fillStyle = '#C9A96E';
-  ctx.font = '700 26px "DM Sans", sans-serif';
+  ctx.font = '700 30px "DM Sans", sans-serif';
+  ctx.fillText(v.r.toUpperCase(), center, yPos + 70);
+
+  // Divisor entre versículo e frase
+  ctx.fillStyle = 'rgba(201,169,110,0.4)';
+  ctx.fillRect(center-80, yPos + 140, 160, 1);
+
+  // FRASE Núbia (secundária)
+  ctx.fillStyle = '#E8D5B0';
+  const fraseLines = wrap(`"${frase}"`, W-260, 'italic 500 42px "Cormorant Garamond", serif', 58);
+  ctx.font = 'italic 500 42px "Cormorant Garamond", serif';
+  yPos = drawLines(fraseLines, yPos + 210, 58);
+
+  ctx.fillStyle = '#B0AA9F';
+  ctx.font = '600 24px "DM Sans", sans-serif';
   ctx.fillText('— NÚBIA CITTY', center, yPos + 50);
 
-  // Divisor entre frase e versículo
-  ctx.fillStyle = 'rgba(201,169,110,0.4)';
-  ctx.fillRect(center-80, yPos + 110, 160, 1);
-
-  // VERSÍCULO
-  ctx.fillStyle = '#E8D5B0';
-  const versLines = wrap(`"${v.t}"`, W-220, 'italic 600 42px "Cormorant Garamond", serif', 58);
-  ctx.font = 'italic 600 42px "Cormorant Garamond", serif';
-  yPos = drawLines(versLines, yPos + 180, 58);
-
-  // Referência
+  // Rodapé — "propaganda" do planner
   ctx.fillStyle = '#C9A96E';
   ctx.font = '700 28px "DM Sans", sans-serif';
-  ctx.fillText(v.r.toUpperCase(), center, yPos + 50);
+  ctx.fillText('99 DIAS PARA VOLTAR PARA SI', center, H - 200);
 
-  // Rodapé
   ctx.fillStyle = '#B0AA9F';
-  ctx.font = '600 26px "DM Sans", sans-serif';
-  ctx.fillText('@NUBIACITTY  ·  PLANNER 99 DIAS', center, H - 110);
+  ctx.font = '500 22px "DM Sans", sans-serif';
+  ctx.fillText('planeer99dias.pages.dev', center, H - 155);
+
+  ctx.fillStyle = '#C9A96E';
+  ctx.font = '700 24px "DM Sans", sans-serif';
+  ctx.fillText('@NUBIACITTY', center, H - 105);
 
   return new Promise(res => canvas.toBlob(b => res(b), 'image/png', 0.95));
 }
@@ -2100,15 +2249,15 @@ async function tentarCompartilharNativo(){
   const dia = getDiaNum();
   const frase = frases[(dia-1)%frases.length];
   const v = versiculos[(dia-1)%versiculos.length];
-  const texto = `Dia ${dia} dos meus 99 dias.\n\n"${frase}"\n— Núbia Citty\n\n"${v.t}"\n${v.r}\n\n@nubiacitty | planeer99dias.pages.dev`;
+  const texto = `"${v.t}"\n${v.r}\n\n"${frase}"\n— Núbia Citty\n\n99 dias para voltar para si.\n@nubiacitty · planeer99dias.pages.dev`;
 
   let blob;
-  try { blob = await gerarImagemCard(); } catch(e){}
+  try { blob = await gerarImagemCard(); } catch(e){ console.error('erro canvas', e); }
 
   if(blob && navigator.canShare && navigator.canShare({files:[new File([blob],'x.png',{type:'image/png'})]})){
     try {
-      const file = new File([blob], `planner-99-dia-${dia}.png`, {type:'image/png'});
-      await navigator.share({files:[file], text: texto, title:`Dia ${dia} · Planner 99 Dias`});
+      const file = new File([blob], `planner-99-dias.png`, {type:'image/png'});
+      await navigator.share({files:[file], text: texto, title:`Planner 99 Dias · Núbia Citty`});
       return;
     } catch(e){ if(e.name === 'AbortError') return; }
   }
@@ -2117,11 +2266,11 @@ async function tentarCompartilharNativo(){
   if(blob){
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = `planner-99-dia-${dia}.png`;
+    a.href = url; a.download = `planner-99-dias.png`;
     document.body.appendChild(a); a.click();
     setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
     try { await navigator.clipboard.writeText(texto); } catch(e){}
-    alert('Imagem salva. Abra o Instagram, crie um story, escolha esta imagem e cole o texto que já foi copiado.');
+    alert('Imagem salva no seu celular. Abra o Instagram, crie um story, escolha esta imagem e cole o texto (já foi copiado).');
     return;
   }
 
